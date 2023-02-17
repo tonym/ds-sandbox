@@ -1,0 +1,22 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "@opensesame/gemini": {
+      "projectType": "library",
+      "root": "/",
+      "sourceRoot": "/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "ng-packagr",
+          "options": {
+            "tsConfig": "./tsconfig.json"
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "@opensesame/gemini"
+}

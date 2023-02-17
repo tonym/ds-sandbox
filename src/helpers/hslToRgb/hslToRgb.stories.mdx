@@ -1,0 +1,56 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Helpers/hslToRgb" />
+
+<h1>hslToRgb</h1>
+
+Converts an HSL color to an RGB color.
+
+<h2>API</h2>
+
+<h3>Import</h3>
+
+Path import
+
+```javascript
+import hslToRgb from '@opensesame/gemini/helpers/hslToRgb';
+```
+
+Named import (use with Angular)
+
+```javascript
+import { hslToRgb } from '@opensesame/gemini';
+```
+
+<h3>Signature</h3>
+
+```javascript
+hslToRgb(composedColor: string): string
+```
+
+<h3>Parameters</h3>
+
+<ul>
+  <li>
+    <strong>composedColor</strong> : A valid HSL color string.
+  </li>
+</ul>
+
+<h3>Returns</h3>
+
+<ul>
+  <li>
+    <strong>string</strong> : An RGB color string. If <code>composedColor</code> is an invalid HSL color string, an empty string is
+    returned.
+  </li>
+</ul>
+
+<h2>Examples</h2>
+
+<h3>Convert an HSL color to RGB:</h3>
+
+```javascript
+const rgbColor = hslToRgb('hsl(0, 0%, 100%)');
+
+console.log(rgbColor); // rgb(255, 255, 255)
+```

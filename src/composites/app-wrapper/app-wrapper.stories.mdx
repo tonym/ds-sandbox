@@ -1,0 +1,103 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import { moduleMetadata } from '@storybook/angular';
+import { HttpClientModule } from '@angular/common/http';
+import { getParameters } from 'codesandbox/lib/api/define';
+import { AppModule } from './app.module';
+import { Template } from '../../sandbox/templates/angular';
+import markup from './app.component.html';
+import component from '!raw-loader!./app.component.ts';
+import module from '!raw-loader!./app.module.ts';
+
+export function prepareSandbox() {
+  const template = { ...Template };
+  const regExp = /\.\.\/\.\.\/\S*index/gm;
+  template.files['src/app/app.component.html'] = {
+    content: markup
+  };
+  template.files['src/app/app.component.ts'] = {
+    content: component.replace(regExp, '@opensesame/gemini')
+  };
+  template.files['src/app/app.module.ts'] = {
+    content: module.replace(regExp, '@opensesame/gemini')
+  };
+  return getParameters(template);
+}
+
+export const parameters = prepareSandbox();
+
+<style>
+  {`
+    .code-display > div {
+      margin-top: 0;
+    }
+    .code-display pre {
+        height: 420px;
+    }
+    .sandbox {
+      display: flex;
+      padding-top: 32px ! important;
+    }
+    .sandbox div {
+      flex: 1;
+      font-size: inherit;
+    }
+`}
+</style>
+
+<Meta
+  title="Composites/Application Wrapper"
+  decorators={[
+    moduleMetadata({
+      imports: [AppModule, HttpClientModule]
+    })
+  ]}
+  parameters={{
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/file/gS8qng4JID7dcHO3xq65ln/%5BGemini%5D-Default?node-id=370%3A27724'
+    }
+  }}
+/>
+
+<h1>Application Wrapper</h1>
+
+<p>
+  An application wrapper is a composite that provides the common elements of a website or application. These elements may include, but are
+  not limited to, things such as navigation, branding, search input, user avatar, etc. Typically, in a single page application, the
+  application wrapper is provided at the app component level, i.e. the root of your website.
+</p>
+
+<h2>Demo</h2>
+
+<Story name="Application Wrapper" height="400px">
+  {{
+    template: `
+    <div>
+      <og-app></og-app>
+    </div>
+    `
+  }}
+</Story>
+
+<hr />
+
+<form action="https://codesandbox.io/api/v1/sandboxes/define" method="POST" target="_blank">
+  <input type="hidden" name="parameters" value={parameters} />
+  <h2 className="sandbox">
+    <div>Code</div>
+    <input type="image" height="32" src="https://codesandbox.io/static/img/play-codesandbox.svg" alt="Edit in codesandbox" />
+  </h2>
+</form>
+
+<h3>Component</h3>
+<pre className="code-display">
+  <code className="language-jsx">{component}</code>
+</pre>
+<h3>Module</h3>
+<pre className="code-display">
+  <code className="language-jsx">{module}</code>
+</pre>
+<h3>Template</h3>
+<pre className="code-display">
+  <code className="language-jsx">{markup}</code>
+</pre>

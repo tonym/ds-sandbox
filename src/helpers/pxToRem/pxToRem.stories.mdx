@@ -1,0 +1,56 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Helpers/pxToRem" />
+
+<h1>isUrl</h1>
+
+Convert a pixel value to a rem value.
+
+<h2>API</h2>
+
+<h3>Import</h3>
+
+Path import
+
+```javascript
+import pxToRem from '@opensesame/gemini/helpers/pxToRem';
+```
+
+Named import (use with Angular)
+
+```javascript
+import { pxToRem } from '@opensesame/gemini';
+```
+
+<h3>Signature</h3>
+
+```javascript
+pxToRem(size: number | string): string
+```
+
+<h3>Parameters</h3>
+
+<ul>
+  <li>
+    <strong>value</strong> : A number or string that represents a pixel value. It must be a number, or a string that can be cast to a
+    number.
+  </li>
+</ul>
+
+<h3>Returns</h3>
+
+<ul>
+  <li>
+    <strong>string</strong> : The string returned is the full CSS string for rems.
+  </li>
+</ul>
+
+<h2>Examples</h2>
+
+<h3>Convert a pixel value to rem:</h3>
+
+```javascript
+const size = '24';
+
+console.log(size); // 1.4rem
+```

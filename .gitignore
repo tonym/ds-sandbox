@@ -1,0 +1,66 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+/core
+/coreng
+/dist
+/tmp
+/out-tsc
+/testResults
+/src/app/**/*.js
+/src/environments/**/*.js
+lintOutput.txt
+
+# dependencies
+/node_modules
+
+# terraform
+.terraform/
+
+# IDEs and editors
+.idea/
+.vscode
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+*.orig
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# IDE - Atom
+.remote-sync.json
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+documentation.json
+npm-debug.log
+testem.log
+debug.log
+/typings
+/local-hostname.json
+*.tsbuildinfo
+
+# jest
+/junit.xml
+/coverage
+
+# e2e
+/e2e/*.js
+/e2e/*.map
+/e2eOutput/*.xml
+/e2eOutput/*.png
+
+# System Files
+.DS_Store
+Thumbs.db

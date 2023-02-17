@@ -1,0 +1,6 @@
+# filetypes not supported that still get checked into Git
+*.svg
+*.rb
+*.md
+*.ico
+/src/tokens

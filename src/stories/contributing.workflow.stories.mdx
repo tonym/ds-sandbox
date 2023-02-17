@@ -1,0 +1,74 @@
+import { Meta } from '@storybook/addon-docs';
+import ReactJson from 'react-json-view';
+
+<Meta title="Contributing/Workflow" />
+
+<h1>Gemini development workflow</h1>
+
+<p>
+  Before developing for Gemini, take some time to understand workflow. It will help when thinking about what to build, and how to submit a
+  pull request.
+</p>
+
+<h2>What to build</h2>
+
+<p>
+  Knowing what to build will increase the chance of your contribution being accepted. Whether you have an idea for a Gemini component or
+  feature, or would like to pitch in and pick up an open ticket, here are some tips.
+</p>
+
+- Check the Front End backlog in Jira. Everything in Gemini starts as a ticket in the backlog.
+- Ask the Gemini team. If you don't know what you'd like to work on, or if you have an idea you'd like to contribute, ask anyone involved with Gemini core by posting in the Front End channel in Slack.
+- Check with Product, or epic champions.
+
+<p>
+  In any case, when you find something to work on, post your intentions in the Front End Slack channel, assign the ticket to yourself, and
+  put it in the current (or future) sprint. If there is no ticket for your project, feel free to create one.
+</p>
+
+<h2>Gemini tickets in Jira</h2>
+
+<h3>Components</h3>
+
+<p>
+  Gemini component stories in Jira are not the same as stories in an engineering backlog. Gemini component stories do not have ACs, instead,
+  they have a proposed API, and include `input`, the input name, `type`, the internal input type, `default`, the default value if there is
+  one, and a `description`. Here is an example of the Jira story for an IconButton component:
+</p>
+
+<img src="images/icon-button-jira-ticket.png" alt="example of a Jira ticket" />
+
+<p>
+  Each component is driven via attributes and properties of the HTML element and component class. Proposed APIs are by no means what the
+  final API will be. The proposed API in the ticket is meant as a guide that describes the operation of the component. If your component has
+  outputs, they should be in the ticket, too, although very few components emit events, so very few have outputs.
+</p>
+
+<h3>Theming engine</h3>
+
+<p>
+  Theming engine features, unlike Gemini components, follow the same format as engineering backlog stories, and they have ACs written in a
+  similar manner.
+</p>
+
+<h3>Bugs</h3>
+
+<p>Bug reports in Jira, either for components or for features follow a basic outline.</p>
+
+- Component or feature in question
+- Description of bug
+- Expected behavior
+- Steps to reproduce
+- Acceptance criteria
+
+<h2>Pull requests</h2>
+
+<p>
+  Once a ticket is open in Jira, the workflow is the same as it is in an engieering team backlog. Tickets move through the same steps, and
+  at some point, you'll submit a pull request.
+</p>
+
+<p>
+  Pull requests for Gemini use the same template as Angular and Catalog repositories. Also, as with those repositories, the more detail you
+  add to your PR description, the more likely it is that your PR will be approved.
+</p>

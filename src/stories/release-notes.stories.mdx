@@ -1,0 +1,115 @@
+import { Meta } from '@storybook/addon-docs';
+import provideTheme from '../styles/provideTheme/index';
+import useTheme from '../styles/useTheme/index';
+import ReactJson from 'react-json-view';
+
+<script>provideTheme();</script>
+
+<Meta title="Release Notes" />
+
+<h1>Release notes</h1>
+
+<h2>v2.0.0</h2>
+
+<ul>
+  <li>Improved tree shaking</li>
+  <li>Add support for path imports</li>
+  <li>Improve custom stylesheet management</li>
+  <li>Update IconButton styling</li>
+  <li>Update menu styling</li>
+  <li>Update chip styling</li>
+  <li>Bug fix - Menu icons are misaligned</li>
+  <li>Update menu styling</li>
+  <li>Update card styling</li>
+  <li>Bug fix - Stepper does not display in Storybook</li>
+  <li>Improve button styling</li>
+  <li>Use Rollup to bundle NPM package</li>
+  <li>Standardize state props in components</li>
+  <li>Add gradients to theme</li>
+  <li>Move core rules out of component classes and into overrides</li>
+  <li>Improve unit tests and test coverage</li>
+  <li>Document the token system</li>
+  <li>
+    Publish past versions of docs. Old docs are available at <a href="/versions/">gemini.opensesame.com/versions/</a>
+  </li>
+  <li>Remove deprecated variants from components</li>
+  <li>Remove deprecated events</li>
+  <li>Connect tokens to typography</li>
+  <li>Connect tokens to theme - Figma tokens are now connected to theme values</li>
+  <li>Bug fix - Hidden component adding height when it shouldn't</li>
+  <li>Remove custom breakpoints</li>
+  <li>Update components to use new theme</li>
+  <li>Move utility functions from theme to helpers</li>
+  <li>Remove deprecated size selectors</li>
+</ul>
+
+<h2>v1.2.1</h2>
+
+<ul>
+  <li>Connect design tokens to themes - design tokens are now synchronized to Github and transformed by Github actions</li>
+  <li>Update theme - update default theme to use design tokens</li>
+  <li>Add `elevation` to Menu - Menu component has an elevation property</li>
+  <li>Update Scrim styling - new Scrim style adds animation when Scrim appears and disappears.</li>
+  <li>Udate documentation in Storybook - Storybook doc updates.</li>
+  <li>Add identification classes to child controls - adds class identifiers to child controls in components that have them.</li>
+  <li>Document identification classes - add documentation for child controls to component API docs in Storybook</li>
+  <li>Bug fixes</li>
+</ul>
+
+<h2>v1.2.0</h2>
+
+<ul>
+  <li>Update baseline CSS - updates the baseline CSS to target modern browsers and improve some of the resets.</li>
+  <li>Add recipe section to Storybook - adds a recipe section for example composite code</li>
+  <li>AppWrapper recipe - the recipe and demo for the application wrapper composite</li>
+  <li>AppWrapper code samples - the code used to build the application wrapper composite</li>
+  <li>Tab style - update tabs with new styling. *breaking change* `leftAlgin` prop is removed from Tab</li>
+  <li>Avatar component - new component</li>
+  <li>IconButton style - updated style for IconButton</li>
+  <li>Composite overview content - an explanation of composites added to the Composite -> Overview Storybook page</li>
+  <li>Connect Figma Token plugin to Github - Figma tokens automatically pushed to Gemini Github repo</li>
+  <li>Token transformation - Github action to transform Figma tokens to Style Dictionary tokens</li>
+  <li>Connect recipes to Codesandbox - Add a recipe link to create a Codesandbox from a recipe</li>
+</ul>
+
+<h2>v1.1.3</h2>
+
+<ul>
+  <li>Updated core theme - set border radius to 4 in core theme.</li>
+  <li>Updated button styling - set button border radius to use new core theme border radius.</li>
+  <li>Drawer component - A slide out drawer with options for placement: left, right, top, or bottom. Primarily used for navigation.</li>
+  <li>Menu component - a popover menu component</li>
+  <li>MenuItem component - a container for menu items</li>
+  <li>MenuList component - a menu list that resides in the DOM. This is an inline menu that does not popover.</li>
+  <li>MenuListItem component - a menu list item container for menu list items.</li>
+</ul>
+
+<h2>v1.1.0</h2>
+
+<ul>
+  <li>GeminiCSS - GeminiCSS is a CSS based style solution derived from Gemini component styles.</li>
+  <li>Add icon to Accordion - A start icon and end icon is now available on the Accordion title.</li>
+  <li>
+    Make Accordion control optional - When the control is hidden, the Accordion is disabled. The use case is for dynamic data in the
+    accordion when the data set is empty, and the Accordion should not expand.
+  </li>
+  <li>
+    Replace `async()` in unit tests with `waitForAsync()` - The async method is deprecated, and Angular provides a new, waitForAsync method.
+  </li>
+  <li>
+    Add styles export examples to docs - All Gemini styles are exported, which means you can use Gemini styles without using Gemini
+    components. Copy and paste examples are now available in the component API docs.
+  </li>
+  <li>ButtonGroup component - A styled button group component.</li>
+  <li>IconButton component - A dedicated icon button.</li>
+  <li>Update core comoponents to use SvgIcon - All Gemini components now use SVG icons instead of icon fonts.</li>
+  <li>Contributor documentation - Contributor docs are now available in Storybook.</li>
+  <li>Add `gap` property to Flex component - Gap is a fully supported propery of flexbox, and is now available as a property of Flex.</li>
+  <li>
+    Standardize size selectors across components - All sizes are now standard across components and the theming engine. Legacy sizes are
+    still supported, but will be deprecated in Gemini v1.2.0
+  </li>
+  <li>Add z-index to Sash - Sash now has a z-index for easier use in complex layouts.</li>
+  <li>Full color support for Typography - All theme brand color intentions and text color intentions are now supported by Typography.</li>
+  <li>Full color support for Button - All theme brand color intentions are now supported by Button.</li>
+</ul>

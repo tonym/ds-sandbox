@@ -1,0 +1,121 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Theming engine/Utilities" />
+
+<h1>Utilities</h1>
+<p>Utilities are functions that manage the aspects of themes, styles and stylesheets in the host application.</p>
+
+<h2>cssBaseline</h2>
+<p>Create a baseline/reset from theme settings.</p>
+
+```javascript
+cssBaseline(userStyles: Styles = {}, userStyleSheetFactoryOptions: StyleSheetFactoryOptions = {}): void
+```
+
+<h3>Parameters</h3>
+<ul>
+  <li>
+    <strong>userStyles</strong> (<i>optional</i>) accepts a Styles object.
+  </li>
+  <li>
+    <strong>options</strong> (<i>optional</i>) accepts a StyleSheetFactoryOptions object.
+  </li>
+</ul>
+
+<h3>Returns</h3>
+<ul>
+  <li>
+    <strong>StyleSheet</strong> JSS StyleSheet object
+  </li>
+</ul>
+
+<h3>Examples</h3>
+
+```javascript
+provideTheme();
+cssBaseline(); // cssBaseline must come after any providers
+
+@Component({
+  selector: 'app-root',
+  template: 'My Angular Component'
+})
+export class AppComponent {}
+```
+
+<h2>useMuiTheme</h2>
+<p>Returns the current compiled theme as a theme options object compatible with MUI 5.</p>
+
+```javascript
+useMuiTheme(): MuiThemeOptions
+```
+
+<h3>Parameters</h3>
+
+<h3>Returns</h3>
+<ul>
+  <li>
+    <strong>MuiThemeOptions</strong> Theme options for MUI 5
+  </li>
+</ul>
+
+<h3>Examples</h3>
+
+```javascript
+const muiThemeOptions: MuiThemeOptions = useMuiTheme();
+```
+
+<h3>Parameters</h3>
+
+<h3>Returns</h3>
+<ul>
+  <li>
+    <strong>Theme</strong> the current theme
+  </li>
+</ul>
+
+<h3>Examples</h3>
+
+```javascript
+const theme: Theme = useTheme();
+console.log(theme.spacing.unit); // 8
+
+const themeOptions: ThemeOptions = {
+  palette: {
+    secondary: {
+      main: '#f6f6f6'
+    }
+  }
+};
+provideTheme(themeOptions);
+const theme: Theme = useTheme();
+console.log(theme.palette.secondary.main); // #f6f6f6
+```
+
+<h2>useTokens</h2>
+<p>Returns the current theme tokens.</p>
+
+```javascript
+useTokens(): TokensType
+```
+
+<h3>Parameters</h3>
+
+<h3>Returns</h3>
+<ul>
+  <li>
+    <strong>TokensType</strong>
+  </li>
+</ul>
+
+<h3>Examples</h3>
+
+```javascript
+const tokens: TokensType = useTokens();
+```
+
+<h2>useTheme</h2>
+<p>Returns the current compiled theme.</p>
+
+```javascript
+useTheme(): Theme
+```

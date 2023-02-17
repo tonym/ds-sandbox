@@ -1,0 +1,91 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Helpers/alpha" />
+
+<h1>alpha</h1>
+
+Manage the alpha channel on an RGB, HSL, or Hex color string. Alpha can add an alpha channel to a color, or manage the alpha channel of an
+existing RGBA or HSLA color.
+
+<h2>API</h2>
+
+<h3>Import</h3>
+
+Path import
+
+```javascript
+import alpha from '@opensesame/gemini/helpers/alpha';
+```
+
+Named import (use with Angular)
+
+```javascript
+import { alpha } from '@opensesame/gemini';
+```
+
+<h3>Signature</h3>
+
+```javascript
+alpha(color: string, value: number): string
+```
+
+<h3>Parameters</h3>
+
+<ul>
+  <li>
+    <strong>color</strong> : Any RGB, RGBA, HSL, HSLA, or hex color string.
+  </li>
+  <li>
+    <strong>value</strong> : Alpha channel (opacity) value. A number between 0 and 1 inclusive where 0 is transparent and 1 is opaque.
+  </li>
+</ul>
+
+<h3>Returns</h3>
+
+<ul>
+  <li>
+    <strong>string</strong>
+  </li>
+</ul>
+
+<h2>Examples</h2>
+
+<h3>Convert an RGB color to an RGBA color:</h3>
+
+```javascript
+const rgbaColor = alpha('rgb(1, 2, 3)', 0.4);
+
+console.log(rgbaColor); // rgba(1, 2, 3, 0.4)
+```
+
+<h3>Update an RGBA color:</h3>
+
+```javascript
+const updatedColor = alpha('rgba(1, 2, 3, 0.4'), 0.5);
+
+console.log(updatedColor); // rgba(1, 2, 3, 0.5)
+```
+
+<h3>Convert an HSL color to an HSLA color:</h3>
+
+```javascript
+const hslaColor = alpha('hsl(0, 100%, 50%)', 0.1);
+
+console.log(hslaColor); // hsla(0, 100%, 50%, 0.1)
+```
+
+<h3>Update an HSLA color:</h3>
+
+```javascript
+const updatedColor = alpha('hsla(0, 100%, 50%, 0.2)', 0.5);
+
+console.log(updatedColor); // hsla(0, 100%, 50%, 0.5)
+```
+
+<h3>Convert a hex color to RGBA:</h3>
+
+```javascript
+const rgbaColor = alpha('#3f3f3f', 0.5);
+
+console.log(rgbaColor); // rgba(63, 63, 63, 0.5)
+```

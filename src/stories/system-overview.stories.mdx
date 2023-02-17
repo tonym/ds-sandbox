@@ -1,0 +1,160 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Develop with Gemini/System Overview" />
+
+<h1>System Overview</h1>
+
+<p>Gemini is a platform agnostic Javascript styling solution for use with Opensesame products.</p>
+
+<h2 class="subheading">How to think about Gemini</h2>
+
+<h3 class="subheading">Styles &lt;- Themes &lt;- Tokens</h3>
+
+<p>
+  Gemini is a styling solution that provides CSS stylesheets from Gemini styles, which are based on a Gemini theme, which is based on Gemini
+  tokens.
+</p>
+
+<p>
+  Gemini is made up of system parts that interact with each other to assemble the building blocks of tokens, themes, and styles. When using
+  Gemini, we think about what we want to accomplish, the styling of our application, and let the system parts worry about the rest. Your
+  application uses styles, which are created from themes, which are created from tokens. You can intervene at any point in the chain with
+  your own custom styles, custom themes, and token sets. This overview describes the parts of the system that let you do that.
+</p>
+
+<h2 class="subheading">System Parts</h2>
+
+<p>The Gemini Design System includes:</p>
+
+<ul>
+  <li>
+    <strong>Pattern library</strong> - The design side of Gemini exists as a library in Figma.
+  </li>
+  <li>
+    <strong>Theming engine</strong> - The heart of the system, the theming engine applies themes and styles to a Gemini powered application.
+  </li>
+  <li>
+    <strong>Component library</strong> - Component styles for use with any platform and atomic components for use with Angular.
+  </li>
+  <li>
+    <strong>Gemini CSS</strong> - All the Gemini styles as CSS for use with CSS framework based applications
+  </li>
+  <li>
+    <strong>Gemini media server</strong> - Cloud based storage for Gemini assets, such as icons, images, etc.
+  </li>
+  <li>
+    <strong>Gemini image system</strong> - An image optimization system using Fastly Image Optimizer.
+  </li>
+</ul>
+
+<h2 class="subheading">System Diagram</h2>
+
+<p>
+  <img src="images/og-system.png" alt="system diagram" />
+</p>
+
+<h2 class="subheading">Pattern Library</h2>
+
+<h3 class="subheading">Gemini's design side</h3>
+
+<p>
+  <strong>The designs for Gemini styles and components.</strong>
+</p>
+
+<p>
+  All designs begin in Figma. The Gemini pattern library is a collection of components and styles from which Gemini styles and components
+  are built. The pattern library is a single source of truth for the UX patterns and designes used by the Gemini theming engine and
+  component library. Gemini styles and components must look and behave in accorance with the designs in the pattern library.
+</p>
+
+<p>
+  The pattern library is themable. The designs in the pattern library use the same design tokens as the theming engine. If you build an
+  application styled with Gemini, you are using these tokens, too. Each designer, when creating a design in the pattern library, uses a
+  token set. Often, this is the default Opensesame brand token set, but it can be changed. A designer is free to create a custom token set
+  for a unique look and feel without worrying about the most basic patterns that all designs must implement. These basic patterns include
+  things like standard border radius, how things should hover, and all the basic design agreements that form a consistent user experience.
+  Visual elements, like color, typography, sizes of this or that, etc. can be changed.
+</p>
+
+<h2 class="subheading">Theming Engine</h2>
+
+<h3 class="subheading">The heart of the system.</h3>
+
+<p>
+  <strong>The theming engine does the work of connecting design and development.</strong>
+</p>
+
+<p>
+  The Gemini theming engine is a collection of Javascript functions that perform the logical tasks of styling your application. It all
+  starts with a theme, a machine readable JSON object derived from pattern library tokens and exposed to internal styles and components.
+  Styles are derived from a theme. A JSS styles object uses theme values and CSS properties in the same way you would use CSS, only a styles
+  object is JSON. The theming engine transpiles a styles object into a CSS stylesheet and injects it into your application's document HEAD.
+</p>
+
+<p>
+  The theming engine exports all the internal functions for use when working with themes. Everything is customizable, and you can use any
+  part, or all of the theming engine functionality in your development.
+</p>
+
+<h2 class="subheading">Component library</h2>
+
+<h3 class="subheading">More than just Angular components.</h3>
+
+<p>
+  <strong>A collection of component styles and Angular components.</strong>
+</p>
+
+<p>
+  The Gemini component library is a collection of Angular components like any other component library. Gemini components, however, export as
+  their default the component styles objects. The component styles objects can be used, along with the Gemini theming engine, on any
+  platform, even Angular. If using Angular, the NG component modules are pre-compiled, Ivy compatible components for use with Angular 11.
+</p>
+
+<h2 class="subheading">Gemini CSS</h2>
+
+<h3 class="subheading">No framework? No problem.</h3>
+
+<p>
+  <strong>All the Gemini styles in a CSS stylesheet.</strong>
+</p>
+
+<p>
+  Whether you use HTML/CSS, LAMP stack, or legacy SASS applications, Gemini CSS can work like any CSS framework or library. Use Gemini CSS
+  in a website in the same way you would use something like Bootstrap, Tailwind, and the like. By default, Gemini CSS provides all the
+  Gemini styles, however, using the theming engine, you can programmatically create your own, targeted stylesheet for your situation.
+  Because it only provides Gemini styles, it is not a complete solution, and Opensesame recommends using Gemini CSS with Bootstrap
+  scaffolding classes.
+</p>
+
+<h2 class="subheading">Gemini Media Server</h2>
+
+<h3 class="subheading">All the stuff you don't want in your bundle.</h3>
+
+<p>
+  <strong>Static assets, such as images and icons, that don't belong in the NPM package.</strong>
+</p>
+
+<p>
+  Gemini provides access to a number of static assets, such as icons, brand images, etc., however, none of these things should be in the NPM
+  package. Through Gemini components and theming engine functions, access to assets are abstracted. You can access the Gemini media server
+  through Gemini components or the theming engine, or access it directly. The media server has brand assets and all the icons as SVGs.
+</p>
+
+<p>
+  The media server is also used by the Gemini image optimization system. If images are stored on the media server, they can be optimized by
+  Gemini components and theming engine functions.
+</p>
+
+<h2 class="subheading">Gemini Image System</h2>
+
+<h3 class="subheading">An image optimization system.</h3>
+
+<p>
+  <strong>Images optimized for quick delivery, fast rendering, and resposiveness.</strong>
+</p>
+
+<p>
+  The image optimization system is an implementation of the Fastly Image Optimizer. Images on the Gemini media server can be optimized using
+  Gemini components and functions. Gemini also has functionality to optimize images from any server, you are not restricted to using the
+  Gemini media server.
+</p>

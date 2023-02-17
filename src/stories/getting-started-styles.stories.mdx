@@ -1,0 +1,355 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { getParameters } from 'codesandbox/lib/api/define';
+import { Template } from '../sandbox/templates/angular';
+
+export function prepareCodeSample(codeSample) {
+  const regExp = /\/\/nl/gm;
+  return codeSample.replace(regExp, '');
+}
+
+<Meta title="Develop with Gemini/Styles" />
+
+<h1>Styles</h1>
+<p>
+  The Gemini styling system is a platform agnostic, theme based solution using JSS. A JSS solution offers a number of advantages over CSS or
+  CSS preprocessor solutions that make Gemini flexible, fast, and extensible.
+</p>
+<h2>Built in styles</h2>
+<p>
+  Gemini is a complete JSS based styling solution. Each component manages its own style, whether you provide a custom theme or not, by
+  deriving its style rules from the theme.
+</p>
+<p>
+  Each component also accepts attributes that allow for the customization of style, selection of particular variant, etc. Consider the Paper
+  component. Paper is the most basic form of material, and is used as the foundation of a variety of things in the UI.
+</p>
+
+export const stylesAngularSample = `
+import { Component, NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { PaperModule } from '@opensesame/gemini';
+//nl
+@Component({
+  selector: 'og-app',
+  template: '<og-paper> All the content goes here </og-paper>'
+})
+export class AppComponent {}
+//nl
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule, PaperModule],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+`;
+
+export function prepareStylesAngularSample() {
+  const template = { ...Template };
+  const component = prepareCodeSample(stylesAngularSample).replace(/@NgModule[\s\S]*/gm, '');
+  const module = `
+import { AppComponent } from './app.component';
+${prepareCodeSample(stylesAngularSample).replace(/@Component[\s\S]*(@NgModule)/gm, '$1')}
+`;
+  template.files['src/app/app.component.ts'] = {
+    content: component
+  };
+  template.files['src/app/app.module.ts'] = {
+    content: module
+  };
+  return getParameters(template);
+}
+
+export const stylesAngularSampleParameters = prepareStylesAngularSample();
+
+<code className="language-jsx">{prepareCodeSample(stylesAngularSample)}</code>
+<form action="https://codesandbox.io/api/v1/sandboxes/define" method="POST" target="_blank">
+  <input type="hidden" name="parameters" value={stylesAngularSampleParameters} />
+  <div className="sandbox-sample">
+    <input type="image" height="32" src="https://codesandbox.io/static/img/play-codesandbox.svg" alt="Edit in codesandbox" />
+  </div>
+  <hr />
+</form>
+
+<p>
+  If using a platform other than Angular, the component Styles are available, and can work with some JSS frameworks. Here's an example using
+  Stitches to create a Paper component with an elevation of 3 and medium round corners. Be sure to import the component Style, not the
+  Styles creator. In this case, we need <code>PaperStyle</code>, not <code>PaperStyles</code>.
+</p>
+
+```javascript
+import { styled } from '@stiches/react';
+import PaperStyle from '@opensesame/gemini';
+
+const Paper = styled(div, {
+  ...PaperStyle.root,
+  ...PaperStyle.elevation3,
+  ...PaperStyle.roundedMd
+});
+
+const App = props => {
+  return <Paper>...</Paper>;
+};
+
+export default App;
+```
+
+<h2>Component attributes</h2>
+<p>
+  Gemini components allow control of presentation through attributes. The attributes are different for each component, and you can find them
+  documented in the API docs and stories for each component.
+</p>
+<p>
+  A quick glance at the docs, story, or code, will reveal 3 props for Paper: elevation, outlined, and square. By default, Paper is at an
+  elevation of 1, with no outline and rounded corners. You can change these via attributes.
+</p>
+
+export const stylesAttributeAngularSample = `
+import { Component, NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { PaperModule } from '@opensesame/gemini';
+//nl
+@Component({
+  selector: 'og-app',
+  template: '<og-paper elevation="4" outline="true" square="true">All the content goes here</og-paper>'
+})
+export class AppComponent {}
+//nl
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule, PaperModule],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+`;
+
+export function prepareStylesAttributeAngularSample() {
+  const template = { ...Template };
+  const component = prepareCodeSample(stylesAttributeAngularSample).replace(/@NgModule[\s\S]*/gm, '');
+  const module = `
+import { AppComponent } from './app.component';
+${prepareCodeSample(stylesAttributeAngularSample).replace(/@Component[\s\S]*(@NgModule)/gm, '$1')}
+`;
+  template.files['src/app/app.component.ts'] = {
+    content: component
+  };
+  template.files['src/app/app.module.ts'] = {
+    content: module
+  };
+  return getParameters(template);
+}
+
+export const stylesAttributeAngularSampleParameters = prepareStylesAttributeAngularSample();
+
+```javascript
+<og-paper elevation="4" outline="true" square="true"></og-paper>
+```
+<form action="https://codesandbox.io/api/v1/sandboxes/define" method="POST" target="_blank">
+  <input type="hidden" name="parameters" value={stylesAttributeAngularSampleParameters} />
+  <div className="sandbox-sample">
+    <input type="image" height="32" src="https://codesandbox.io/static/img/play-codesandbox.svg" alt="Edit in codesandbox" />
+  </div>
+  <hr />
+</form>
+
+<h2>Custom classes</h2>
+<p>
+  One key aspect of the components and their styling is that they make no assumptions about layout as relates to siblings. If, for example,
+  you want to add a margin around a Paper component, you can provide a style rule to do that.
+</p>
+<p>
+  Import the decorator so you can add a style class to the component. Import the <code>createStyles</code> function. This function does
+  nothing, it simply returns whatever you give it, but is necessary to prevent{' '}
+  <a href="https://github.com/microsoft/TypeScript-New-Handbook/blob/master/reference/Widening-and-Narrowing.md">
+    Typescript type widening
+  </a>
+  . You'll also need the Typescript interfaces, <code>Classes</code> for the resulting style classes, <code>Theme</code> in case you use the
+  theme in your styles, and ThemeOptions.
+</p>
+
+```javascript
+import { Classes, createStyles, Styles, Theme, WithStyles } from '@opensesame/gemini';
+```
+
+<p>
+  The WithStyles decorator accepts a Styles object or a function. A Styles object is used when you don't need the theme for your styles. A
+  Styles creator function will be detected and called by the decorator, and the theme will be passed as an argument.
+</p>
+
+<p>How to create a Styles object.</p>
+
+```javascript
+const styles: Styles = createStyles({
+  paper: {
+    margin: 24, // Gemini will resolve this as `24px`
+    padding: 24
+  }
+});
+```
+
+<p>How to use the theme with a Styles creator.</p>
+
+```javascript
+const styles = (theme: Theme): Styles =>
+  createStyles({
+    paper: {
+      backgroundColor: theme.palette.background.level2,
+      margin: theme.spacing.unit * 3,
+      padding: theme.spacing.unit * 3
+    }
+  });
+```
+
+<p>
+  Now your styles can be passed to the WithStyles decorator, which will create a stylesheet, inject it into the <code>head</code> of your
+  document, and assign a Classes object to a classes property in your component. Don't forget to declare the <code>classes</code> property.
+</p>
+
+export const stylesStyledAngularSample = `
+import { Component, NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { Classes, createStyles, PaperModule, Styles, Theme, WithStyles } from '@opensesame/gemini';
+//nl
+const styles = (theme: Theme): Styles => createStyles({
+  paper: {
+    backgroundColor: theme.palette.background.level2,
+    margin: theme.spacing.unit * 3,
+    padding: theme.spacing.unit * 3
+  }
+});
+//nl
+@Component({
+  selector: 'app-root',
+  template: '<og-paper className="{{classes.paper}}" elevation="4">All the content goes here</og-paper>'
+})
+@WithStyles(styles)
+export class AppComponent {
+  public classes: Classes;
+}
+//nl
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    PaperModule
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+`;
+
+export function prepareStylesStyledAngularSample() {
+  const template = { ...Template };
+  const component = prepareCodeSample(stylesStyledAngularSample).replace(/@NgModule[\s\S]*/gm, '');
+  const module = `
+import { AppComponent } from './app.component';
+${prepareCodeSample(stylesStyledAngularSample).replace(/@Component[\s\S]*(@NgModule)/gm, '$1')}
+`;
+  template.files['src/app/app.component.ts'] = {
+    content: component
+  };
+  template.files['src/app/app.module.ts'] = {
+    content: module
+  };
+  return getParameters(template);
+}
+
+export const stylesStyledAngularSampleParameters = prepareStylesStyledAngularSample();
+
+<code className="language-jsx">{prepareCodeSample(stylesStyledAngularSample)}</code>
+<form action="https://codesandbox.io/api/v1/sandboxes/define" method="POST" target="_blank">
+  <input type="hidden" name="parameters" value={stylesStyledAngularSampleParameters} />
+  <div className="sandbox-sample">
+    <input type="image" height="32" src="https://codesandbox.io/static/img/play-codesandbox.svg" alt="Edit in codesandbox" />
+  </div>
+  <hr />
+</form>
+
+<p>
+  The resulting Classes object maps your Styles object keys to the actual classes in the resulting stylesheet. The CSS classes themselves
+  are unique, and cannot be predicted. This, by the way, is how Gemini CSS encapsulation works, through unique class names on custom
+  classes.
+</p>
+<p>The Classes object</p>
+
+```javascript
+{
+  paper: 'og-paper-paper-0-0-1';
+}
+```
+
+<p>
+  The stylesheet that Gemini created and injected in the <code>head</code>.
+</p>
+
+```css
+.og-paper-paper-0-0-1 {
+  background-color: #f2f2f2;
+  margin: 24px;
+}
+```
+
+<p>
+  Pass it to the component, in the HTML template, using the <code>className</code> property.
+</p>
+
+```javascript
+<og-paper [className]="classes.paper"></og-paper>
+```
+
+<p>
+  Property, <code>className</code> accepts either a string, or an array, and can be used in combination with other props.
+</p>
+
+```javascript
+<og-paper [className]="[classes.paper, 'e2e-hero-background-light']" elevation="2"></og-paper>
+```
+
+<h2>Target core classes directly</h2>
+<p>
+  Another styling option is using CSS. The API documentation for each component includes a map of core styles to CSS name. You can use that
+  CSS class in your stylesheet to change that class.
+</p>
+<p>
+  Every component has a root class, and is prefixed with the component's <code>classKey</code>. Change or extend the root class in your
+  stylesheet.
+</p>
+
+```css
+.og-paper-root {
+  margin: 8px;
+  padding: 16px 24px;
+}
+```
+
+<h2>Pass a classes object to the component</h2>
+<p>
+  Each component has a <code>classes</code> propery that accepts a classes object. The classes object is a mapping of your classes to
+  component class keys. While this method is effective, it actually replaces the core class instead of extending it.
+</p>
+
+```javascript
+<og-paper [classes]="{ root: classes.paper }"></og-paper>
+```
+
+<h2>Use a theme override</h2>
+<p>
+  If you want to change the style of a component globally, you can pass an override in your ThemeOptions. The override will apply to all
+  components that are overriden. Overrides extend the core classes of a component.
+</p>
+<p>Pass the override to the theme provider in your ThemeOptions</p>
+
+```javascript
+const themeOptions: ThemeOptions = {
+  overrides: {
+    Paper: {
+      root: {
+        margin: 8
+      }
+    }
+  }
+};
+
+provideTheme(themeOptions);
+```

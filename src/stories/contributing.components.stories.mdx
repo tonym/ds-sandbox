@@ -1,0 +1,139 @@
+import { Meta } from '@storybook/addon-docs';
+import ReactJson from 'react-json-view';
+
+<Meta title="Contributing/Components" />
+
+<h1>Developing components for Gemini</h1>
+
+<p>
+  The Gemini component library is a collection of Angular components and implement the patterns and language of Material Design. Each
+  component is based on the components in Material-UI, and uses many of the same patterns and styling techniques. Keeping Gemini close to
+  both Material Design and Material-UI makes Gemini themes portable between Angular and React, and makes OpenSesame styling available to
+  platforms other than Angular. When adding new components, refer to both Material Design and the associated implementations in Material-UI.
+</p>
+
+<h2>Checklist</h2>
+
+<p>A checklist of things to do and what should be in your pull request.</p>
+
+- Duplicate Ripple and update it to use your component name.
+- Add component to the public API
+- Add component classes to overrides
+- Add component to components list
+- Develop the component
+- Storybook stories
+- Unit tests
+
+<h2>Before you begin</h2>
+
+<p>Some things to keep in mind.</p>
+
+- Component types are not exported, component interfaces are.
+- Copy exactly the structure of the other components in the library by duplicating the Ripple module, and using it as your template.
+- Boolean props accept both boolean and string type inputs (they should accept both <code>true</code> and <code>'true'</code>, etc.)
+
+<h2>Planning</h2>
+
+<p>
+  Writing a Jira ticket (if you write a Jira ticket) is a great way to plan your component. If you already have a Jira ticket, studying the
+  proposed API is another great way to plan your component.
+</p>
+
+<p>
+  Read about the component you are planning in the Material Design documentation. There may not be an exact component in the documentation,
+  but find similar components, or the lower level components, and study their patterns. The strength of Gemini is not only as a styling
+  solution, but as a UX pattern solution. Those patterns are what we care about when studying the Material docs.
+</p>
+
+<p>
+  Find a similar component in the Material-UI documentation. If a similar component exists, try to keep your component API as close to the
+  Material-UI equivelent. Doing so will allow your component styles to work in Material-UI with minimal refactoring.
+</p>
+
+<p>
+  Gemini components are prop driven, not class driven. Your proposed API is a list of props (Angular @Input) that accept values that map to,
+  or influence, the JSS rules, and, therefore, the CSS classes that are applied to the rendered component. Since Gemini components are prop
+  driven, not class driven, these inputs should offer all the styling options required by the component. Since Gemini components donot care
+  about anything outside themselves, the inputs and resulting style should not determine anything external, such as margins, layout, or
+  relationships to other components. (Note: there is one exception to this rule. Typography does have provision to add margin, which
+  preserves the intent of typographic HTML elements by defining paragraphs and headings with space below. In this case, paragraph, and
+  gutterBottom are opt-in, disabled by default.)
+</p>
+
+<h2>Ripple is your template</h2>
+
+<p>
+  The Ripple component is a material component that isn't used in Gemini. It may be used at some point, however, for now, it is a bare basic
+  component, and a good starting point for building your component. Ripple is a tiny component. Often, you'll be changing the word, 'ripple'
+  to whatever your component name is in but one or two places.
+</p>
+
+- Duplicate the Ripple component.
+- Rename the folder and files (replace 'ripple' with the name of your component)
+- Update the barrel (index.ts)
+- Update the module
+- Update the component. When updating the class key, pass a kebab case argument to the getClassKey function. Everywhere else, update 'ripple' to the name of your component, and match case.
+- Update the readme
+- Update the stories
+- Update the unit tests
+- Run the unit test to make sure you didn't miss anything. Focus the test by using the component name as it appears in the filename, not the code.
+
+```bash
+npm run test -t your-component-name
+```
+
+<h2>Add the component to the public API</h2>
+
+<p>Now that you have a component, add it to the public API before starting development.</p>
+
+- Add the component to the file <code class="language-js">/src/components/index.ts</code>.
+
+<h2>Add component classes to overrides</h2>
+
+<p>Add the component classes to the theme overrides. This allows a custom theme to globally override the components styles.</p>
+
+- Add the component classes to file <code class="language-js">/src/types/overrides.ts</code>.
+
+<h2>Add the component to the component list</h2>
+
+<p>Add the component to the component list. This adds the component to GeminiCSS and allows the styles to be transformed to CSS.</p>
+
+- Add the component to file <code class="language-js">/src/types/components.ts</code>
+
+<h2>Build the component</h2>
+
+<p>
+  With housekeeping done, develop your component. When you set up your development environment, you likely started Storybook. If so, restart
+  it so it recognizes the new component. Storybook uses Compodoc under the hood. Compodoc is not real time, so to get your component (and
+  its API) in the Compodoc index, Storybook must restart. You will only have to restart Storybook if your component API changes (adding or
+  removing @Input or @output), otherwise, Storybook will recognize changes by itself, and refresh the browser.
+</p>
+
+<p>
+  As you extend the component with inputs and features, remember to update the Storybook story. If you planned well, you should only need to
+  do this once. You'll see the component readme on the Storybook Docs tab, and the component, and its API are on the Canvas tab. Use the
+  canvas tab to see and interact with the component as you develop. In time, you'll get the hang of it and discover Storybook is a great
+  development tool when building components in isolation.
+</p>
+
+<h2>Unit tests</h2>
+
+<p>
+  When you are satisfied the component does what you want it to do, write some unit tests. Gemini uses Jest for unit tests, and the goal of
+  the component is 100% coverage. Gemini unit tests are intentionally simple. Don't worry about staying DRY, worry about staying simple.
+  Review the unit tests in other components to discover the patterns of testing. Running <code>npm test:dev</code> will display test
+  coverage.
+</p>
+
+- Run your unit test and see test coverage by executing <code>npm run test:dev -t your-component-name</code>
+
+<p>
+  In the test coverage report, Jest will give you the line numbers that are uncovered. These are always branches in your code. When you look
+  at other components and how they are constructed, you'll see how they facilitate testing. Methods are small, do one thing whenever
+  possible, and avoid conditions wherever they can. Methods often assign values to class properties instead of returning. Class properties
+  are always public. Properties other than inputs, and those inherited from Ground are intentionally rare.
+</p>
+
+<h2>Submit a PR</h2>
+
+<p>Congratulations! You may now submit your PR, and await approval.</p>

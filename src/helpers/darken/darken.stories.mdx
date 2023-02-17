@@ -1,0 +1,99 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Helpers/darken" />
+
+<h1>darken</h1>
+
+Darken a color.
+
+<h2>API</h2>
+
+<h3>Import</h3>
+
+Path import
+
+```javascript
+import darken from '@opensesame/gemini/helpers/darken';
+```
+
+Named import (use with Angular)
+
+```javascript
+import { darken } from '@opensesame/gemini';
+```
+
+<h3>Signature</h3>
+
+```javascript
+darken(composedColor: string, unclampedCoefficient: number = 0): string
+```
+
+<h3>Parameters</h3>
+
+<ul>
+  <li>
+    <strong>composedColor</strong> : A valid RGB, RGBA, HSL, HSLA, or hex color string.
+  </li>
+  <li>
+    <strong>unclampedCoefficient</strong> optional, default = 0 : A number between 0 and 1 representing how much to darken the color. Any
+    number is accepted, but is clamped between 0 and 1.
+  </li>
+</ul>
+
+<h3>Returns</h3>
+
+<ul>
+  <li>
+    <strong>string</strong>
+  </li>
+</ul>
+
+<h2>Examples</h2>
+
+<h3>Darken an HSL color:</h3>
+
+```javascript
+const darkenedColor = darken('hsl(0, 0%, 100%)', 0.2);
+
+console.log(darkenedColor); // hsl(0, 0%, 80%)
+```
+
+<h3>Darken an RGB color:</h3>
+
+```javascript
+const darkenedColor = darken('rgb(255, 255, 255)', 0.2);
+
+console.log(darkenedColor); // rgb(204, 204, 204)
+```
+
+<h3>Darken an RGBA color:</h3>
+
+```javascript
+const darkenedColor = darken('rgba(255, 255, 255, 0.8)', 0.2);
+
+console.log(darkenedColor); // rgba(204, 204, 204, 0)
+```
+
+<h3>Darken a hex color:</h3>
+
+```javascript
+const darkenedColor = darken('#ffffff', 0.2);
+
+console.log(darkenedColor); // rgb(204, 204, 204)
+```
+
+<h3>Darken a short hex color:</h3>
+
+```javascript
+const darkenedColor = darken('#fff', 0.2);
+
+console.log(darkenedColor); // rgb(204, 204, 204)
+```
+
+<h3>Darken a color using the default coefficient will return the color unchanged:</h3>
+
+```javascript
+const darkenedColor = darken('#fff');
+
+console.log(darkenedColor); // rgb(255, 255, 255)
+```

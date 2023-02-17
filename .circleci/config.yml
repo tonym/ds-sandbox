@@ -1,0 +1,240 @@
+version: 2.1
+
+executors:
+  os-executor:
+    working_directory: ~/OpenSesame/ux-gemini
+    shell: /bin/bash --login
+    environment:
+      CIRCLE_ARTIFACTS_REPORTS: /tmp/circleci-artifacts/reports
+      CIRCLE_ARTIFACTS_COVERAGE: /tmp/circleci-artifacts/coverage
+    docker:
+      - image: circleci/node:12.2.0-browsers
+
+only-build: &only-build
+  filters:
+    branches:
+      ignore: /^release\/[0-9]*/
+
+only-auto-version-release: &only-auto-version-release
+  filters:
+    branches:
+      only: /^release\/[0-9]*/
+
+only-publish-alpha-tags: &only-publish-alpha-tags
+  filters:
+    tags:
+      # Regex for semantic versioning with alpha tag
+      only: /^v[0-9]*\.[0-9]*\.[0-9]*-alpha\.[0-9]*/
+    branches:
+      ignore: /.*/
+
+only-publish-beta-tags: &only-publish-beta-tags
+  filters:
+    tags:
+      # Regex for semantic versioning with beta tag
+      only: /^v[0-9]*\.[0-9]*\.[0-9]*-beta\.[0-9]*/
+    branches:
+      ignore: /.*/
+
+only-publish-version-tags: &only-publish-version-tags
+  filters:
+    tags:
+      # Regex for semantic versioning without any tag
+      only: /^v[0-9]*\.[0-9]*\.[0-9]*$/
+    branches:
+      ignore: /.*/
+
+commands:
+  attach_os_ui_workspace:
+    description: Attach ux-gemini workspace
+    steps:
+      - attach_workspace:
+          at: ~/OpenSesame/ux-gemini
+
+  authenticate_with_registry:
+    description: Authenticates with registry
+    steps:
+      - run:
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/OpenSesame/ux-gemini/.npmrc
+
+  publish_package_to_registry:
+    description: Publishes a packge with default tag (latest)
+    steps:
+      - run:
+          name: Publish package to registry
+          command: npm publish core --access public
+
+  publish_beta_package_to_registry:
+    description: Publishes a beta package
+    steps:
+      - run:
+          name: Publish beta package to registry
+          command: npm publish core --access public --tag beta
+
+  publish_alpha_package_to_registry:
+    description: Publishes an alpha package
+    steps:
+      - run:
+          name: Publish alpha package to registry
+          command: npm publish core --access public --tag alpha
+
+jobs:
+  build:
+    executor: os-executor
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - '23:60:6f:de:1e:20:6b:3f:4e:2d:a2:ca:12:e3:7d:fb'
+      - restore_cache:
+          keys:
+            - code-{{ .Environment.CIRCLE_REPOSITORY_URL }}-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+            - code-{{ .Environment.CIRCLE_REPOSITORY_URL }}-{{ .Environment.CIRCLE_BRANCH }}-
+            - code-{{ .Environment.CIRCLE_REPOSITORY_URL }}-
+      - checkout
+      - run:
+          name: fetch all
+          command: git fetch --all
+      - run:
+          name: prune checkout
+          command: git remote prune origin
+      - save_cache:
+          key: code-{{ .Environment.CIRCLE_REPOSITORY_URL }}-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - '.git'
+      - restore_cache:
+          keys:
+            - v2-dep-{{ checksum "package.json" }}-
+            - v2-dep-main-
+            - v2-dep-
+      - run:
+          name: Make Directories
+          command: mkdir -p $CIRCLE_ARTIFACTS_REPORTS $CIRCLE_ARTIFACTS_COVERAGE
+      - run:
+          name: Install Packages
+          command: npm ci --ignore-scripts
+      - save_cache:
+          key: v2-dep-{{ checksum "package.json" }}
+          paths:
+            - ~/node_modules
+      - run:
+          name: Check npm Version
+          command: sudo npm version
+      - run:
+          name: Build Application
+          command: |
+            npm run build
+      - save_cache:
+          key: v2-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - core
+      - run:
+          name: Run Test Suite
+          command: npm run test:ci
+          environment:
+            JEST_JUNIT_OUTPUT_DIR: reports/junit/js-test-results.xml
+      - store_test_results:
+          path: reports/junit
+      - store_artifacts:
+          path: reports/junit
+          destination: /tmp/circleci-artifacts/reports
+      - store_artifacts:
+          path: coverage
+          destination: /tmp/circleci-artifacts/coverage
+      - persist_to_workspace:
+          root: ~/OpenSesame/ux-gemini
+          paths:
+            - .
+
+  version_prerelease:
+    executor: os-executor
+    steps:
+      - attach_os_ui_workspace
+      - run:
+          name: Verifiy release branch to version prerelease
+          command: |
+            if [[ ! "$CIRCLE_BRANCH" =~ ^(release)\/[[:digit:]]{4}$ ]]; then
+              echo "$CIRCLE_BRANCH is not release, do not publish and halt CircleCI step"
+              circleci-agent step halt
+            fi
+      - add_ssh_keys:
+          fingerprints:
+            - '23:60:6f:de:1e:20:6b:3f:4e:2d:a2:ca:12:e3:7d:fb'
+      - restore_cache:
+          keys:
+            - code-{{ .Environment.CIRCLE_REPOSITORY_URL }}-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+            - code-{{ .Environment.CIRCLE_REPOSITORY_URL }}-{{ .Environment.CIRCLE_BRANCH }}-
+            - code-{{ .Environment.CIRCLE_REPOSITORY_URL }}-
+      - checkout
+      - run:
+          name: Bump Package beta Version
+          command: |
+            git config user.name $CIRCLE_USERNAME
+            npm version prerelease --preid=beta -m "Bumped package beta version number to %s"
+            git push --set-upstream origin "$CIRCLE_BRANCH"
+            git push && git push --tags
+            circleci-agent step halt
+
+  publish_alpha:
+    executor: os-executor
+    steps:
+      - attach_os_ui_workspace
+      - authenticate_with_registry
+      - publish_alpha_package_to_registry
+
+  publish_beta:
+    executor: os-executor
+    steps:
+      - attach_os_ui_workspace
+      - authenticate_with_registry
+      - publish_beta_package_to_registry
+
+  publish_version:
+    executor: os-executor
+    steps:
+      - attach_os_ui_workspace
+      - authenticate_with_registry
+      - publish_package_to_registry
+
+workflows:
+  version: 2
+  # Runs on non-tag pushes and ignores release branches
+  untagged_build:
+    jobs:
+      - build: *only-build
+
+  # Runs on non-tag release branch pushes
+  build_and_version_prerelease:
+    jobs:
+      - build: *only-auto-version-release
+      - version_prerelease:
+          <<: *only-auto-version-release
+          requires:
+            - build
+
+  # Runs on alpha tags on all branches
+  build_and_publish_alpha:
+    jobs:
+      - build: *only-publish-alpha-tags
+      - publish_alpha:
+          <<: *only-publish-alpha-tags
+          requires:
+            - build
+
+  # Runs on beta tags on release branch
+  build_and_publish_beta:
+    jobs:
+      - build: *only-publish-beta-tags
+      - publish_beta:
+          <<: *only-publish-beta-tags
+          requires:
+            - build
+
+  # Runs on full version tags on main branch
+  build_and_publish_version:
+    jobs:
+      - build: *only-publish-version-tags
+      - publish_version:
+          <<: *only-publish-version-tags
+          requires:
+            - build

@@ -1,0 +1,293 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Theming engine/Providers" />
+
+<h1>Providers</h1>
+
+<p>Providers make the aspects of themes, styles and stylesheets available to the host application.</p>
+
+<h2>WithStyles decorator</h2>
+<p>
+  An Angular decorator that takes a Styles object or Styles creator, StyleSheetFactoryOptions, creates a stylesheet and assigns a Classes
+  object, and the Theme to properties in the host component.
+</p>
+
+```javascript
+@WithStyles<T>(stylesOrCreator: Styles | (theme: Theme) => Styles, options: StyleSheetFactoryOptions = {}): <T>
+```
+
+<h3>Parameters</h3>
+<ul>
+  <li>
+    <strong>stylesOrCreator</strong> accepts a Styles object, or a function that returns a Styles object. If using a function, Gemini will
+    pass the theme to the function as an argument.
+  </li>
+  <li>
+    <strong>options</strong> (<i>optional</i>) accepts a StyleSheetFactoryOptions object.
+  </li>
+</ul>
+
+<h3>Returns</h3>
+<ul>
+  <li>
+    <strong>Classes</strong> is assigned to the classes property in your component, if it exists.
+  </li>
+  <li>
+    <strong>Theme</strong> is assigned to the theme property in your component, if it exists.
+  </li>
+  <li>
+    <strong>T</strong> the object of type T that WithStyles decorates.
+  </li>
+</ul>
+
+<h3>Examples</h3>
+
+```javascript
+const styles = (theme: Theme): Styles =>
+  createStyles({
+    paper: {
+      backgroundColor: theme.palette.secondary.main
+    }
+  });
+
+@Component({
+  selector: 'app_my_component',
+  template: '<og-paper [className]="classes.paper">Hello</og-paper>'
+})
+@WithStyles(styles)
+export class MyComponent implements OnInit {
+  classes: Classes;
+
+  ngOnInit(): void {
+    console.log(this.classes); // { paper: '.paper-0-0-1' }
+  }
+}
+```
+
+<h2>provideClasses</h2>
+<p>
+  A function to take a Styles object or creator, create a stylesheet and inject it into the DOM, and return a Classes object. This function
+  does the same thing as the WithStyles decorator, but returns a Classes object instead of assigning it to a property. This function is used
+  internally by Gemini components to create their core Classes.
+</p>
+
+```javascript
+provideClasses(stylesOrCreator: Styles | (theme: Theme) => Styles, options: StyleSheetFactoryOptions = {}): Classes
+```
+
+<h3>Parameters</h3>
+<ul>
+  <li>
+    <strong>stylesOrCreator</strong> accepts a Styles object, or a function that returns a Styles object. If using a function, Gemini will
+    pass the theme to the function as an argument.
+  </li>
+  <li>
+    <strong>options</strong> (<i>optional</i>) accepts a StyleSheetFactoryOptions object.
+  </li>
+</ul>
+
+<h3>Returns</h3>
+<ul>
+  <li>
+    <strong>Classes</strong> object
+  </li>
+</ul>
+
+<h3>Examples</h3>
+
+```javascript
+const styles = (theme: Theme): Styles =>
+  createStyles({
+    paper: {
+      backgroundColor: theme.palette.secondary.main
+    }
+  });
+
+@Component({
+  selector: 'app_my_component',
+  template: '<og-paper [className]="classes.paper">Hello</og-paper>'
+})
+export class MyComponent implements OnInit {
+  classes: Classes;
+
+  constructor() {
+    this.classes = provideClasses(styles);
+  }
+
+  ngOnInit(): void {
+    console.log(this.classes); // { paper: '.paper-0-0-1' }
+  }
+}
+```
+
+<h2>provideCss</h2>
+<p>
+  Provides Gemini styles as CSS. Use without argument and get all the CSS from all the components as a string. Provide a component name
+  (such as <code>Button</code> or <code>Card</code>), or an array of component names and only the CSS for those components is returned.
+</p>
+
+```javascript
+provideCss(userComponents: ComponentNames | ComponentNames[] = coreComponents): string
+```
+
+<h3>Parameters</h3>
+<ul>
+  <li>
+    <strong>userComponents</strong> accepts a single ComponentName, or an array of ComponentNames
+  </li>
+</ul>
+
+<h3>Returns</h3>
+<ul>
+  <li>
+    <strong>string</strong> transformed CSS
+  </li>
+</ul>
+
+<h3>Examples</h3>
+
+```javascript
+const allCss = provideCss();
+console.log(allCss); // /* --- Accordion --- */ .og-accordion-root {} .og-accordion-content { overflow: hidden; max-height: 0; ...
+
+const badgeCss = provideCss('Badge');
+console.log(badgeCss); // /* --- Badge --- */ .og-badge-root { display: inline-flex; position: relative; flex-shrink: 0; ...
+
+const someCss = provideCss(['Button', 'Card', 'Chip']);
+console.log(someCss); // /* --- Button --- */ .og-button-root { color: rgba(0, 0, 0, 0.87); padding: 6px 8px; font-size: 0.875rem; ...
+```
+
+<h2>provideCssBaseline</h2>
+<p>Provides the Gemini css baseline as transformed CSS.</p>
+
+```javascript
+provideCssBaseline(): string
+```
+
+<h3>Parameters</h3>
+
+<h3>Returns</h3>
+<ul>
+  <li>
+    <strong>string</strong> transformed CSS
+  </li>
+</ul>
+
+<h3>Examples</h3>
+
+```javascript
+const cssBaseline = provideCssBaseline();
+console.log(cssBaseline); // html { box-sizing: border-box; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; ...
+```
+
+<h2>provideStylesheet</h2>
+<p>
+  Provides a stylesheet. For each core component, there is only one stylesheet. This function will call the stylesheet creator if a
+  stylesheet for a core component doesn't exist, or, it will return the stylesheet from the store if it does exist. User stylesheets are not
+  managed, and will always create a stylesheet before injecting into the DOM. This is because user stylesheets have unique class names,
+  which is how Gemini manages encapsulation.
+</p>
+
+```javascript
+provideStylesheet(styles: Styles, options: StyleSheetFactoryOptions = {}): StyleSheet
+```
+
+<h3>Parameters</h3>
+<ul>
+  <li>
+    <strong>styles</strong> accepts a Styles object
+  </li>
+  <li>
+    <strong>options</strong> (<i>optional</i>) StyleSheetFactoryOptions
+  </li>
+</ul>
+
+<h3>Returns</h3>
+<ul>
+  <li>
+    <strong>StyleSheet</strong> object
+  </li>
+</ul>
+
+<h3>Examples</h3>
+
+```javascript
+const styles = {
+  button: {
+    margin: 16
+  }
+};
+
+const stylesheet = provideStylesheet(styles);
+console.log(stylesheet); // StyleSheet: { ... }
+```
+
+<h2>provideTheme</h2>
+<p>
+  Provides a theme to Gemini and the host application. This function calls the theme creator, and adds the resulting theme to the store. It
+  will only create a theme once, unless themeOptions change the theme, or the theme is not in the store.
+</p>
+
+```javascript
+provideTheme(themeOptions: ThemeOptions | ThemeOptions[] = {}): void
+```
+
+<h3>Parameters</h3>
+<ul>
+  <li>
+    <strong>themeOptions</strong> (<i>optional</i>) ThemeOptions, or an array of ThemeOptions
+  </li>
+</ul>
+
+<h3>Returns</h3>
+
+<h3>Examples</h3>
+
+```javascript
+import { Component, NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { CardModule, provideTheme } from '@opensesame/gemini';
+
+provideTheme();
+
+@Component({
+  selector: 'app-root',
+  template: '<og-card>I am a card</og-card>'
+})
+export class AppComponent {}
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule, CardModule],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+```
+
+<h2>provideTokens</h2>
+<p>
+  Provides the selected token set. By default, the OpenSesame brand token set is used. For different token sets, pass the name of the token
+  set as an argument. Typically, this isn't used if you are using the core theme. It's only necessary when custom themes that come from
+  design are used. As a developer, when should you provide tokens? When your designer tells you to.
+</p>
+
+```javascript
+provideTokens(tokenSet: string = 'opensesame'): void
+```
+
+<h3>Parameters</h3>
+<ul>
+  <li>
+    <strong>tokenSet</strong> (<i>optional</i>) string, the token set specified by the designer
+  </li>
+</ul>
+
+<h3>Returns</h3>
+
+<h3>Examples</h3>
+
+```javascript
+provideTokens(); // uses the default token set
+
+provideTokens('simon');
+```

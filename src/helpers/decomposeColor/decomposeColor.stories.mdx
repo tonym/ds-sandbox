@@ -1,0 +1,79 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Helpers/decomposeColor" />
+
+<h1>decomposeColor</h1>
+
+Decompose a valid color string to a Gemini color object.
+
+<h2>API</h2>
+
+<h3>Import</h3>
+
+Path import
+
+```javascript
+import decomposeColor from '@opensesame/gemini/helpers/decomposeColor';
+```
+
+Named import (use with Angular)
+
+```javascript
+import { decomposeColor } from '@opensesame/gemini';
+```
+
+<h3>Signature</h3>
+
+```javascript
+decomposeColor(composedColor: string): ColorObject
+```
+
+<h3>Parameters</h3>
+
+<ul>
+  <li>
+    <strong>composedColor</strong> : A valid RGB, RGBA, HSL, HSLA, or hex color string.
+  </li>
+</ul>
+
+<h3>Returns</h3>
+
+<ul>
+  <li>
+    <strong>ColorObject</strong>
+  </li>
+</ul>
+
+<h2>Examples</h2>
+
+<h3>Decompose an HSL color:</h3>
+
+```javascript
+const color = decomposeColor('hsl(0, 0, 100)');
+
+console.log(color); // { type: 'hsl', values: ['0', '0', '100'] }
+```
+
+<h3>Decompose an RGB color:</h3>
+
+```javascript
+const color = decomposeColor('rgb(180, 30, 0)');
+
+console.log(color); // { type: 'rgb', values: ['1800', '30', '0'] }
+```
+
+<h3>Decompose an RGBA color:</h3>
+
+```javascript
+const color = decomposeColor('rgb(180, 30, 0, 0.8)');
+
+console.log(color); // { type: 'rgba', values: ['180', '30', '0', '0.8'] }
+```
+
+<h3>Decompose a hex color:</h3>
+
+```javascript
+const color = decomposeColor('#fff');
+
+console.log(color); // { type: 'rgb', values: ['255', '255', '255'] }
+```

@@ -1,0 +1,52 @@
+import { Meta } from '@storybook/addon-docs';
+import provideTheme from '../styles/provideTheme/index';
+import useTheme from '../styles/useTheme/index';
+import ReactJson from 'react-json-view';
+
+<script>provideTheme();</script>
+
+<Meta title="Theming Engine/Overview" />
+
+<h1>Overview</h1>
+
+<p>
+  Theming engine functions are the core functionality of creating and providing a theme to the host application, and some utilities that
+  help manage styles and themes.
+</p>
+
+<p>
+  Style specific functions are grouped into Creators, Providers, and utilities.
+  <ul>
+    <li>
+      <strong>Creators</strong> create aspects of themes, styles and stylesheets.
+    </li>
+    <li>
+      <strong>Providers</strong> make the aspects of themes, styles and stylesheets available to the host application.
+    </li>
+    <li>
+      <strong>Utilities</strong> are functions that manage the aspects of themes, styles and stylesheets in the host application.
+    </li>
+  </ul>
+</p>
+
+<h2>Definitions</h2>
+<h3>Theme</h3>
+<p>The theme is a collection of "style stuff" that style creators, and sometimes devlopers, use to create styles and, eventually, CSS.</p>
+
+<h3>ThemeOptions</h3>
+<p>Optional theme content. ThemeOptions are provided by the host application developer when setting up a custom theme.</p>
+
+<h3>Styles</h3>
+<p>A JSS style object. All Gemini components have, and export, styles. It's from styles that stylesheets are created.</p>
+
+<h3>Stylesheet</h3>
+<p>
+  The CSS created from Styles, and injected into the DOM. (Notice the spelling. A JSS stylesheet is a StyleSheet, but a Gemini stylesheet is
+  a Stylesheet. The distinction is the Typescript type. They are two different interfaces.)
+</p>
+
+<h3>StyleSheetFactoryOptions</h3>
+<p>The JSS options to use when creating a Stylesheet.</p>
+
+<h3>Classes</h3>
+<p>The classes object that associates your Styles object keys with the CSS classes in the resulting Stylesheet.</p>

@@ -1,0 +1,55 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Helpers/capitalize" />
+
+<h1>capitalize</h1>
+
+Capitalize the first letter of a string.
+
+<h2>API</h2>
+
+<h3>Import</h3>
+
+Path import
+
+```javascript
+import capitalize from '@opensesame/gemini/helpers/capitalize';
+```
+
+Named import (use with Angular)
+
+```javascript
+import { capitalize } from '@opensesame/gemini';
+```
+
+<h3>Signature</h3>
+
+```javascript
+capitalize(value: string | undefined): string | ''
+```
+
+<h3>Parameters</h3>
+
+<ul>
+  <li>
+    <strong>value</strong> : The string to be capitalize.
+  </li>
+</ul>
+
+<h3>Returns</h3>
+
+<ul>
+  <li>
+    <strong>string | ''</strong> : If <strong>value</strong> is undefined, and empty string is returned.
+  </li>
+</ul>
+
+<h2>Examples</h2>
+
+<h3>Capitalize a string:</h3>
+
+```javascript
+const capitalized = capitalize('call me Ishmael');
+
+console.log(capitalized); // Call me Ishmael
+```

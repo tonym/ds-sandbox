@@ -1,0 +1,56 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Helpers/hexToRgb" />
+
+<h1>hexToRgb</h1>
+
+Converts a hex color to an RGB color.
+
+<h2>API</h2>
+
+<h3>Import</h3>
+
+Path import
+
+```javascript
+import hexToRgb from '@opensesame/gemini/helpers/hexToRgb';
+```
+
+Named import (use with Angular)
+
+```javascript
+import { hexToRgb } from '@opensesame/gemini';
+```
+
+<h3>Signature</h3>
+
+```javascript
+hexToRgb(composedColor: string): string
+```
+
+<h3>Parameters</h3>
+
+<ul>
+  <li>
+    <strong>composedColor</strong> : A valid hex color string.
+  </li>
+</ul>
+
+<h3>Returns</h3>
+
+<ul>
+  <li>
+    <strong>string</strong> : An RGB color string. If <code>composedColor</code> is an invalid hex color string, an empty string is
+    returned.
+  </li>
+</ul>
+
+<h2>Examples</h2>
+
+<h3>Convert a hex color to RGB:</h3>
+
+```javascript
+const rgbColor = hexToRgb('#ffffff');
+
+console.log(rgbColor); // rgb(255, 255, 255)
+```

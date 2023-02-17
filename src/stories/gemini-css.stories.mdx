@@ -1,0 +1,277 @@
+import { default as minifyCssString } from 'minify-css-string';
+import { Meta } from '@storybook/addon-docs';
+import fromCamelToDash from '../helpers/fromCamelToDash/index';
+import provideCss from '../styles/provideCss/index';
+import provideCssBaseline from '../styles/provideCssBaseline/index';
+import useCss from '../styles/useCss/index';
+
+export const css = provideCss();
+export const minifiedCss = minifyCssString(css).replace(/\/\*[^*]*\*+([^/*][^*]*\*+)*\//g, '');
+
+export const cssBaseline = provideCssBaseline();
+export const minifiedCssBaseline = minifyCssString(cssBaseline).replace(/\/\*[^*]*\*+([^/*][^*]*\*+)*\//g, '');
+
+export const downloadFile = (file, name = gemini - css.css) => {
+  const element = document.getElementById('file-download');
+  const cssBlob = new Blob([file], { type: 'text/css' });
+  element.setAttribute('href', URL.createObjectURL(cssBlob));
+  element.setAttribute('download', name);
+  element.click();
+};
+export const showCss = () => {
+  const cssBlock = document.getElementById('css-block');
+  const minifiedCssBlock = document.getElementById('minified-css-block');
+  const cssButton = document.getElementById('css-button');
+  const minifiedCssButton = document.getElementById('minified-css-button');
+  cssBlock.classList.remove('hidden');
+  minifiedCssBlock.classList.add('hidden');
+  cssButton.classList.add('og-button-text-primary');
+  minifiedCssButton.classList.remove('og-button-text-primary');
+};
+
+export const showMinifiedCss = () => {
+  const cssBlock = document.getElementById('css-block');
+  const minifiedCssBlock = document.getElementById('minified-css-block');
+  const cssButton = document.getElementById('css-button');
+  const minifiedCssButton = document.getElementById('minified-css-button');
+  cssBlock.classList.add('hidden');
+  minifiedCssBlock.classList.remove('hidden');
+  cssButton.classList.remove('og-button-text-primary');
+  minifiedCssButton.classList.add('og-button-text-primary');
+};
+
+export const showCssBaseline = () => {
+  const cssBaselineBlock = document.getElementById('css-baseline-block');
+  const minifiedCssBaselineBlock = document.getElementById('minified-css-baseline-block');
+  const cssBaselineButton = document.getElementById('css-baseline-button');
+  const minifiedCssBaselineButton = document.getElementById('minified-css-baseline-button');
+  cssBaselineBlock.classList.remove('hidden');
+  minifiedCssBaselineBlock.classList.add('hidden');
+  cssBaselineButton.classList.add('og-button-text-primary');
+  minifiedCssBaselineButton.classList.remove('og-button-text-primary');
+};
+
+export const showMinifiedCssBaseline = () => {
+  const cssBaselineBlock = document.getElementById('css-baseline-block');
+  const minifiedCssBaselineBlock = document.getElementById('minified-css-baseline-block');
+  const cssBaselineButton = document.getElementById('css-baseline-button');
+  const minifiedCssBaselineButton = document.getElementById('minified-css-baseline-button');
+  cssBaselineBlock.classList.add('hidden');
+  minifiedCssBaselineBlock.classList.remove('hidden');
+  cssBaselineButton.classList.remove('og-button-text-primary');
+  minifiedCssBaselineButton.classList.add('og-button-text-primary');
+};
+
+<Meta title="GeminiCSS" />
+
+<style>
+  {`
+    .actions {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: -16px;
+        margin-top: 24px;
+    }
+    .action-buttons {
+        display: flex;
+        gap: 8px;
+    }
+    code {
+        white-space: break-spaces ! important;
+    }
+    .css-display pre {
+        height: 420px;
+    }
+    h2 {
+        padding-top: 24px ! important;
+    }
+    .hidden {
+        display: none;
+    }
+    .screenshot {
+        margin-left: 12%;
+        width: 76%;
+    }
+`}
+  {css}
+</style>
+
+<h1>GeminiCSS</h1>
+
+<p>All the Gemini component styles, transformed and bundled into a single CSS file.</p>
+
+<div className="actions">
+  <div className="action-buttons">
+    <button
+      onClick={e => showCss()}
+      className="og-button-root og-button-text og-button-text-size-sm og-button-size-sm og-button-text-color-primary"
+      id="css-button"
+    >
+      Show CSS
+    </button>
+    <button
+      onClick={e => showMinifiedCss()}
+      className="og-button-root og-button-text og-button-text-size-sm og-button-size-sm"
+      id="minified-css-button"
+    >
+      Show minified CSS
+    </button>
+  </div>
+  <div className="action-buttons">
+    <button
+      onClick={e => downloadFile(css, 'gemini-css.css')}
+      className="og-button-root og-button-contained og-button-contained-color-primary og-button-contained-size-sm og-button-size-sm"
+    >
+      Download file
+    </button>
+    <button
+      onClick={e => downloadFile(minifiedCss, 'gemini-css.min.css')}
+      className="og-button-root og-button-size-sm og-button-outlined og-button-outlined-color-primary og-button-outlined-size-sm"
+    >
+      Download minified file
+    </button>
+  </div>
+</div>
+
+<pre id="css-block" className="css-block css-display">
+  <code className="language-css">{css}</code>
+</pre>
+
+<pre id="minified-css-block" className="minified-css-block css-display hidden">
+  <code className="language-css">{minifiedCss}</code>
+</pre>
+
+<h3>Baseline</h3>
+
+<div className="actions">
+  <div className="action-buttons">
+    <button
+      onClick={e => showCssBaseline()}
+      className="og-button-root og-button-text og-button-text-size-sm og-button-size-sm og-button-text-color-primary"
+      id="css-baseline-button"
+    >
+      Show CSS baseline
+    </button>
+    <button
+      onClick={e => showMinifiedCssBaseline()}
+      className="og-button-root og-button-text og-button-text-size-sm og-button-size-sm"
+      id="minified-css-baseline-button"
+    >
+      Show minified CSS baseline
+    </button>
+  </div>
+  <div className="action-buttons">
+    <button
+      onClick={e => downloadFile(cssBaseline, 'gemini-css-baseline.css')}
+      className="og-button-root og-button-contained og-button-contained-color-primary og-button-contained-size-sm og-button-size-sm"
+    >
+      Download baseline file
+    </button>
+    <button
+      onClick={e => downloadFile(minifiedCssBaseline, 'gemini-css-baseline.min.css')}
+      className="og-button-root og-button-size-sm og-button-outlined og-button-outlined-color-primary og-button-outlined-size-sm"
+    >
+      Download minified baseline file
+    </button>
+  </div>
+</div>
+
+<pre id="css-baseline-block" className="css-baseline-block css-display">
+  <code className="language-css">{cssBaseline}</code>
+</pre>
+
+<pre id="minified-css-baseline-block" className="minified-css-baseline-block css-display hidden">
+  <code className="language-css">{minifiedCssBaseline}</code>
+</pre>
+
+<a id="file-download" className="hidden" />
+
+<h2>How to use GeminiCSS</h2>
+
+GeminiCSS offers all the fabulous styling of Gemini components in a single CSS or minified CSS file for those who use a web platform or framework other than Angular. Even though it's possible to use the Gemini JSS objects on their own and transform them yourself, GeminiCSS offers an already transformed and ready-to-go solution. Of course, if you'd still like to transform the JSS on your own (and there may be many reasons why you'd want to), you still can.
+
+GeminiCSS provides both component CSS and the Gemini CSS baseline. The baseline provides a few basic resets and the global styles for HTML, BODY, and a few other nice-to-have elements. Using the baseline isn't necessary, but if you so choose, remember to place the baseline file before the CSS file in your website or application code.
+
+<h3>Install</h3>
+
+<h4>Download a file</h4>
+
+<ol>
+  <li>
+    Download the desired file by clicking a download button above. Typically you'll want the full CSS file for development, and the minified
+    file for production.
+  </li>
+  <li>Add the file your your project</li>
+  <li>
+    In the <code>HEAD</code> of your project's main entry point (such as <code>index.html</code>) add a <code>LINK</code> element to import
+    your stylesheet. Do this for each sheet you downloaded.
+  </li>
+</ol>
+
+```html
+<link rel="stylesheet" href="PATH/TO/GEMINI/CSS/STYLESHEET" />
+```
+
+<h4>Copy and paste into your existing CSS file.</h4>
+
+Another way to use GeminiCSS is copy the variant you want from above, and place it in your existing CSS file.
+
+<h3>Using GeminiCSS classes</h3>
+
+How do I know what classes do what? Each component provides a Classes table in its API documentation. In the example you can see the API documentation for a Button component. The classes table shows the JSS rule name and its corrosponding CSS class. The CSS classes in the center column are the classes in GeminiCSS.
+
+<p>
+  <img class="screenshot" src="images/classes-table.png" alt="example classes table" />
+</p>
+
+In most cases the CSS classes describe what they do in the name, and you can find examples by clicking the <code>Canvas</code> tab in the component API documentation.
+
+<p>
+  <img src="images/canvas-button.png" alt="canvas button" />
+</p>
+
+Using the controls, configure the button to your satisfaction. (Note, the controls may be on the bottom or the side of the canvas. You can configure it using the Storybook buttons at the top of the tabs.)
+
+<p>
+  <img class="screenshot" src="images/button-canvas.png" alt="canvas button" />
+</p>
+
+Then select the <code>HTML</code> tab and see the rendered markup for the configured button. There you can see the button, and the GeminiCSS classes used to make it look like your configuration.
+
+<p>
+  <img class="screenshot" src="images/rendered-button.png" alt="canvas button" />
+</p>
+
+What's all that other stuff? The CSS is derived from Angular components, rendered in development mode. It's debugging info useful to Storybook and Gemini users that isn't needed for GeminiCSS.
+
+Here's a live example of the example button, and the resulting code.
+
+<button
+  className="
+    og-button-button-base-root
+    og-button-root
+    og-button-contained
+    og-button-contained-color-primary
+    og-button-contained-size-sm
+    og-button-size-sm
+    "
+  type="button"
+>
+  Get started
+</button>
+
+```html
+<button
+  className="
+    og-button-button-base-root
+    og-button-root
+    og-button-contained
+    og-button-contained-color-primary
+    og-button-contained-size-small
+    og-button-size-small
+    "
+  type="button"
+>
+  Get started
+</button>
+```

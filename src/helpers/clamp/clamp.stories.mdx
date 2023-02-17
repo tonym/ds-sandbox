@@ -1,0 +1,69 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Helpers/clamp" />
+
+<h1>clamp</h1>
+
+Clamp a given number between two bounding numbers.
+
+<h2>API</h2>
+
+<h3>Import</h3>
+
+Path import
+
+```javascript
+import clamp from '@opensesame/gemini/helpers/clamp';
+```
+
+Named import (use with Angular)
+
+```javascript
+import { clamp } from '@opensesame/gemini';
+```
+
+<h3>Signature</h3>
+
+```javascript
+clamp(value: number, min: number = 0, max: number = 1): number
+```
+
+<h3>Parameters</h3>
+
+<ul>
+  <li>
+    <strong>value</strong> : The number to clamp.
+  </li>
+  <li>
+    <strong>min</strong> optional, default = 0 : The minimum possible value.
+  </li>
+  <li>
+    <strong>max</strong> optional, default = 1 : The maximum possible value.
+  </li>
+</ul>
+
+<h3>Returns</h3>
+
+<ul>
+  <li>
+    <strong>number</strong>
+  </li>
+</ul>
+
+<h2>Examples</h2>
+
+<h3>Clamp a number:</h3>
+
+```javascript
+const clamped = clamp(12, 1, 20);
+
+console.log(clamped); // 12
+```
+
+<h3>Clamp a number:</h3>
+
+```javascript
+const clamped = clamp(25, 1, 20);
+
+console.log(clamped); // 20
+```

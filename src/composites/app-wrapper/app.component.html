@@ -1,0 +1,67 @@
+<div>
+  <og-app-bar backgroundColor="default" [className]="classes.appBar">
+    <og-flex alignItems="center" [className]="classes.flex">
+      <og-flex-child>
+        <og-brand size="sm" src="images/gemini.png"></og-brand>
+      </og-flex-child>
+      <og-flex-child alignSelf="flexEnd">
+        <og-tabs [className]="classes.tabs">
+          <og-tab>Roses</og-tab>
+          <og-tab>Daisies</og-tab>
+        </og-tabs>
+      </og-flex-child>
+      <og-flex-child flex="1">
+        <div [class]="classes.inputContainer">
+          <input [class]="classes.input" placeholder="Search ipsum" type="text" />
+          <og-svg-icon [className]="classes.inputIcon" color="inherit" fontSize="sm" icon="search"></og-svg-icon>
+        </div>
+      </og-flex-child>
+      <og-flex-child>
+        <og-icon-button (click)="toggleMenu()" color="inherit" icon="language" size="sm"></og-icon-button>
+        <og-menu [className]="classes.menu" [open]="menuOpen" variant="dark">
+          <og-menu-item selected="true" title="Klingon"></og-menu-item>
+          <og-menu-item title="Martian"></og-menu-item>
+          <og-menu-item title="Goa'uld"></og-menu-item>
+          <og-menu-item title="Esperanto"></og-menu-item>
+          <og-menu-item title="Rigelian"></og-menu-item>
+          <og-menu-item title="Tralfamadorian"></og-menu-item>
+          <og-menu-item title="Melmac"></og-menu-item>
+        </og-menu>
+      </og-flex-child>
+      <og-flex-child>
+        <og-badge color="success" showZero="true" variant="dot">
+          <og-icon-button color="inherit" icon="shopping_cart" size="sm"></og-icon-button>
+        </og-badge>
+      </og-flex-child>
+      <og-flex-child>
+        <og-icon-button (click)="toggleDrawer()" icon="menu" size="sm"></og-icon-button>
+      </og-flex-child>
+    </og-flex>
+  </og-app-bar>
+  <og-click-away-listener (clickAwayListenerClick)="toggleDrawer()" [shouldHandle]="shouldHandle">
+    <og-drawer anchor="right" [open]="drawerOpen" (transitionend)="transitionEnd()">
+      <div [class]="classes.drawerHeader">
+        <og-flex alignItems="center" gap="8px">
+          <og-flex-child>
+            <og-avatar src="https://secure.gravatar.com/avatar/efc34c62535d6046e76e09e312ecd2b4?s=96&d=mm&r=g"></og-avatar>
+          </og-flex-child>
+          <og-flex-child>
+            <og-typography variant="h6">User Name</og-typography>
+          </og-flex-child>
+        </og-flex>
+      </div>
+      <og-menu-list [className]="classes.drawerMenu" variant="dark">
+        <og-typography [className]="classes.drawerMenuTitle" color="inherit" fontWeight="bold" paragraph="true" variant="h4">
+          Dashboard
+        </og-typography>
+        <og-menu-list-item hover="false" title="My Thing"></og-menu-list-item>
+        <og-menu-list-item hover="false" title="Your Thing"></og-menu-list-item>
+        <og-menu-list-item hover="false" title="The Famous Other"></og-menu-list-item>
+        <og-menu-list-item hover="false" title="Something Stuff"></og-menu-list-item>
+        <og-menu-list-item hover="false" title="Whatever"></og-menu-list-item>
+        <og-menu-list-item [className]="classes.faded" hover="false" title="Log Out"></og-menu-list-item>
+      </og-menu-list>
+    </og-drawer>
+  </og-click-away-listener>
+  <og-scrim [open]="drawerOpen" [className]="classes.scrim"></og-scrim>
+</div>

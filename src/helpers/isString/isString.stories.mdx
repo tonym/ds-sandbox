@@ -1,0 +1,59 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Helpers/isString" />
+
+<h1>isString</h1>
+
+Given an unknown value, check to see if it is a string.
+
+<h2>API</h2>
+
+<h3>Import</h3>
+
+Path import
+
+```javascript
+import isString from '@opensesame/gemini/helpers/isString';
+```
+
+Named import (use with Angular)
+
+```javascript
+import { isString } from '@opensesame/gemini';
+```
+
+<h3>Signature</h3>
+
+```javascript
+isString<T>(value: T): boolean
+```
+
+<h3>Parameters</h3>
+
+<ul>
+  <li>
+    <strong>value</strong> : Any value that may or may not be a string.
+  </li>
+</ul>
+
+<h3>Returns</h3>
+
+<ul>
+  <li>
+    <strong>boolean</strong>
+  </li>
+</ul>
+
+<h2>Examples</h2>
+
+<h3>Check a value to see if it can be a string:</h3>
+
+```javascript
+const dataSetOfUnkownTypes = {
+  possibleString: 'I may or may not be a string.'
+};
+const { possibleString } = dataSetOfUnkownTypes;
+const stringTest = isString(possibleString);
+
+console.log(stringTest); // true
+```

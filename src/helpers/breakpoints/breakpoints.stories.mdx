@@ -1,0 +1,318 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Helpers/breakpoints" />
+
+<h1>breakpoints</h1>
+
+A suite of functions for working with breakpoints.
+
+<h1>breakpoints.between</h1>
+
+Generate a media query for resolutions between one breakpoint and another.
+
+<h2>API</h2>
+
+<h3>Import</h3>
+
+Path import
+
+```javascript
+import breakoints from '@opensesame/gemini/helpers/breakpoints';
+```
+
+Named import (use with Angular)
+
+```javascript
+import { breakpoints } from '@opensesame/gemini';
+```
+
+<h3>Signature</h3>
+
+```javascript
+breakpoints.between(begin: Breakpoint, end: Breakpoint, withAtRule: boolean = true): string
+```
+
+<h3>Parameters</h3>
+
+<ul>
+  <li>
+    <strong>begin</strong> : A bounding breakpoint.
+  </li>
+  <li>
+    <strong>end</strong> : A bounding breakpoint.
+  </li>
+  <li>
+    <strong>withAtRule</strong> <oblique>optional, default = true</oblique> : If true, the media query will have an @ rule, if false, the
+    media query will not have an @ rule.
+  </li>
+</ul>
+
+<h3>Returns</h3>
+
+<ul>
+  <li>
+    <strong>string</strong>
+  </li>
+</ul>
+
+<h2>Examples</h2>
+
+<h3>Create a valid media query with an @ rule:</h3>
+
+```javascript
+const mediaQuery = breakpoints.between('sm', 'lg');
+
+console.log(mediaQuery); // @media (min-width: 600px) and (max-width: 1441px)
+```
+
+<h3>Create a valid media query without an @ rule:</h3>
+
+```javascript
+const mediaQuery = breakpoints.between('sm', 'lg', false);
+
+console.log(mediaQuery); // (min-width: 600px) and (max-width: 1441px)
+```
+
+<h1>breakpoints.down</h1>
+
+Generate a media query below a given breakpoint.
+
+<h2>API</h2>
+
+<h3>Import</h3>
+
+Path import
+
+```javascript
+import breakoints from '@opensesame/gemini/helpers/breakpoints';
+```
+
+Named import (use with Angular)
+
+```javascript
+import { breakpoints } from '@opensesame/gemini';
+```
+
+<h3>Signature</h3>
+
+```javascript
+breakpoints.down(begin: Breakpoint, withAtRule: boolean = true): string
+```
+
+<h3>Parameters</h3>
+
+<ul>
+  <li>
+    <strong>begin</strong> : A bounding breakpoint.
+  </li>
+  <li>
+    <strong>withAtRule</strong> <oblique>optional, default = true</oblique> : If true, the media query will have an @ rule, if false, the
+    media query will not have an @ rule.
+  </li>
+</ul>
+
+<h3>Returns</h3>
+
+<ul>
+  <li>
+    <strong>string</strong>
+  </li>
+</ul>
+
+<h2>Examples</h2>
+
+<h3>Create a valid media query with an @ rule:</h3>
+
+```javascript
+const mediaQuery = breakpoints.down('sm');
+
+console.log(mediaQuery); // @media (max-width: 840px)
+```
+
+<h3>Create a valid media query without an @ rule:</h3>
+
+```javascript
+const mediaQuery = breakpoints.down('sm' false);
+
+console.log(mediaQuery); // (max-width: 840px)
+```
+
+<h1>breakpoints.only</h1>
+
+Generate a media query for only a given breakpoint.
+
+<h2>API</h2>
+
+<h3>Import</h3>
+
+Path import
+
+```javascript
+import breakoints from '@opensesame/gemini/helpers/breakpoints';
+```
+
+Named import (use with Angular)
+
+```javascript
+import { breakpoints } from '@opensesame/gemini';
+```
+
+<h3>Signature</h3>
+
+```javascript
+breakpoints.only(begin: Breakpoint, withAtRule: boolean = true): string
+```
+
+<h3>Parameters</h3>
+
+<ul>
+  <li>
+    <strong>begin</strong> : A bounding breakpoint.
+  </li>
+  <li>
+    <strong>withAtRule</strong> <oblique>optional, default = true</oblique> : If true, the media query will have an @ rule, if false, the
+    media query will not have an @ rule.
+  </li>
+</ul>
+
+<h3>Returns</h3>
+
+<ul>
+  <li>
+    <strong>string</strong>
+  </li>
+</ul>
+
+<h2>Examples</h2>
+
+<h3>Create a valid media query with an @ rule:</h3>
+
+```javascript
+const mediaQuery = breakpoints.only('sm');
+
+console.log(mediaQuery); // @media (min-width: 600px) and (max-width: 840px)
+```
+
+<h3>Create a valid media query without an @ rule:</h3>
+
+```javascript
+const mediaQuery = breakpoints.only('sm' false);
+
+console.log(mediaQuery); // (min-width: 600px) and (max-width: 840px)
+```
+
+<h1>breakpoints.up</h1>
+
+Generate a media query above a given breakpoint.
+
+<h2>API</h2>
+
+<h3>Import</h3>
+
+Path import
+
+```javascript
+import breakoints from '@opensesame/gemini/helpers/breakpoints';
+```
+
+Named import (use with Angular)
+
+```javascript
+import { breakpoints } from '@opensesame/gemini';
+```
+
+<h3>Signature</h3>
+
+```javascript
+breakpoints.up(begin: Breakpoint, withAtRule: boolean = true): string
+```
+
+<h3>Parameters</h3>
+
+<ul>
+  <li>
+    <strong>begin</strong> : A bounding breakpoint.
+  </li>
+  <li>
+    <strong>withAtRule</strong> <oblique>optional, default = true</oblique> : If true, the media query will have an @ rule, if false, the
+    media query will not have an @ rule.
+  </li>
+</ul>
+
+<h3>Returns</h3>
+
+<ul>
+  <li>
+    <strong>string</strong>
+  </li>
+</ul>
+
+<h2>Examples</h2>
+
+<h3>Create a valid media query with an @ rule:</h3>
+
+```javascript
+const mediaQuery = breakpoints.up('sm');
+
+console.log(mediaQuery); // @media (min-width: 600px)
+```
+
+<h3>Create a valid media query without an @ rule:</h3>
+
+```javascript
+const mediaQuery = breakpoints.up('sm' false);
+
+console.log(mediaQuery); // (min-width: 600px)
+```
+
+<h1>breakpoints.width</h1>
+
+Return the value of a theme breakpoint key.
+
+<h2>API</h2>
+
+<h3>Import</h3>
+
+Path import
+
+```javascript
+import breakoints from '@opensesame/gemini/helpers/breakpoints';
+```
+
+Named import (use with Angular)
+
+```javascript
+import { breakpoints } from '@opensesame/gemini';
+```
+
+<h3>Signature</h3>
+
+```javascript
+breakpoints.width(key: string): number
+```
+
+<h3>Parameters</h3>
+
+<ul>
+  <li>
+    <strong>key</strong> : A breakopint key (xs, sm, md, lg, xl, whatever custom keys added to the theme).
+  </li>
+</ul>
+
+<h3>Returns</h3>
+
+<ul>
+  <li>
+    <strong>number</strong>
+  </li>
+</ul>
+
+<h2>Examples</h2>
+
+<h3>Create a valid media query with an @ rule:</h3>
+
+```javascript
+const breakpoint = breakpoints.width('sm');
+
+console.log(breakopint); // 600
+```

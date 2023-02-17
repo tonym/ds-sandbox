@@ -1,0 +1,55 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Helpers/useInt" />
+
+<h1>useInt</h1>
+
+Force an integer. If a number is provided, the number is returned, if a string is provided, it will be parsed as an integer and returned.
+
+<h2>API</h2>
+
+<h3>Import</h3>
+
+Path import
+
+```javascript
+import useInt from '@opensesame/gemini/helpers/useInt';
+```
+
+Named import (use with Angular)
+
+```javascript
+import { useInt } from '@opensesame/gemini';
+```
+
+<h3>Signature</h3>
+
+```javascript
+useInt<T>(value: T): number | NaN
+```
+
+<h3>Parameters</h3>
+
+<ul>
+  <li>
+    <strong>value</strong> : Any value to be cast to a number.
+  </li>
+</ul>
+
+<h3>Returns</h3>
+
+<ul>
+  <li>
+    <strong>number | NaN</strong>
+  </li>
+</ul>
+
+<h2>Examples</h2>
+
+<h3>Cast a string to a number:</h3>
+
+```javascript
+const int = useInt('5');
+
+console.log(int); // 5
+```

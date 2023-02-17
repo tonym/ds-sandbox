@@ -1,0 +1,342 @@
+import { Meta } from '@storybook/addon-docs';
+import Github from './assets/github.svg';
+import MaterialDesign from './assets/material-design.svg';
+import MaterialUI from './assets/material-ui.svg';
+
+<Meta title="Home" />
+
+<style>{`
+  .brand-image {
+    margin-right: 6px;
+    vertical-align: top;
+    width: 58px;
+  }
+  .caption {
+    color: #666;
+    font-size: 12px;
+    text-align: center;
+  }
+  .card {
+    display: flex;
+    height: 160px;
+    max-height: 160px;
+  }
+  .card-anchor {
+    margin-bottom: 4%;
+    width: 48%;
+  }
+  .card-description {
+    color: #666;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 8px 0 0 0;
+  }
+  .card-media {
+    align-items: center;
+    background-color: #18171f;
+    display: flex;
+    justify-content: center;
+    min-width: 40%;
+    width: 40%;
+  }
+  .card-media img {
+    height: 100px;
+    width: 100px;
+  }
+  .card-title {
+    color: #0e0e0e;
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+  }
+  .cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4%;
+  }
+  .content {
+    padding-top: 360px;
+  }
+  .cta {
+    color: #fff ! important;
+    margin-top: 16px;
+  }
+  .hero {
+    align-items: center;
+    background-image: url('images/hero-pattern.png'), linear-gradient(90deg, #242424 0.07%, #0e0e0e 100%);
+    background-position: top right;
+    background-repeat: no-repeat;
+    background-size: contain;    display: flex;
+    height: 400px;
+    justify-content: center;
+    left: 0;
+    min-width: 840px;
+    padding: 0 20px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+  .hero-content {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    max-width: 1000px;
+    width: 100%;
+  }
+  .hero-content-container {
+    flex: 1;
+  }
+  .link-item {
+    align-items: flex-start;
+    color: #333333;
+    display: block;
+    border: 1px solid #00000010;
+    border-radius: 5px;
+    display: flex;
+    padding: 20px 30px 20px 15px;
+    transition: background 150ms ease-out, border 150ms ease-out, transform 150ms ease-out;
+  }
+  .link-item img {
+    flex: none;
+    height: 40px;
+    margin-right: 15px;
+    width: 40px;
+  }
+  .link-item span {
+    font-size: 14px;
+    line-height: 20px;
+  }
+  .link-item strong {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .link-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    row-gap: 10px;
+  }
+  .rocket {
+    height: 310px;
+    width: 310px;
+  }
+  .rocket-container {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+  }
+  .subtitle {
+    color: #fafafa;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+  .large {
+    font-size: 30px;
+  }
+  .small {
+    font-size: 20px;
+  }
+  .title {
+    color: #e88754;
+    font-weight: 700;
+    font-size: 70px;
+    line-height: 1;
+  }
+  @media (max-width: 1020px) {
+    .subtitle {
+      font-size: 22px;
+    }
+  }
+  @media (min-width: 620px) {
+    .link-list {
+      row-gap: 20px;
+      column-gap: 20px;
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media all and (-ms-high-contrast:none) {
+    .link-list {
+      display: -ms-grid;
+      -ms-grid-columns: 1fr 1fr;
+      -ms-grid-rows: 1fr 1fr;
+    }
+  }
+
+
+`}</style>
+
+<div class="hero">
+  <div class="hero-content">
+    <div class="hero-content-container">
+      <h1 class="title">Gemini</h1>
+      <p class="subtitle large">Design system</p>
+      <p class="subtitle small">Create beautiful, consistent, customizable user experiences and applications with token-driven themes.</p>
+      <p class="subtitle">
+        <a
+          class="cta og-button-button-base-root og-button-root og-button-contained og-button-contained-color-info"
+          href="/?path=/docs/installation--page"
+        >
+          <span class="og-button-label">
+            <span class="og-button-start-icon"></span>
+            <span>Get Started</span>
+            <span class="og-button-end-icon"></span>
+          </span>
+        </a>
+      </p>
+    </div>
+    <div class="rocket-container"></div>
+  </div>
+</div>
+
+<div class="content">
+<div class="cards">
+  <a class="card-anchor" href="/?path=/docs/getting-started-themes--page">
+    <div class="card og-card-root og-paper-elevation1 og-paper-rounded">
+      <div class="card-media"><img src="images/solar-system.svg" alt="illustration of the solar system" /></div>
+      <div class="card-content og-card-content-root">
+        <p class="card-title">Themes</p>
+        <p class="card-description">Themes are platform agnostic JSON files that let you apply a consistent look to your UI.</p>
+      </div>
+    </div>
+  </a>
+  <a class="card-anchor" href="/?path=/docs/getting-started-styles--page">
+    <div class="card og-card-root og-paper-elevation1 og-paper-rounded">
+      <div class="card-media"><img src="images/astronaut.svg" alt="illustration of an astronaut" /></div>
+      <div class="card-content og-card-content-root">
+        <p class="card-title">Styles</p>
+        <p class="card-description">The JSS style system and how to use it for styling everywhere.</p>
+      </div>
+    </div>
+  </a>
+  <a class="card-anchor" href="/?path=/docs/components-overview--page">
+    <div class="card og-card-root og-paper-elevation1 og-paper-rounded">
+      <div class="card-media"><img src="images/stars.svg" alt="illustration of stars" /></div>
+      <div class="card-content og-card-content-root">
+        <p class="card-title">Components</p>
+        <p class="card-description">Property driven user interface components for Angular.</p>
+      </div>
+    </div>
+  </a>
+  <a class="card-anchor" href="/?path=/docs/geminicss--page">
+    <div class="card og-card-root og-paper-elevation1 og-paper-rounded">
+      <div class="card-media"><img src="images/space-cockpit.svg" alt="illustration of a spaceship cockpit" /></div>
+      <div class="card-content og-card-content-root">
+        <p class="card-title">GeminiCSS</p>
+        <p class="card-description">All the CSS of Gemini in a single, theme-driven file for any platform.</p>
+      </div>
+    </div>
+  </a>
+  <a class="card-anchor" href="/?path=/docs/getting-started-images--page">
+    <div class="card og-card-root og-paper-elevation1 og-paper-rounded">
+      <div class="card-media"><img src="images/telescope.svg" alt="illustration of a telescope" /></div>
+      <div class="card-content og-card-content-root">
+        <p class="card-title">Images</p>
+        <p class="card-description">A fully customizeable image optimization system.</p>
+      </div>
+    </div>
+  </a>
+  <a class="card-anchor" href="/?path=/docs/theming-engine-overview--page">
+    <div class="card og-card-root og-paper-elevation1 og-paper-rounded">
+      <div class="card-media"><img src="images/atom.svg" alt="illustration of an atom" /></div>
+      <div class="card-content og-card-content-root">
+        <p class="card-title">Theming Engine</p>
+        <p class="card-description">The Javascript library for building custom components and styling solutions</p>
+      </div>
+    </div>
+  </a>
+  <a class="card-anchor" href="/?path=/docs/components-svg-icon--svg-icon">
+    <div class="card og-card-root og-paper-elevation1 og-paper-rounded">
+      <div class="card-media"><img src="images/flag.svg" alt="illustration of a flag" /></div>
+      <div class="card-content og-card-content-root">
+        <p class="card-title">Icons</p>
+        <p class="card-description">All the Material Icons as SVGs, and a system to add your own using the SvgIcon component.</p>
+      </div>
+    </div>
+  </a>
+  <a class="card-anchor" href="/?path=/docs/composites-overview--page">
+    <div class="card og-card-root og-paper-elevation1 og-paper-rounded">
+      <div class="card-media"><img src="images/space-rover-2.svg" alt="illustration of a space rover" /></div>
+      <div class="card-content og-card-content-root">
+        <p class="card-title">Composites</p>
+        <p class="card-description">Powerful examples using Gemini in complex, data-aware user flows.</p>
+      </div>
+    </div>
+  </a>
+</div>
+<p>
+  The Gemini Design System by OpenSesame is a Material Design based pattern library, JSS theming engine, and Angular component library. The
+  theming engine is a set of Javascript functions that work in any browser and any framework. The component library is a collection of
+  Angular components that come tested and ready to use in an Angular UI.
+</p>
+
+<h3>Reference</h3>
+<p>
+  Gemini is built using the principles of{' '}
+  <strong>
+    <a href="https://atomicdesign.bradfrost.com/table-of-contents/" target="_blank">
+      Atomic Design
+    </a>
+  </strong>
+  , which defines the patterns of component driven design and development. Read more about component driven design at <strong>
+    <a href="https://www.componentdriven.org/" target="_blank">
+      componentdriven.org
+    </a>
+  </strong>.
+</p>
+
+<div className="link-list">
+  <a className="link-item" href="https://material.io/" target="_blank">
+    <img src={MaterialDesign} alt="Material Design" />
+    <span>
+      <strong>Material Design</strong>
+      Design documentation by Google
+    </span>
+  </a>
+  <a className="link-item" href="https://material-ui.com/" target="_blank">
+    <img src={MaterialUI} alt="Material UI" />
+    <span>
+      <strong>Material UI for React</strong>
+      Inspiration and patterns for Gemini
+    </span>
+  </a>
+  <a className="link-item" href="https://github.com/OpenSesame/ux-gemini" target="_blank">
+    <img src={Github} alt="Github" />
+    <span>
+      <strong>Gemini source code</strong>
+      Github repository (private)
+    </span>
+  </a>
+  <a className="link-item" href="https://github.com/OpenSesame/ux-gemini-demo" target="_blank">
+    <img src={Github} alt="Github" />
+    <span>
+      <strong>Gemini demo</strong>
+      Demo app for development and testing
+    </span>
+  </a>
+</div>
+
+<br />
+<hr />
+<br />
+
+<h4>Imagine, Dream, Create</h4>
+
+<img src="images/GT4.jpg" alt="Ed White aboard Gemini 4" />
+<div class="caption">Ed White aboard Gemini IV (photo: NASA)</div>
+
+<div style={{ paddingTop: '24px', textAlign: 'center ' }}>
+  <p>
+    <a href="https://en.wikipedia.org/wiki/Project_Gemini#Pronunciation" target="_blank">
+      Is it pronounced "gemin-ee" or "gemin-eye?"
+    </a>
+  </p>
+  <p>
+    <sub>
+      Space illustrations by <a href="https://goodstuffnononsense.com/" target="_blank">Good Stuff No Nonsense</a>.
+    </sub>
+  </p>
+</div>
+</div>

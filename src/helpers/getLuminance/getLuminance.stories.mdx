@@ -1,0 +1,87 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Helpers/getLuminance" />
+
+<h1>getLuminance</h1>
+
+Get the luminance value of a given color.
+
+<h2>API</h2>
+
+<h3>Import</h3>
+
+Path import
+
+```javascript
+import getLuminance from '@opensesame/gemini/helpers/getLuminance';
+```
+
+Named import (use with Angular)
+
+```javascript
+import { getLuminance } from '@opensesame/gemini';
+```
+
+<h3>Signature</h3>
+
+```javascript
+getLuminance(composedColor: string): number
+```
+
+<h3>Parameters</h3>
+
+<ul>
+  <li>
+    <strong>composedColor</strong> : A valid RGB, RGBA, HSL, HSLA, or hex color string.
+  </li>
+</ul>
+
+<h3>Returns</h3>
+
+<ul>
+  <li>
+    <strong>number</strong>
+  </li>
+</ul>
+
+<h2>Examples</h2>
+
+<h3>Calculate the luminance of an HSL color:</h3>
+
+```javascript
+const luminance = getLuminance('hsl(0, 0%, 100%)');
+
+console.log(luminance); // 1
+```
+
+<h3>Calculate the luminance of an RGB color:</h3>
+
+```javascript
+const luminance = getLuminance('rgb(255,255,255)');
+
+console.log(luminance); // 1
+```
+
+<h3>Calculate the luminance of an RGBA color:</h3>
+
+```javascript
+const luminance = getLuminance('rgb(255,255,255,0.8)');
+
+console.log(luminance); // 1
+```
+
+<h3>Calculate the luminance of a hex color:</h3>
+
+```javascript
+const luminance = getLuminance('#1c1c1c');
+
+console.log(luminance); // 0.01
+```
+
+<h3>Calculate the luminance of a short hex color:</h3>
+
+```javascript
+const luminance = getLuminance('#fff');
+
+console.log(luminance); // 1
+```

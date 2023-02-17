@@ -1,0 +1,285 @@
+import { Meta } from '@storybook/addon-docs';
+import provideTheme from '../styles/provideTheme/index';
+import useTheme from '../styles/useTheme/index';
+import ReactJson from 'react-json-view';
+import { getParameters } from 'codesandbox/lib/api/define';
+import { Template } from '../sandbox/templates/angular';
+
+export function prepareCodeSample(codeSample) {
+  const regExp = /\/\/nl/gm;
+  return codeSample.replace(regExp, '');
+}
+
+<script>provideTheme();</script>
+
+<Meta title="Develop with Gemini/Themes" />
+
+<h1>Themes</h1>
+<p>
+  The theme specifies all the design aspects of an application. This includes things like the color of components, darkness or lightness of
+  the surfaces, shadows and their levels, the shape of elements and components, etc.
+</p>
+<p>
+  Themes let you customize some, or all, of the visual design. Beyond that, themes also provide some useful developer tools to calculate
+  distances, generate breakpoints, and work with color.
+</p>
+
+<h2>Default theme</h2>
+
+<h3>Gemini core theme</h3>
+<ReactJson
+  collapsed={1}
+  displayDataTypes={false}
+  displayObjectSize={false}
+  enableClipboard={false}
+  iconStyle="triangle"
+  name={null}
+  quotesOnKeys={false}
+  theme="monokai"
+  src={useTheme()}
+/>
+
+<h3>Theme interfaces</h3>
+<p>The interface for a theme can be imported from Gemini.</p>
+
+```javascript
+import { Theme } from '@opensesame/gemini';
+```
+
+<p>The interface for theme options (used when customizing)</p>
+
+```javascript
+import { ThemeOptions } from '@opensesame/gemini';
+```
+
+<h2>Customizing</h2>
+
+<p>
+  Everything in the theme can be customized. For reference, take a look at the default theme above. It's a JS object. The Gemini theming
+  engine compiles this object, and saves it in its internal store. It's then used by the library components to figure out how to apply
+  style. If we want to override any part of it, we can pass our own object with just the things we want to change.
+</p>
+
+<p>
+  Note how we include the items we want to override using the same schema as the default theme, in this case, the primary and secondary
+  colors, the default background, and the border radius. Be sure to use the ThemeOptions interface when creating the theme options object,
+  and pass it to the theme provider.
+</p>
+
+```javascript
+const themeOptions: ThemeOptions = {
+  palette: {
+    background: {
+      default: '#fff'
+    },
+    primary: {
+      main: '#f28132'
+    },
+    secondary: {
+      main: '#005e9e'
+    }
+  },
+  shape: {
+    borderRadius: 2
+  }
+};
+
+provideTheme(themeOptions);
+```
+
+<p>
+  Now the theme is customized using your changes. Everything else in the theme is the same as the default. For reference, here is the
+  customized theme in the context of an Angular application.
+</p>
+
+export const themesAngularSample = `
+import { Component, NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { ButtonModule, cssBaseline, provideTheme, ThemeOptions } from '@opensesame/gemini';
+//nl
+const themeOptions: ThemeOptions = {
+  palette: {
+    background: {
+      default: '#fff'
+    },
+    primary: {
+      main: '#F545C9'
+    },
+    secondary: {
+      main: '#005e9e'
+    }
+  },
+  shape: {
+    borderRadius: 2
+  }
+};
+//nl
+provideTheme(themeOptions);
+cssBaseline();
+//nl
+@Component({
+  selector: 'og-app',
+  template: '<og-button color="primary" variant="contained">I am a button</og-button>'
+})
+export class AppComponent {}
+//nl
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule, ButtonModule],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+`;
+
+export function prepareThemesAngularSample() {
+  const template = { ...Template };
+  const component = prepareCodeSample(themesAngularSample).replace(/@NgModule[\s\S]*/gm, '');
+  const module = `
+import { AppComponent } from './app.component';
+${prepareCodeSample(themesAngularSample).replace(/@Component[\s\S]*(@NgModule)/gm, '$1')}
+`;
+  template.files['src/app/app.component.ts'] = {
+    content: component
+  };
+  template.files['src/app/app.module.ts'] = {
+    content: module
+  };
+  return getParameters(template);
+}
+
+export const themesAngularSampleParameters = prepareThemesAngularSample();
+
+<code className="language-jsx">{prepareCodeSample(themesAngularSample)}</code>
+<form action="https://codesandbox.io/api/v1/sandboxes/define" method="POST" target="_blank">
+  <input type="hidden" name="parameters" value={themesAngularSampleParameters} />
+  <div className="sandbox-sample">
+    <input type="image" height="32" src="https://codesandbox.io/static/img/play-codesandbox.svg" alt="Edit in codesandbox" />
+  </div>
+  <hr />
+</form>
+
+
+<p>If using React with MUI, Gemini can create theme options for you, but you can still use a custom theme of your own.</p>
+
+```javascript
+import { createTheme, ThemeOptions, ThemeProvider } from '@mui/material/styles';
+import cssBaseline from '@opensesame/gemini/styles/cssBaseline';
+import { ThemeOptions } from '@opensesame/gemini';
+import { AppBar, Button } from '@mui/material';
+
+const themeOptions: ThemeOptions = {
+  palette: {
+    background: {
+      default: '#fff'
+    },
+    primary: {
+      main: '#f28132'
+    },
+    secondary: {
+      main: '#005e9e'
+    }
+  },
+  shape: {
+    borderRadius: 2
+  }
+};
+
+const theme = createTheme(themeOptions);
+cssBaseline();
+
+function App() {
+  return (
+    <ThemeProvider theme={theme}>
+      <AppBar>Gemini for React</AppBar>
+      <div>
+        <Button variant="contained">Primary contained</Button>
+        <Button variant="outlined">Primary outlined</Button>
+      </div>
+      <div>
+        <Button color="secondary" variant="contained">
+          Secondary contained
+        </Button>
+        <Button color="secondary" variant="outlined">
+          Secondary outlined
+        </Button>
+      </div>
+    </ThemeProvider>
+  );
+}
+
+export default App;
+```
+
+<p>
+  So you don't have a framework, or you're using a framework without a component library? Use a custom theme, Gemini theming engine, and a
+  template engine of your choice.
+</p>
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gemini</title>
+
+    <script>
+      const Mustache = require('Mustache');
+      const provideClasses = require('@opensesame/gemini/styles/provideClasses');
+      const provideTheme = require('@opensesame/gemini/styles/provideTheme');
+
+      const themeOptions = {
+        palette: {
+          background: {
+            default: '#fff'
+          },
+          primary: {
+            main: '#f28132'
+          },
+          secondary: {
+            main: '#005e9e'
+          }
+        }
+      };
+
+      provideTheme(themeOptions);
+
+      function styles(theme) {
+        return {
+          wrapper: {
+            backgroundColor: theme.palette.background.default,
+            color: theme.palette.primary.main
+          }
+        };
+      }
+
+      const classes = provideClasses(styles);
+
+      function render() {
+        const template = document.getElementById('template').innerHTML;
+        const rendered = Mustache.render(template, classes);
+        document.getElementById('target').innerHTML = rendered;
+      }
+    </script>
+  </head>
+  <body onload="render()">
+    <div id="target">loading...</div>
+    <template id="template">
+      <div class="{{classes.wrapper}}">
+        <p>Hello world!</p>
+      </div>
+    </template>
+  </body>
+</html>
+```
+
+<p>
+  If all you need is the theme itself, Gemini provides a <code>useTheme</code> method.
+</p>
+
+```javascript
+const theme = useTheme();
+
+console.log(theme.spacing.unit); // 8
+```

@@ -1,0 +1,481 @@
+import { Meta } from '@storybook/addon-docs';
+import createStyles from '../styles/createStyles/index';
+import provideClasses from '../styles/provideClasses/index';
+import {
+  Amber,
+  Blue,
+  BlueGrey,
+  Brown,
+  Common,
+  Cyan,
+  DeepOrange,
+  DeepPurple,
+  Green,
+  Grey,
+  Indigo,
+  LightBlue,
+  LightGreen,
+  Lime,
+  Orange,
+  Pink,
+  Purple,
+  Red,
+  Teal,
+  Yellow
+} from '../colors/index';
+
+export const makeColors = (colors, key) => {
+  const ret = {};
+  for (const color in colors) {
+    if (colors.hasOwnProperty(color)) {
+      ret[`${key}${color}`] = { backgroundColor: colors[color] };
+    }
+  }
+  return ret;
+};
+
+export const ambers = makeColors(Amber, 'amber');
+export const blues = makeColors(Blue, 'blue');
+export const blueGreys = makeColors(BlueGrey, 'blueGrey');
+export const browns = makeColors(Brown, 'brown');
+export const commons = makeColors(Common, 'common');
+export const cyans = makeColors(Cyan, 'cyan');
+export const deepOranges = makeColors(DeepOrange, 'deepOrange');
+export const deepPurples = makeColors(DeepPurple, 'deepPurple');
+export const greens = makeColors(Green, 'green');
+export const greys = makeColors(Grey, 'grey');
+export const indigos = makeColors(Indigo, 'indigo');
+export const lightBlues = makeColors(LightBlue, 'lightBlue');
+export const lightGreens = makeColors(LightGreen, 'lightGreen');
+export const limes = makeColors(Lime, 'lime');
+export const oranges = makeColors(Orange, 'orange');
+export const pinks = makeColors(Pink, 'pink');
+export const purples = makeColors(Purple, 'purple');
+export const reds = makeColors(Red, 'red');
+export const teals = makeColors(Teal, 'teal');
+export const yellows = makeColors(Yellow, 'yellow');
+
+export const styles = createStyles({
+  color: {
+    flex: '1 1 0px'
+  },
+  colors: {
+    display: 'flex'
+  },
+  colorTag: {
+    textAlign: 'center'
+  },
+  swatch: {
+    height: 0,
+    paddingBottom: '100%',
+    width: '100%'
+  },
+  swatchCommon: {
+    height: 0,
+    paddingBottom: '10%',
+    width: '100%'
+  },
+  ...ambers,
+  ...blues,
+  ...blueGreys,
+  ...browns,
+  ...commons,
+  ...cyans,
+  ...deepOranges,
+  ...deepPurples,
+  ...greens,
+  ...greys,
+  ...indigos,
+  ...lightBlues,
+  ...lightGreens,
+  ...limes,
+  ...oranges,
+  ...pinks,
+  ...purples,
+  ...reds,
+  ...teals,
+  ...yellows
+});
+
+export const classes = provideClasses(styles);
+
+export const Swatch = props => {
+  const { colors } = props;
+  const colorsKeys = Object.keys(colors);
+  return (
+    <>
+      <div class={classes.colors}>
+        {colorsKeys.map(color => (
+          <div class={classes.color} key={color}>
+            <div class={`${classes[color]} ${classes.swatch}`}></div>
+            <div class={classes.colorTag}>{color.replace(/[a-z]/g, '')}</div>
+          </div>
+        ))}
+      </div>
+    </>
+  );
+};
+
+<Meta title="Develop with Gemini/Color" />
+
+<h1>Color</h1>
+
+<p>
+  Look around you. How many different colors do you see, or can you imagine? Even if you can only partially see color or can't see color,
+  how many different shades can you detect? Color is all around us, some vibrant, some subtle, all of which come from light. When you
+  understand how color works, you know how we can use color in our creations.
+</p>
+
+<h2>Understanding color</h2>
+
+<p>
+  Have you ever used a prism or seen a prism where light enters one side and emerges from the other in a rainbow of color? What you're
+  seeing are the components of the visible spectrum separated into their various wavelengths. Visible light, the energy we can see, is part
+  of the electromagnetic spectrum but a tiny part. It's a very narrow bandwidth between radio waves, microwaves, and stuff on the low end,
+  and x-rays, gamma rays, and other stuff on the high end. While we can use the entire spectrum for remarkable and magical things, such as
+  radio, cell phones, cooking, medicine, etc., this narrow bandwidth is the only part of it that we can see.
+</p>
+<img src="images/spectrum.jpg" alt="prism creating a rainbow" style={{ float: 'right', marginLeft: '24px', width: '50%' }} />
+<p>
+  The visible spectrum, that part of the electromagnetic spectrum that we see, is often described as a rainbow, red, orange, yellow, green,
+  blue, violet. When using color, such as in a user interface, we further organize the spectrum into primary colors. You might be familiar
+  with the primary colors red, yellow, and blue, and they certainly are the primary colors we use when building color on a canvas or when
+  decorating, however, we use the primary colors red, green, and blue for our purposes of creating digital colors, roughly dividing the
+  visible spectrum into thirds and giving us enough to describe any color in a given color system. A color system describes color
+  numerically, different from a color space, such as sRGB, which defines the spectrum of available colors. The color system, then, describes
+  the colors available within the color space, but not all color systems use the same primary colors.
+</p>
+<img src="images/colorpicker.png" alt="prism creating a rainbow" style={{ float: 'left', marginRight: '24px', width: '15%' }} />
+<p>
+  Let's think about that prism again. All the images you see show the rainbow from the side, but what if you imagine it from on end? It
+  doesn't work like that, but let's pretend it does. How would it look? Maybe it would look like the color picker in Photoshop or on a Mac,
+  where you have a circle full of color, and you move the cursor around until you find one you like? For all intent and purpose, that's the
+  visible spectrum on end. The important thing about this concept is that colors have opposites, and different color systems use a set of
+  primary colors or the opposite set of colors. CMY, or, when used in print, CMYK uses the primary colors cyan, magenta, and yellow. (the K
+  is black, used when mixing ink or something) RGB uses red, green, and blue, but both CMY and RGB describe color the same way as numerical
+  sets. They are simply opposites of each other. The opposite of red is cyan, the opposite of green is magenta, and the opposite of blue is
+  yellow.
+</p>
+<p>
+  When thinking about color, you can also think in opposites. Adding blue is the same as removing yellow, and adding cyan is the same as
+  removing red. Color systems, therefore, work by either adding color or subtracting color. One is additive, and the other subtractive. RGB
+  is an additive color system, which is what we need for our work, and CMY is a subtractive color system, which is how color in nature
+  works.
+</p>
+<img src="images/rgb.cmyk.png" alt="prism creating a rainbow" style={{ float: 'right', marginLeft: '24px', width: '40%' }} />
+<p>
+  The world around us is a subtractive color system. It works by subtracting color from light to create the color we see. It is subtractive
+  by necessity because the color we see in nature reflects from objects that inherently have no color. An apple, for instance, has no color,
+  but when light, which is pure white, reflects off the apple, the fruit absorbs specific wavelengths from the color spectrum at various
+  rates, which leaves the reflected color for us to see. The apple, to us, is red, or green, or yellow depending on variety and ripeness,
+  etc. The red apple is red because it absorbed cyan, which is the opposite of red. An object that absorbs no color is white, and an object
+  that absorbs all color is black. Get it? Good, because we can't use subtractive color.
+</p>
+<p>
+  Subtractive color is how we perceive the color of reflected light, but we're not observing reflected light when we look at a user
+  interface. We're observing light directly from the source, a monitor or a phone or a screen of some sort. Since the light isn't reflected,
+  we can't subtract from white. Instead, we add to black. We create color by adding it to the incident, not by subtracting it from the
+  reflection, which brings us, finally, to RGB, or, as sometimes used, RGBA. We add red, green, and/or blue in different ratios to create
+  the color we see on the screen. Adding all the colors in the same amount gives a shade of gray. (both white and black are shades of gray)
+  The A in RGBA is the alpha channel, which we use to describe the opacity of the additive color.
+</p>
+<p>
+  RGB is a set of three numbers, one for each channel, red, green, and blue, between 0 and 255. True red, in RGB, is 255,0,0. Each number
+  describes the saturation of each channel or how much of the color is there. No color at all is represented by 0, and all the color is
+  represented by 255. Varying the saturation of each channel gives us any one of literally millions of available colors. RGB color channels
+  are between 0 and 255 decimal (base 10), but if we convert those numbers to hexadecimal (base 16), we get the hex colors so often used
+  when styling our user interfaces. Hex colors are a triplet, too, but they are hexadecimal numbers, not decimal numbers. That means RGB
+  channels have a numerical value between 00 and ff in hexadecimal. The hex value for true red, then, is #ff0000. The leading # is what
+  tells the software, "this is a hexadecimal number."
+</p>
+<p>Now let's put it to use.</p>
+
+<h2>The color system</h2>
+
+<p>
+  Material design specifies two colors, primary and secondary, as base styling, branding and presentional colors. Content specific colors
+  are specified by purpose or placement, such as text colors, error colors, background colors, etc. The colors and their use are flexible,
+  you can use or extend the colors in your theme, but each color, regardless of use, offers dark and light variants in addition to the main
+  color variant.
+</p>
+<p>
+  theme provides for all the Material color variants in the palette. Have a look at the default theme for an example of each color and the
+  variants defined.
+</p>
+
+<h2>Using color components</h2>
+
+<p>
+  Gemini provides color as components. Each color is a component you can import and use in your application. The color components offer a
+  range of colors with numerical keys for primary use, and alternate keys for secondary use. If we look at a color sample, you can see how
+  the colors are presented in the object.
+</p>
+<p>The red component, for example, provides the following range of color.</p>
+
+<Swatch colors={reds} />
+
+<p>The color object is imported like any other.</p>
+
+```javascript
+import red from '@opensesame/gemini/core/colors/red';
+```
+
+<p>The color object looks like this:</p>
+
+```javascript
+{
+  50: '#ffebee',
+  100: '#ffcdd2',
+  200: '#ef9a9a',
+  300: '#e57373',
+  400: '#ef5350',
+  500: '#f44336',
+  600: '#e53935',
+  700: '#d32f2f',
+  800: '#c62828',
+  900: '#b71c1c',
+  A100: '#ff8a80',
+  A200: '#ff5252',
+  A400: '#ff1744',
+  A700: '#d50000'
+}
+```
+
+<p>
+  You can use the color object to reference colors from the swatch. Here's an example of how you can specify a primary color in your theme.
+</p>
+
+```javascript
+import { Component, NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { CardModule, cssBaseline, provideTheme, red, ThemeOptions } from '@opensesame/gemini';
+
+const themeOptions: ThemeOptions = {
+  palette: {
+    primary: {
+      light: red[100],
+      main: red[500],
+      dark: red[900]
+    }
+  }
+};
+
+provideTheme(themeOptions);
+cssBaseline();
+
+@Component({
+  selector: 'app-root',
+  template: '<og-card>I am a card</og-card>'
+})
+export class AppComponent {}
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule, CardModule],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+```
+
+<h2>Using theme colors</h2>
+
+<p>
+  Using theme colors in your style objects is as simple as using other items in the theme. So far we used the color objects to add color
+  values to the theme, but let's see how to use them in our app components. For reference, look at the default theme to see what colors are
+  available in the theme palette.
+</p>
+<p>
+  In the previous section, we assigned a few shades of red to our primary palette. Let's use that primary color in a style object to create
+  a branding element with a hover state.
+</p>
+
+```javascript
+import { Component, NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { Classes, createStyles, Styles, Theme, WithStyles } from '@opensesame/gemini';
+
+const styles = (theme: Theme): Styles => createStyles({
+  brand: {
+    backgroundColor: theme.palette.primary.main,
+    '&:hover': {
+      backgroundColor: theme.palette.primary.light
+    }
+  }
+});
+
+@Component({
+  selector: 'app-root',
+  template: '<div [class]="classes.brand">
+              All the content goes here
+             </div>'
+})
+@WithStyles(styles)
+export class AppComponent {
+  public classes: Classes;
+}
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+```
+
+<h2>Available colors</h2>
+
+<h3>Amber</h3>
+
+```javascript
+import { amber } from '@opensesame/gemini';
+```
+
+<Swatch colors={ambers} />
+
+<h3>Blue</h3>
+
+```javascript
+import { blue } from '@opensesame/gemini';
+```
+
+<Swatch colors={blues} />
+
+<h3>Blue grey</h3>
+
+```javascript
+import { blueGrey } from '@opensesame/gemini';
+```
+
+<Swatch colors={blueGreys} />
+
+<h3>Brown</h3>
+
+```javascript
+import { brown } from '@opensesame/gemini';
+```
+
+<Swatch colors={browns} />
+
+<h3>Cyan</h3>
+
+```javascript
+import { cyan } from '@opensesame/gemini';
+```
+
+<Swatch colors={cyans} />
+
+<h3>Deep orange</h3>
+
+```javascript
+import { deepOrange } from '@opensesame/gemini';
+```
+
+<Swatch colors={deepOranges} />
+
+<h3>Deep purple</h3>
+
+```javascript
+import { deepPurple } from '@opensesame/gemini';
+```
+
+<Swatch colors={deepPurples} />
+
+<h3>Green</h3>
+
+```javascript
+import { green } from '@opensesame/gemini';
+```
+
+<Swatch colors={greens} />
+
+<h3>Grey</h3>
+
+```javascript
+import { grey } from '@opensesame/gemini';
+```
+
+<Swatch colors={greys} />
+
+<h3>Indigo</h3>
+
+```javascript
+import { indigo } from '@opensesame/gemini';
+```
+
+<Swatch colors={indigos} />
+
+<h3>Light blue</h3>
+
+```javascript
+import { lightBlue } from '@opensesame/gemini';
+```
+
+<Swatch colors={lightBlues} />
+
+<h3>Light green</h3>
+
+```javascript
+import { lightGreen } from '@opensesame/gemini';
+```
+
+<Swatch colors={lightGreens} />
+
+<h3>Lime</h3>
+
+```javascript
+import { lime } from '@opensesame/gemini';
+```
+
+<Swatch colors={limes} />
+
+<h3>Orange</h3>
+
+```javascript
+import { orange } from '@opensesame/gemini';
+```
+
+<Swatch colors={oranges} />
+
+<h3>Pink</h3>
+
+```javascript
+import { pink } from '@opensesame/gemini';
+```
+
+<Swatch colors={pinks} />
+
+<h3>Purple</h3>
+
+```javascript
+import { purple } from '@opensesame/gemini';
+```
+
+<Swatch colors={purples} />
+
+<h3>Red</h3>
+
+```javascript
+import { red } from '@opensesame/gemini';
+```
+
+<Swatch colors={reds} />
+
+<h3>Teal</h3>
+
+```javascript
+import { teal } from '@opensesame/gemini';
+```
+
+<Swatch colors={teals} />
+
+<h3>Yellow</h3>
+
+```javascript
+import { yellow } from '@opensesame/gemini';
+```
+
+<Swatch colors={yellows} />

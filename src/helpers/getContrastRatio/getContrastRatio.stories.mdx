@@ -1,0 +1,58 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Helpers/getContrastRatio" />
+
+<h1>getContrastRatio</h1>
+
+Calculates the contrast ratio between two colors.
+
+<h2>API</h2>
+
+<h3>Import</h3>
+
+Path import
+
+```javascript
+import getContrastRatio from '@opensesame/gemini/helpers/getContrastRatio';
+```
+
+Named import (use with Angular)
+
+```javascript
+import { getContrastRatio } from '@opensesame/gemini';
+```
+
+<h3>Signature</h3>
+
+```javascript
+getContrastRatio(foreground: string, background: string): number
+```
+
+<h3>Parameters</h3>
+
+<ul>
+  <li>
+    <strong>foreground</strong> : The foreground color.
+  </li>
+  <li>
+    <strong>background</strong> : The background color.
+  </li>
+</ul>
+
+<h3>Returns</h3>
+
+<ul>
+  <li>
+    <strong>number</strong>
+  </li>
+</ul>
+
+<h2>Examples</h2>
+
+<h3>Calculate a contrast ratio:</h3>
+
+```javascript
+const contrastRatio = getContrastRatio('#000', '#fff');
+
+console.log(contrastRatio); // 21
+```

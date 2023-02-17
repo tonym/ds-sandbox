@@ -1,0 +1,90 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Helpers/fade" />
+
+<h1>fade</h1>
+
+Fade a color. Applies an opacity to a color to create a "fade" or desaturated effect.
+
+<h2>API</h2>
+
+<h3>Import</h3>
+
+Path import
+
+```javascript
+import fade from '@opensesame/gemini/helpers/fade';
+```
+
+Named import (use with Angular)
+
+```javascript
+import { fade } from '@opensesame/gemini';
+```
+
+<h3>Signature</h3>
+
+```javascript
+fade(color: string, value: number): string
+```
+
+<h3>Parameters</h3>
+
+<ul>
+  <li>
+    <strong>color</strong> : A valid RGB, RGBA, HSL, HSLA, or hex color string.
+  </li>
+  <li>
+    <strong>value</strong> : How much to fade the color. A number between 0 and 1. Numbers out of range will be clamped between 0 and 1.
+  </li>
+</ul>
+
+<h3>Returns</h3>
+
+<ul>
+  <li>
+    <strong>string</strong>
+  </li>
+</ul>
+
+<h2>Examples</h2>
+
+<h3>Fade an HSL color:</h3>
+
+```javascript
+const fadedColor = fade('hsl(0, 0%, 0%)', 0.08);
+
+console.log(fadedColor); // hsla(0, 0%, 0%, 0.08)
+```
+
+<h3>Fade an RGB color:</h3>
+
+```javascript
+const fadedColor = fade('rgb(0, 0, 0)', 0.08);
+
+console.log(fadedColor); // rgba(0, 0, 0, 0.08)
+```
+
+<h3>Fade an RGBA color:</h3>
+
+```javascript
+const fadedColor = fade('rgba(0, 0, 0, 0.09)', 0.08);
+
+console.log(fadedColor); // rgba(0, 0, 0, 0.08)
+```
+
+<h3>Fade a hex color:</h3>
+
+```javascript
+const fadedColor = fade('#ffffff', 0.08);
+
+console.log(fadedColor); // rgba(0, 0, 0, 0.08)
+```
+
+<h3>Fade a short hex color:</h3>
+
+```javascript
+const fadedColor = fade('#fff', 0.08);
+
+console.log(fadedColor); // rgba(0, 0, 0, 0.08)
+```

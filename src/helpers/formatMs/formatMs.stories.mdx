@@ -1,0 +1,63 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Helpers/formatMs" />
+
+<h1>formatMs</h1>
+
+Formats a number as milliseconds. This does not convert a number to milliseconds, it rounds and formats a number for use in CSS. Very handy when building transitions.
+
+<h2>API</h2>
+
+<h3>Import</h3>
+
+Path import
+
+```javascript
+import formatMs from '@opensesame/gemini/helpers/formatMs';
+```
+
+Named import (use with Angular)
+
+```javascript
+import { formatMs } from '@opensesame/gemini';
+```
+
+<h3>Signature</h3>
+
+```javascript
+formatMs(value: number): string
+```
+
+<h3>Parameters</h3>
+
+<ul>
+  <li>
+    <strong>value</strong> : The number to format.
+  </li>
+</ul>
+
+<h3>Returns</h3>
+
+<ul>
+  <li>
+    <strong>string</strong>
+  </li>
+</ul>
+
+<h2>Examples</h2>
+
+<h3>Format an integer:</h3>
+
+```javascript
+const formattedString = formatMs(5);
+
+console.log(formattedString); // 5ms
+```
+
+<h3>Format a decimal:</h3>
+
+```javascript
+const formattedString = formatMs(5.8);
+
+console.log(formattedString); // 6ms
+```

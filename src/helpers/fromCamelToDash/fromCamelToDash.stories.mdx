@@ -1,0 +1,55 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Helpers/fromCamelToDash" />
+
+<h1>fromCamelToDash</h1>
+
+Converts camel case to dash (kebab) case.
+
+<h2>API</h2>
+
+<h3>Import</h3>
+
+Path import
+
+```javascript
+import fromCamelToDash from '@opensesame/gemini/helpers/fromCamelToDash';
+```
+
+Named import (use with Angular)
+
+```javascript
+import { fromCamelToDash } from '@opensesame/gemini';
+```
+
+<h3>Signature</h3>
+
+```javascript
+fromCamelToDash(value: string): string
+```
+
+<h3>Parameters</h3>
+
+<ul>
+  <li>
+    <strong>value</strong> : The string to format.
+  </li>
+</ul>
+
+<h3>Returns</h3>
+
+<ul>
+  <li>
+    <strong>string</strong>
+  </li>
+</ul>
+
+<h2>Examples</h2>
+
+<h3>Format a string:</h3>
+
+```javascript
+const formattedString = fromCamelToDash('callMeIshmael');
+
+console.log(formattedString); // call-me-ishmael
+```

@@ -1,0 +1,246 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Other Platforms" />
+
+<h1>Using Gemini with Other Platforms</h1>
+<p>Gemini provides functions and tools for working with any platform.</p>
+<h2>Quick start</h2>
+<p>The Gemini theming engine is a collection of Javascript functions that work on any platform, and in any modern browser.</p>
+<p>Gemini provides ES modules for path imports and is tree shakeable.</p>
+<p>
+  Gemini provides CommonJS modules for use with <code>require</code> statements.
+</p>
+
+<h2>Examples</h2>
+
+<p>Examples of using Gemini with various frameworks and tools.</p>
+
+<h3>Using Gemini styles with StyledComponents</h3>
+
+```javascript
+import { styled } from 'styled-components';
+import ButtonStyle from '@opensesame/gemini/components/Button';
+
+const Button = styled.button({
+  ...ButtonStyle.root,
+  ...ButtonStyle.contained,
+  ...ButtonStyle.containedColorPrimary
+});
+
+render(
+  <div>
+    <Button>Learn more</Button>
+  </div>
+);
+```
+
+<h3>Using Gemini theme with StyledComponents</h3>
+
+```javascript
+import { styled } from 'styled-components';
+import { provideTheme, useTheme } from '@opensesame/gemini';
+
+provideTheme();
+const theme = useTheme();
+
+const Button = styled.button`
+  background-color: ${theme.palette.primary.main};
+  border-radius: ${theme.shape.borderRadius};
+  color: ${theme.palette.primary.contrastText};
+`;
+
+render(
+  <div>
+    <Button>Learn more</Button>
+  </div>
+);
+```
+
+<h2>Using Gemini with other component libraries</h2>
+
+<p>Gemini theme, Radix, and Stitches</p>
+
+```javascript
+import { styled } from '@stitches/react';
+import * as Accordion from '@radix-ui/react-accordion';
+import provideTheme from '@opensesame/gemini/styles/provideTheme';
+import useTheme from '@opensesame/gemini/styles/useTheme';
+
+provideTheme();
+const theme = useTheme();
+
+const StyledAccordion = styled(Accordion.Root, {});
+const StyledItem = styled(Accordion.Item, {});
+const StyledHeader = styled(Accordion.Header, {
+  padding: theme.spacing.unit
+});
+const StyledTrigger = styled(Accordion.Trigger, {
+  ...theme.typography.variants.h6,
+  color: theme.palette.primary.main
+});
+const StyledPanel = styled(Accordion.Content, {
+  ...theme.typography.variants.body1
+});
+
+export default () => {
+  return (
+    <StyledAccordion type="single">
+      <StyledItem value="item-1">
+        <StyledHeader>
+          <StyledTrigger>Trigger text</StyledTrigger>
+        </StyledHeader>
+        <StyledPanel>Panel content</StyledPanel>
+      </StyledItem>
+    </StyledAccordion>
+  );
+};
+```
+
+<h3>Using Gemini with HTML, CSS, and Mustache</h3>
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gemini</title>
+
+    <script>
+      const Mustache = require('Mustache');
+      const cssBaseline = require('@opensesame/gemini/styles/cssBaseline');
+      const provideClasses = require('@opensesame/gemini/styles/provideClasses');
+      const provideTheme = require('@opensesame/gemini/styles/provideTheme');
+
+      provideTheme();
+      cssBaseline();
+
+      function styles(theme) {
+        return {
+          wrapper: {
+            backgroundColor: theme.palette.background.default,
+            color: theme.palette.primary.main
+          }
+        };
+      }
+
+      const classes = provideClasses(styles);
+
+      function render() {
+        const template = document.getElementById('template').innerHTML;
+        const rendered = Mustache.render(template, classes);
+        document.getElementById('target').innerHTML = rendered;
+      }
+    </script>
+  </head>
+  <body onload="render()">
+    <div id="target">loading...</div>
+    <template id="template">
+      <div class="{{classes.wrapper}}">
+        <p>Hello world!</p>
+      </div>
+    </template>
+  </body>
+</html>
+```
+
+<h3>Using Gemini styles with HTML, CSS, and Mustache</h3>
+
+<p>An example of how a styles object can be used with HTML and Mustache templates.</p>
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gemini</title>
+
+    <script>
+      const Mustache = require('Mustache');
+      const cssBaseline = require('@opensesame/gemini/styles/cssBaseline');
+      const PaperStyle = require('@opensesame/gemini/components/Paper/PaperStyle');
+      const provideClasses = require('@opensesame/gemini/styles/provideClasses');
+      const provideTheme = require('@opensesame/gemini/styles/provideTheme');
+
+      provideTheme();
+      cssBaseline();
+
+      const classes = provideClasses(PaperStyle);
+
+      function render() {
+        const template = document.getElementById('template').innerHTML;
+        const rendered = Mustache.render(template, classes);
+        document.getElementById('target').innerHTML = rendered;
+      }
+    </script>
+  </head>
+  <body onload="render()">
+    <div id="target">loading...</div>
+    <template id="template">
+      <div class="{{classes.root}} {{classes.elevation3}}">
+        <p>Hello world!</p>
+      </div>
+    </template>
+  </body>
+</html>
+```
+
+<p>How to handle multiple styles objects</p>
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gemini</title>
+
+    <script>
+      const Mustache = require('Mustache');
+      const cssBaseline = require('@opensesame/gemini/styles/cssBaseline');
+      const provideClasses = require('@opensesame/gemini/styles/provideClasses');
+      const provideTheme = require('@opensesame/gemini/styles/provideTheme');
+      const ButtonStyle = require('@opensesame/gemini/components/Button/ButtonStyle');
+      const PaperStyle = require('@opensesame/gemini/components/Paper/PaperStyle');
+      const TypographyStyle = require('@opensesame/gemini/components/Typography/TypographyStyle');
+
+      provideTheme();
+      cssBaseline();
+
+      const styles = {
+        button: ButtonStyle,
+        paper: PaperStyle,
+        typography: TypographyStyle
+      };
+
+      const classes = provideClasses(styles);
+
+      function render() {
+        const template = document.getElementById('template').innerHTML;
+        const rendered = Mustache.render(template, classes);
+        document.getElementById('target').innerHTML = rendered;
+      }
+    </script>
+  </head>
+  <body onload="render()">
+    <div id="target">loading...</div>
+    <template id="template">
+      <div class="{{classes.paper.root}} {{classes.paper.elevation3}}">
+        <p class="{{classes.typography.root}} {{classes.typography.body1}}">Hello world!</p>
+        <button
+          class="
+        {{classes.button.root}}
+        {{classes.button.contained}}
+        {{classes.button.containedColorPrimary}}"
+        >
+          Buy me coffee
+        </button>
+      </div>
+    </template>
+  </body>
+</html>
+```

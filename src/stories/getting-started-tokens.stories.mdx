@@ -1,0 +1,82 @@
+import { Meta } from '@storybook/addon-docs';
+import ReactJson from 'react-json-view';
+
+<Meta title="Develop with Gemini/Tokens" />
+
+<h1>Tokens</h1>
+<p>
+  Gemini uses design tokens when creating themes. Tokens are provided by design, uploaded from Figma, and converted into style stuff used by
+  themes and components.
+</p>
+<h2>What are tokens?</h2>
+<p>
+  Tokens are very small definitions of things designers need to create a design. A color value, for instance, is a token. So are border
+  radii, spacing units, fonts, and all the small things needed by both design and atoms. Tokens replace hard-coded values in designs and
+  themes with logical and descriptive names.
+</p>
+<p>
+  Gemini themes and components both use tokens. When you use a value from a Gemini theme, you are selecting the same token your designer
+  used. Figma and Gemini keep these tokens in sync automatically. If you're token based design changes, so do the tokens.
+</p>
+<h2>How it works</h2>
+<p>
+  Figma and Gemini communicate with each other via a Figma plugin. The plugin syncs changes to the tokens to the Gemini Github repository
+  where a Github action detects the change and converts the tokens to Javascript and creates Typescript types.
+</p>
+<p>
+  <img src="images/token-sets.png" alt="token sync diagram" />
+</p>
+<p>
+  Tokens are synced to Github in a single file. Each token file contains many token sets. Sets are tokens with different values. Imagine a
+  token called PrimaryColor. Set A might use blue for PrimaryColor, and set B might use red. To the designer or developer, using the token
+  PrimaryColor instead of the color value means you don't have to change your code when you switch sets.
+</p>
+<p>What does that mean? It means Simon and CourseCloud can both use the same tokens, they just use different sets.</p>
+<p>
+  Gemini uses these tokens in its themes. Colors are mapped to tokens that were defined in Figma. This is also true of typography, spacing,
+  borders, etc.
+</p>
+<h2>Using tokens</h2>
+<p>
+  By default, Gemini uses the OpenSesame brand token set. If you are using this set, you don't have to do anything. It's there
+  automatically. If, however, your designer has told you to use a different set, you have to provide that set.
+</p>
+<p>To provide a token set, first import the token set provider</p>
+
+Path import
+
+```javascript
+import provideTokens from '@opensesame/gemini/styles/provideTokens';
+```
+
+Named import (use with Angular)
+
+```javascript
+import { provideTokens } from '@opensesame/gemini';
+```
+
+<p>
+  Then provide the tokens in your code. Remember, you only have to do this if you are not using the default token set. The default token set
+  is provided automatically.
+</p>
+
+```javascript
+provideTokens('simon');
+```
+
+<p>
+  When using token sets, it's a good practice to provide tokens first, then provide your theme, then everything else. Here is what your
+  application's entry point might look like with a token set.
+</p>
+
+```javascript
+import { cssBaseline, provideTokens, provideTheme } from '@opensesame/gemini';
+
+provideTokens('simon');
+provideTheme();
+cssBaseline();
+
+export const MyApp = () => {
+  ...
+}
+```

@@ -1,0 +1,36 @@
+import { Meta } from '@storybook/addon-docs';
+import ReactJson from 'react-json-view';
+
+<Meta title="Contributing/Theming Engine" />
+
+<h1>Developing for the Gemini Theming Engine</h1>
+
+<p>
+  The Gemini Theming Engine is a collection of small javascript functions. They are either creators, providers or helpers. Separating
+  responsiblity allows for small, simple functions that each do only one thing.
+</p>
+
+<h2>Before you begin</h2>
+
+- Functions do one thing and one thing only.
+- Provision and creation are independant of each other.
+
+<h2>Creators and providers</h2>
+
+<p>
+  Creating and providing are two different things, and are intentionally kept separate. For example, a stylesheet has a stylesheet creator
+  and a stylesheet provider. The creator transforms JSS to CSS and returns a StyleSheet object. The provider injects it into the DOM. This
+  separation of concerns keeps the functions simple and easily testable.
+</p>
+
+<h2>Development</h2>
+
+<p>Development is simple, build small Javascript funcitons that each do one thing and one thing only.</p>
+
+- Avoid conditional blocks. If you have a conditional, you have 2 functions.
+- Ternary assignments are fine.
+- User data always wins. Spread user provided arguments over core defaults.
+
+<h2>Pull requests</h2>
+
+<p>Follow the same PR pattern as for any other engineering ticket. There is no checklist for theminig engine PRs.</p>

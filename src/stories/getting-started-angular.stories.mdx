@@ -1,0 +1,193 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { getParameters } from 'codesandbox/lib/api/define';
+import { Template } from '../sandbox/templates/angular';
+
+export function prepareCodeSample(codeSample) {
+  const regExp = /\/\/nl/gm;
+  return codeSample.replace(regExp, '');
+}
+
+<Meta title="Angular" />
+
+<h1>Using Angular components</h1>
+<p>
+  Using the Gemini Design System is meant to be simple. The theming engine and component library work in isolation. You can use either one,
+  or both in your project. Additionally, the components in the component library are self supporting, and only inject the styles they need.
+  Styles are managed, so they are shared between similar components wherever possible.
+</p>
+<h2>Quick start</h2>
+<p>Gemini components are Angular components, and work with Angular version 11.</p>
+<p>The Gemini theming engine is a collection of Javascript functions that work on any platform, and in any modern browser.</p>
+<h3>Using a component</h3>
+<p>Use a component by importing the component module in the same way you use any Angular module.</p>
+
+export const angularSample = `
+import { Component, NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { ButtonModule } from '@opensesame/gemini';
+//nl
+@Component({
+  selector: 'og-app',
+  template: '<og-button>I am a button</og-button>'
+})
+export class AppComponent {}
+//nl
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule, ButtonModule],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+`;
+
+export function prepareAngularSample() {
+  const template = { ...Template };
+  const component = prepareCodeSample(angularSample).replace(/@NgModule[\s\S]*/gm, '');
+  const module = `
+import { AppComponent } from './app.component';
+${prepareCodeSample(angularSample).replace(/@Component[\s\S]*(@NgModule)/gm, '$1')}
+`;
+  template.files['src/app/app.component.ts'] = {
+    content: component
+  };
+  template.files['src/app/app.module.ts'] = {
+    content: module
+  };
+  return getParameters(template);
+}
+
+export const angularSampleParameters = prepareAngularSample();
+
+<code className="language-jsx">{prepareCodeSample(angularSample)}</code>
+<form action="https://codesandbox.io/api/v1/sandboxes/define" method="POST" target="_blank">
+  <input type="hidden" name="parameters" value={angularSampleParameters} />
+  <div className="sandbox-sample">
+    <input type="image" height="32" src="https://codesandbox.io/static/img/play-codesandbox.svg" alt="Edit in codesandbox" />
+  </div>
+  <hr />
+</form>
+
+<h3>Use a component with a theme</h3>
+<p>
+  Using the components in the Gemini component library may be fine for your situation if all you need is the default style. Adding a theme,
+  however, is the first step to realizing a complete, customizeable styling solution.
+</p>
+<p>
+  Themes are global settings of the style stuff the components need to style themselves. Since all components are ultimately responsible for
+  their own styling, a theme is necessary to describe certain defaults like background color, font family, maximum width, etc. If you don't
+  provide a theme, Gemini will use the default theme.
+</p>
+<p>
+  If you want the default style, and only need some components, you don't need a theme. You can still override and/or extend the styles of a
+  component. For customizing the overall look and feel of your application, a theme makes it much more convenient. Gemini provides a
+  function, <code>provideTheme()</code> to do this.
+</p>
+
+export const angularThemeSample = `
+import { Component, NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { ButtonModule, provideTheme } from '@opensesame/gemini';
+//nl
+provideTheme();
+//nl
+@Component({
+  selector: 'og-app',
+  template: '<og-button>I am a button</og-button>'
+})
+export class AppComponent {}
+//nl
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule, ButtonModule],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+`;
+
+export function prepareAngularThemeSample() {
+  const template = { ...Template };
+  const component = prepareCodeSample(angularThemeSample).replace(/@NgModule[\s\S]*/gm, '');
+  const module = `
+import { AppComponent } from './app.component';
+${prepareCodeSample(angularThemeSample).replace(/@Component[\s\S]*(@NgModule)/gm, '$1')}
+`;
+  template.files['src/app/app.component.ts'] = {
+    content: component
+  };
+  template.files['src/app/app.module.ts'] = {
+    content: module
+  };
+  return getParameters(template);
+}
+
+export const angularThemeSampleParameters = prepareAngularThemeSample();
+
+<code className="language-jsx">{prepareCodeSample(angularThemeSample)}</code>
+<form action="https://codesandbox.io/api/v1/sandboxes/define" method="POST" target="_blank">
+  <input type="hidden" name="parameters" value={angularThemeSampleParameters} />
+  <div className="sandbox-sample">
+    <input type="image" height="32" src="https://codesandbox.io/static/img/play-codesandbox.svg" alt="Edit in codesandbox" />
+  </div>
+  <hr />
+</form>
+
+<h2>CSS baseline</h2>
+<p>
+  Gemini provides a handy baseline function <code>cssBaseline()</code> that creates a basic stylesheet from your provided theme, and adds a
+  few nice resets for browser consistency. The baseline is separate from <code>provideTheme()</code> because you might be using your own CSS
+  baseline or reset, or a global stylesheet. If you'd like to take advantage of an integrated baseline, add it to your{' '}
+  <code>app.component</code>.
+</p>
+<p>
+  CSS baseline must come after <code>provideTheme()</code> if using a custom theme, otherwise, <code>cssBaseline()</code> will use the
+  default theme. Since <code>cssBaseline()</code> provides the main global stylesheet, it does not update on changes.
+</p>
+
+export const angularBaselineSample = `
+import { Component, NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { ButtonModule, cssBaseline, provideTheme } from '@opensesame/gemini';
+//nl
+provideTheme();
+cssBaseline();
+//nl
+@Component({
+  selector: 'og-app',
+  template: '<og-button>I am a button</og-button>'
+})
+export class AppComponent {}
+//nl
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule, ButtonModule],
+  bootstrap: [AppComponent]
+})
+export class AppModule {}
+`;
+
+export function prepareAngularBaselineSample() {
+  const template = { ...Template };
+  const component = prepareCodeSample(angularBaselineSample).replace(/@NgModule[\s\S]*/gm, '');
+  const module = `
+import { AppComponent } from './app.component';
+${prepareCodeSample(angularBaselineSample).replace(/@Component[\s\S]*(@NgModule)/gm, '$1')}
+`;
+  template.files['src/app/app.component.ts'] = {
+    content: component
+  };
+  template.files['src/app/app.module.ts'] = {
+    content: module
+  };
+  return getParameters(template);
+}
+
+export const angularBaselineSampleParameters = prepareAngularBaselineSample();
+
+<code className="language-jsx">{prepareCodeSample(angularBaselineSample)}</code>
+<form action="https://codesandbox.io/api/v1/sandboxes/define" method="POST" target="_blank">
+  <input type="hidden" name="parameters" value={angularBaselineSampleParameters} />
+  <div className="sandbox-sample">
+    <input type="image" height="32" src="https://codesandbox.io/static/img/play-codesandbox.svg" alt="Edit in codesandbox" />
+  </div>
+  <hr />
+</form>

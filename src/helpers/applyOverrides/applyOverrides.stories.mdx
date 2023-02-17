@@ -1,0 +1,77 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Helpers/applyOverrides" />
+
+<h1>applyOverrides</h1>
+
+Apply theme overrides to component styles. This function is used internally to manage overrides.
+
+<h2>API</h2>
+
+<h3>Import</h3>
+
+Path import
+
+```javascript
+import applyOverrides from '@opensesame/gemini/helpers/applyOverrides';
+```
+
+Named import (use with Angular)
+
+```javascript
+import { applyOverrides } from '@opensesame/gemini';
+```
+
+<h3>Signature</h3>
+
+```javascript
+applyOverrides(styles: Styles, component: string): Styles
+```
+
+<h3>Parameters</h3>
+
+<ul>
+  <li>
+    <strong>styles</strong> : A styles object.
+  </li>
+  <li>
+    <strong>component</strong> : The component to override.
+  </li>
+</ul>
+
+<h3>Returns</h3>
+
+<ul>
+  <li>
+    <strong>Styles</strong>
+  </li>
+</ul>
+
+<h2>Examples</h2>
+
+<h3>Override a Paper component:</h3>
+
+```javascript
+const themeOptions = {
+  overrides: {
+    Paper: {
+      root: {
+        fontFamily: '"Comic Sans", sans-serif'
+      }
+    }
+  }
+};
+
+provideTheme(themeOptions);
+
+const appliedOverride = applyOverrides(
+  {
+    root: {
+      fontFamily: '"Open Sans"'
+    }
+  },
+  'Paper'
+);
+
+console.log(appliedOverride.root.fontFamily); // "Comic Sans", sans-serif
+```

@@ -1,0 +1,63 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Helpers/isUrl" />
+
+<h1>isUrl</h1>
+
+Given an unknown value, check to see if it is a URL.
+
+<h2>API</h2>
+
+<h3>Import</h3>
+
+Path import
+
+```javascript
+import isUrl from '@opensesame/gemini/helpers/isUrl';
+```
+
+Named import (use with Angular)
+
+```javascript
+import { isUrl } from '@opensesame/gemini';
+```
+
+<h3>Signature</h3>
+
+```javascript
+isUrl<T>(value: T): boolean
+```
+
+<h3>Parameters</h3>
+
+<ul>
+  <li>
+    <strong>value</strong> : Any value that may or may not be a URL.
+  </li>
+</ul>
+
+<h3>Returns</h3>
+
+<ul>
+  <li>
+    <strong>boolean</strong>
+  </li>
+</ul>
+
+<h2>Examples</h2>
+
+<h3>Check a value to see if it is a URL:</h3>
+
+```javascript
+const url = 'https://www.opensesame.com';
+
+console.log(url); // true
+```
+
+<h3>Check a value to see if it is a URL:</h3>
+
+```javascript
+const url = '//media.opensesame.com';
+
+console.log(url); // true
+```

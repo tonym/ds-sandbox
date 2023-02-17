@@ -1,0 +1,72 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Helpers/selectModeColor" />
+
+<h1>selectModeColor</h1>
+
+Lighten or darken a color based on the color mode.
+
+<h2>API</h2>
+
+<h3>Import</h3>
+
+Path import
+
+```javascript
+import selectModeColor from '@opensesame/gemini/helpers/selectModeColor';
+```
+
+Named import (use with Angular)
+
+```javascript
+import { selectModeColor } from '@opensesame/gemini';
+```
+
+<h3>Signature</h3>
+
+```javascript
+selectModeColor(color: string, type: PaletteMode = 'light', options: ModeColorOptions = {}): string
+```
+
+<h3>Parameters</h3>
+
+<ul>
+  <li>
+    <strong>color</strong> : A valid HSL, HSLA, RGB, RGBA, or hex color string.
+  </li>
+  <li>
+    <strong>type</strong> optional, default 'light' : A valid palette mode.
+  </li>
+  <li>
+    <strong>options</strong> optional, default {'{ darkenBy: 0.5, lightenBy: 0.62 }'} : A valid ModeColorOptions (
+    {'{ darkenBy?: number, lightenBy?: number }'}) object.
+  </li>
+</ul>
+
+<h3>Returns</h3>
+
+<ul>
+  <li>
+    <strong>string</strong>
+  </li>
+</ul>
+
+<h2>Examples</h2>
+
+<h3>Select a light mode color:</h3>
+
+```javascript
+const color = 'rgb(100, 100, 100)';
+const selectedColor = selectModeColor(color);
+
+console.log(selectedColor); // rgb(196, 196, 196)
+```
+
+<h3>Select a dark mode color:</h3>
+
+```javascript
+const color = 'rgb(100, 100, 100)';
+const selectedColor = selectModeColor(color, 'dark');
+
+console.log(selectedColor); // rgb(38, 38, 38)
+```

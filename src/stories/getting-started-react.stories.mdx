@@ -1,0 +1,328 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { getParameters } from 'codesandbox/lib/api/define';
+import { Template } from '../sandbox/templates/react';
+
+export function prepareCodeSample(codeSample) {
+  const regExp = /\/\/nl/gm;
+  return codeSample.replace(regExp, '');
+}
+
+<Meta title="React" />
+
+<h1>Using Gemini with React</h1>
+<p>
+  The Gemini theming engine works alongside Material UI (MUI), <a href="https://mui.com/">https://mui.com</a> by theming MUI components and
+  providing the necessary overrides for React compatibility.
+</p>
+<h2>Quick start</h2>
+<p>The Gemini theming engine is a collection of Javascript functions that work on any platform, and in any modern browser.</p>
+<p>Gemini provides ES modules for path imports and is tree shakeable</p>
+<p>Path imports are recommended when using Gemini with React.</p>
+<p>Gemini has MUI specific functions for seemless integration.</p>
+<h3>Using Gemini theme options with MUI and React</h3>
+<p>An example React component using MUI and Gemini.</p>
+
+export const reactSample = `
+import { createTheme, ThemeOptions, ThemeProvider } from '@mui/material/styles';
+import useMuiTheme from '@opensesame/gemini/styles/useMuiTheme';
+//nl
+function App() {
+  const ogTheme = useMuiTheme() as ThemeOptions; // <d-- Gemini function returns an OG type, MuiThemeOptions, that we cast to a MUI type
+  const theme = createTheme(ogTheme); // <-- MUI function to create a MUI theme
+  //nl
+  return (
+    <ThemeProvider theme={theme}>
+      <p>Hello world</p>
+    </ThemeProvider>
+  );
+}
+//nl
+export default App;
+`
+
+export function prepareReactSample() {
+  const template = { ...Template };
+  template.files['src/App.tsx'] = {
+    content: prepareCodeSample(reactSample)
+  };
+  return getParameters(template);
+}
+
+export const reactSampleParameters = prepareReactSample();
+
+<code className="language-jsx">{prepareCodeSample(reactSample)}</code>
+<form action="https://codesandbox.io/api/v1/sandboxes/define" method="POST" target="_blank">
+  <input type="hidden" name="parameters" value={reactSampleParameters} />
+  <div className="sandbox-sample">
+    <input type="image" height="32" src="https://codesandbox.io/static/img/play-codesandbox.svg" alt="Edit in codesandbox" />
+  </div>
+  <hr />
+</form>
+
+
+<h3>Using Gemini with MUI components</h3>
+<p>An example React component using MUI components and Gemini.</p>
+
+export const reactSampleMuiComponent = `
+import { createTheme, ThemeOptions, ThemeProvider } from '@mui/material/styles';
+import useMuiTheme from '@opensesame/gemini/styles/useMuiTheme';
+import { AppBar, Button } from '@mui/material';
+//nl
+function App() {
+  const ogTheme = useMuiTheme() as ThemeOptions;
+  const theme = createTheme(ogTheme);
+//nl
+  return (
+    <ThemeProvider theme={theme}>
+      <AppBar>Gemini for React</AppBar>
+      <div>
+        <Button variant="contained">Primary contained</Button>
+        <Button variant="outlined">Primary outlined</Button>
+      </div>
+      <div>
+        <Button color="secondary" variant="contained">
+          Secondary contained
+        </Button>
+        <Button color="secondary" variant="outlined">
+          Secondary outlined
+        </Button>
+      </div>
+    </ThemeProvider>
+  );
+}
+//nl
+export default App;
+`
+
+export function prepareReactSampleMuiComponent() {
+  const template = { ...Template };
+  template.files['src/App.tsx'] = {
+    content: prepareCodeSample(reactSampleMuiComponent)
+  };
+  return getParameters(template);
+}
+
+export const reactSampleMuiComponentParameters = prepareReactSampleMuiComponent();
+
+<code className="language-jsx">{prepareCodeSample(reactSampleMuiComponent)}</code>
+<form action="https://codesandbox.io/api/v1/sandboxes/define" method="POST" target="_blank">
+  <input type="hidden" name="parameters" value={reactSampleMuiComponentParameters} />
+  <div className="sandbox-sample">
+    <input type="image" height="32" src="https://codesandbox.io/static/img/play-codesandbox.svg" alt="Edit in codesandbox" />
+  </div>
+  <hr />
+</form>
+
+<h3>Using Gemini with MUI and CSS baseline.</h3>
+<p>
+  Gemini provides a handy baseline function <code>cssBaseline()</code> that creates a basic stylesheet from your provided theme, and adds a
+  few nice resets for browser consistency. The baseline is a separate because you might be using your own CSS baseline or reset, or a global
+  stylesheet. If you'd like to take advantage of an integrated baseline, import it and call it after you call <code>createTheme()</code>.
+</p>
+
+export const reactSampleOgBaseline = `
+import { createTheme, ThemeOptions, ThemeProvider } from '@mui/material/styles';
+import cssBaseline from '@opensesame/gemini/styles/cssBaseline';
+import useMuiTheme from '@opensesame/gemini/styles/useMuiTheme';
+import { AppBar, Button } from '@mui/material';
+//nl
+function App() {
+  const ogTheme = useMuiTheme() as ThemeOptions;
+  const theme = createTheme(ogTheme);
+  cssBaseline();
+//nl
+  return (
+    <ThemeProvider theme={theme}>
+      <AppBar>Gemini for React</AppBar>
+      <div>
+        <Button variant="contained">Primary contained</Button>
+        <Button variant="outlined">Primary outlined</Button>
+      </div>
+      <div>
+        <Button color="secondary" variant="contained">
+          Secondary contained
+        </Button>
+        <Button color="secondary" variant="outlined">
+          Secondary outlined
+        </Button>
+      </div>
+    </ThemeProvider>
+  );
+}
+//nl
+export default App;
+`;
+
+export function prepareReactSampleOgBaseline() {
+  const template = { ...Template };
+  template.files['src/App.tsx'] = {
+    content: prepareCodeSample(reactSampleOgBaseline)
+  };
+  return getParameters(template);
+}
+
+export const reactSampleOgBaselineParameters = prepareReactSampleOgBaseline();
+
+<code className="language-jsx">{prepareCodeSample(reactSampleOgBaseline)}</code>
+<form action="https://codesandbox.io/api/v1/sandboxes/define" method="POST" target="_blank">
+  <input type="hidden" name="parameters" value={reactSampleOgBaselineParameters} />
+  <div className="sandbox-sample">
+    <input type="image" height="32" src="https://codesandbox.io/static/img/play-codesandbox.svg" alt="Edit in codesandbox" />
+  </div>
+  <hr />
+</form>
+
+<h3>Styling MUI components</h3>
+<p>
+  Gemini supports any MUI styling pattern. This example uses Styled API, but you can use any styling solution you like. Check the MUI docs
+  for different patterns and solutions.
+</p>
+
+export const reactSampleStyledComponents = `
+import { createTheme, styled, ThemeOptions, ThemeProvider } from '@mui/material/styles';
+import cssBaseline from '@opensesame/gemini/styles/cssBaseline';
+import useMuiTheme from '@opensesame/gemini/styles/useMuiTheme';
+import { AppBar, Button } from '@mui/material';
+//nl
+function App() {
+  const ogTheme = useMuiTheme() as ThemeOptions;
+  const theme = createTheme(ogTheme);
+  cssBaseline();
+//nl
+  const AppBarPrimary = styled(AppBar)({
+    padding: theme.spacing(3)
+  });
+//nl
+  const AppButton = styled(Button)({
+    margin: theme.spacing(1)
+  })
+//nl
+  const AppWrapper = styled('div')({
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3),
+    paddingTop: theme.spacing(10)
+  });
+//nl
+  return (
+    <ThemeProvider theme={theme}>
+      <AppWrapper>
+        <AppBarPrimary>Gemini for React</AppBarPrimary>
+        <div>
+          <AppButton variant="contained">Primary contained</AppButton>
+          <AppButton variant="outlined">Primary outlined</AppButton>
+        </div>
+        <div>
+          <AppButton color="secondary" variant="contained">
+            Secondary contained
+          </AppButton>
+          <AppButton color="secondary" variant="outlined">
+            Secondary outlined
+          </AppButton>
+        </div>
+      </AppWrapper>
+    </ThemeProvider>
+  );
+}
+//nl
+export default App;
+`;
+
+export function prepareReactSampleStyledComponents() {
+  const template = { ...Template };
+  template.files['src/App.tsx'] = {
+    content: prepareCodeSample(reactSampleStyledComponents)
+  };
+  return getParameters(template);
+}
+
+export const reactSampleStyledComponentsParameters = prepareReactSampleStyledComponents();
+
+<code className="language-jsx">{prepareCodeSample(reactSampleStyledComponents)}</code>
+<form action="https://codesandbox.io/api/v1/sandboxes/define" method="POST" target="_blank">
+  <input type="hidden" name="parameters" value={reactSampleStyledComponentsParameters} />
+  <div className="sandbox-sample">
+    <input type="image" height="32" src="https://codesandbox.io/static/img/play-codesandbox.svg" alt="Edit in codesandbox" />
+  </div>
+  <hr />
+</form>
+
+
+<h3>Using a custom token set</h3>
+<p>
+  Gemini tokens are used to provide a look and feel different from the OpenSesame default brand style. How do you know when to provide a
+  token set? Your designer will tell you. Unless your designer wants a specific token set, do not provide tokens.
+</p>
+<p>
+  <a href="?path=/docs/getting-started-tokens--page">Learn more about tokens.</a>
+</p>
+
+export const reactSampleCustomTokens = `
+import { createTheme, styled, ThemeOptions, ThemeProvider } from '@mui/material/styles';
+import cssBaseline from '@opensesame/gemini/styles/cssBaseline';
+import provideTokens from '@opensesame/gemini/styles/provideTokens';
+import useMuiTheme from '@opensesame/gemini/styles/useMuiTheme';
+import { AppBar, Button } from '@mui/material';
+//nl
+provideTokens('designer-specified-token-set');
+//nl
+function App() {
+  const ogTheme = useMuiTheme() as ThemeOptions;
+  const theme = createTheme(ogTheme);
+  cssBaseline();
+//nl
+  const AppBarPrimary = styled(AppBar)({
+    padding: theme.spacing(3)
+  });
+//nl
+  const AppButton = styled(Button)({
+    margin: theme.spacing(1)
+  })
+//nl
+  const AppWrapper = styled('div')({
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3),
+    paddingTop: theme.spacing(10)
+  });
+//nl
+  return (
+    <ThemeProvider theme={theme}>
+      <AppWrapper>
+        <AppBarPrimary>Gemini for React</AppBarPrimary>
+        <div>
+          <AppButton variant="contained">Primary contained</AppButton>
+          <AppButton variant="outlined">Primary outlined</AppButton>
+        </div>
+        <div>
+          <AppButton color="secondary" variant="contained">
+            Secondary contained
+          </AppButton>
+          <AppButton color="secondary" variant="outlined">
+            Secondary outlined
+          </AppButton>
+        </div>
+      </AppWrapper>
+    </ThemeProvider>
+  );
+}
+//nl
+export default App;
+`;
+
+export function prepareReactSampleCustomTokens() {
+  const template = { ...Template };
+  let content = prepareCodeSample(reactSampleCustomTokens);
+  content = content.replace(/designer-specified-token-set/gm, 'simon');
+  template.files['src/App.tsx'] = { content };
+  return getParameters(template);
+}
+
+export const reactSampleCustomTokensParameters = prepareReactSampleCustomTokens();
+
+<code className="language-jsx">{prepareCodeSample(reactSampleCustomTokens)}</code>
+<form action="https://codesandbox.io/api/v1/sandboxes/define" method="POST" target="_blank">
+  <input type="hidden" name="parameters" value={reactSampleCustomTokensParameters} />
+  <div className="sandbox-sample">
+    <input type="image" height="32" src="https://codesandbox.io/static/img/play-codesandbox.svg" alt="Edit in codesandbox" />
+  </div>
+  <hr />
+</form>

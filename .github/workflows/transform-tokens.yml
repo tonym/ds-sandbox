@@ -1,0 +1,34 @@
+name: Transform tokens
+
+on:
+  push:
+    paths:
+      - 'src/tokens/tokens.json'
+
+jobs:
+  transform:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - run: git config --global user.email "build@opensesame.com"
+      - run: git config --global user.name "automerge"
+      - run: git pull
+      - run: rm ./src/tokens/sets/*
+      - run: touch ./src/tokens/sets/index.ts
+      - run: touch sdconfig.json
+      - run: for k in $(jq -r 'keys[]' ./src/tokens/tokens.json);
+          do
+          npx token-transformer ./src/tokens/tokens.json ./src/tokens/sets/$k.json $k;
+          cat <<< $(jq --arg path ./src/tokens/sets/$k.json '.source = [$path]' ./src/tokens/config.json) > sdconfig.json;
+          cat <<< $(jq --arg path ./src/tokens/sets/$k.ts '.platforms.ts.files[0].destination = $path' sdconfig.json) > sdconfig.json;
+          cat <<< $(jq --arg path ./src/tokens/sets/$k.d.ts '.platforms.ts.files[1].destination = $path' sdconfig.json) > sdconfig.json;
+          npx style-dictionary build --config sdconfig.json;
+          echo -e "export * as $k from './$k';\n$(cat ./src/tokens/sets/index.ts)" > ./src/tokens/sets/index.ts;
+          done
+      - run: rm sdconfig.json
+      - run: git add .
+      - run: git commit --allow-empty -m 'Update transformed tokens'
+      - run: git push

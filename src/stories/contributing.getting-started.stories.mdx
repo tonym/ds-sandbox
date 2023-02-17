@@ -1,0 +1,103 @@
+import { Meta } from '@storybook/addon-docs';
+import ReactJson from 'react-json-view';
+
+<Meta title="Contributing/Getting Started" />
+
+<h1>Contributing to Gemini</h1>
+<p>
+  Design and the user experience are ever evolving things. New components, updated components, and fresh ideas are all important. If you're
+  considering contributing to Gemini, congratulations and thank you. You are about to enter the world of design system engineering.
+</p>
+
+<p>
+  There are many ways to contribute, and if you are reading this, you likely want to know how to contribute components or functionality.
+  Getting started with Gemini is simple, and in a few moments you can be up and coding.
+</p>
+
+<h2>Your development environment</h2>
+
+Gemini is a single repo that includes the theming engine, component library, and stories. Follow these steps to clone the repo and begin developing.
+
+- Clone the repository:
+
+```bash
+git clone https://github.com/OpenSesame/ux-gemini.git
+```
+
+- Install dependencies:
+
+```bash
+npm Install
+```
+
+- Run Storybook:
+
+```bash
+npm run storybook
+```
+
+Gemini components are developed using Storybook. Storybook for Angular will render your component and allow you to test it.
+
+<h2>Engineering principles</h2>
+
+Gemini engineering follows these priciples. Use them as a guide when making choices and writing code.
+
+- Mobile first
+- Material first
+- Atoms first
+- Gemini is a styling solution only.
+- Components are prop driven, not class driven.
+- Do not extend Material unless you really need to. If you think you need to extend material make sure you really, really need to. Then think about it some more because you probably don’t.
+- Material patterns are better than our patterns.
+- Material patterns are not perfect, but neither is anything else.
+- If it doesn’t look good, it won’t work good. Aesthetics matter.
+- Consuming components are responsible for their own styling, and the styling of any atoms they consume.
+- Components do not care about anything outside of themselves.
+- Typography variants have no use cases.
+- Everything is tested before it ships.
+- Do not test what is already tested.
+- If it’s not documented, it doesn’t exist.
+- Copy exactly the structure of components. Engineering patterns and principles are not conditional.
+- Everything in alphabetical order.
+- There is no such thing as handoff, there is only collaboration.
+
+<h2>Before you begin</h2>
+
+<p>Some things to keep in mind.</p>
+
+- All exports are in a single barrel.
+- Import explicitly from the single barrel
+
+```javascript
+import { stringHelper } from '../../helpers/index';
+```
+
+<h2>Branching</h2>
+
+<p>
+  The Gemini repository has 2 permanant branches, <strong>main</strong>, which is the default branch and is the current Gemini version, and{' '}
+  <strong>next</strong>, which is the development branch for the next Gemini version. Depending on what you are developing, perhaps a new
+  component, or updating an existing component, your working branch should branch from either main or next. Patches (updates to the current
+  version) always branch from main, and follow the format 'patch/JIRA-TICKET-#_description_of_work'. Work going into the next version always
+  branches from next, and follows the format 'JIRA-TICKET-#/description_of_work'.
+</p>
+
+- Example patch branch <code>patch/FE-2112_add_full_palette_support_to_button</code>
+- Example feature branch <code>FE-2112/new_fabulous_component</code>
+
+<h2>Versioning</h2>
+
+<p>Gemini uses semantic versioning (semver) and is managed entirely by NPM.</p>
+
+- Major versions are released when there are significant changes to the underlying archetecture, behavior or patterns of either the component library, or the theming engine.
+- Minor versions are released when there are new features, bug fixes or enhancements.
+- Patch versions are released when there are updates, bug fixes or minor enhancements to the current version.
+- Beta versions are released as production ready previews of the next major or minor version.
+- Alpha versions are released for development only.
+
+<p>Gemini does not have a regular release cadance, but these general rules apply</p>
+
+- Major and minor versions are planned versions, and have target release dates.
+- Patch versions do not have a cadence, and may be released at any time.
+- Beta versions may or may not be released in advance of major, minor, or patch versions.
+- Alpha versions are released for development only, and are never used in production, nor are they announced.

@@ -1,0 +1,63 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Helpers/isColor" />
+
+<h1>isColor</h1>
+
+Given an unknown value, check to see if it is a color. Accepts HSL, HSLA, RGB, RGBA, hex color strings or HTML color name.
+
+<h2>API</h2>
+
+<h3>Import</h3>
+
+Path import
+
+```javascript
+import isColor from '@opensesame/gemini/helpers/isColor';
+```
+
+Named import (use with Angular)
+
+```javascript
+import { isColor } from '@opensesame/gemini';
+```
+
+<h3>Signature</h3>
+
+```javascript
+isColor(color: string): boolean
+```
+
+<h3>Parameters</h3>
+
+<ul>
+  <li>
+    <strong>color</strong> : Any string that may or may not be a color.
+  </li>
+</ul>
+
+<h3>Returns</h3>
+
+<ul>
+  <li>
+    <strong>boolean</strong>
+  </li>
+</ul>
+
+<h2>Examples</h2>
+
+<h3>Check a color:</h3>
+
+```javascript
+const colorTest = isColor('rgb(255, 255, 255)');
+
+console.log(colorTest); // true
+```
+
+<h3>Check a web color:</h3>
+
+```javascript
+const colorTest = isColor('honeydew');
+
+console.log(colorTest); // true
+```

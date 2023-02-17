@@ -1,0 +1,24 @@
+{
+  "source": ["sets/**/*.json"],
+  "platforms": {
+    "ts": {
+      "transformGroup": "js",
+      "files": [
+        {
+          "format": "javascript/es6",
+          "destination": "out.ts",
+          "options": {
+            "showFileHeader": false
+          }
+        },
+        {
+          "format": "typescript/es6-declarations",
+          "destination": "out.d.ts",
+          "options": {
+            "showFileHeader": false
+          }
+        }
+      ]
+    }
+  }
+}

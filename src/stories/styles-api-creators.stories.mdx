@@ -1,0 +1,637 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Theming engine/Creators" />
+
+<h1>Creators</h1>
+
+<p>Creators create aspects of themes, styles and stylesheets.</p>
+
+<h2>createBreakpoints</h2>
+
+<p>Used internally to create the breakpoints section of a Gemini theme.</p>
+
+```javascript
+createBreakpoints(userBreakpoints: BreakpointsOptions = {}): Breakpoints
+```
+
+<h3>Parameters</h3>
+<ul>
+  <li>
+    <strong>userBreakpoints</strong> (<i>optional</i>) user provided breakpoint options.
+  </li>
+</ul>
+
+<h3>Returns</h3>
+<ul>
+  <li>
+    <strong>Breakopints</strong> object used at <code>theme.breakpoints</code>
+  </li>
+</ul>
+
+<h3>Examples</h3>
+
+```javascript
+const breakpoints = createBreakpoints();
+console.log(breakpoints);
+/*
+{
+  "between": fn(),
+  "down": fn(),
+  "keys": [
+    "xs",
+    "sm",
+    "md",
+    "lg",
+    "xl"
+  ],
+  "only": fn(),
+  "up": fn(),
+  "values": {
+    "xs": 0,
+    "sm": 600,
+    "md": 840,
+    "lg": 1075,
+    "xl": 1441
+  },
+  "width": fn()
+}
+*/
+```
+
+<h2>createInsertionPoint</h2>
+<p>
+  Creates an insertion point that the JSS compiler can use when inserting stylesheets into the document <code>head</code>. To use
+  createInsertionPoint, add either a comment or element with an ID to the head. The JSS compiler will insert stylesheets at that spot in
+  your markup.
+</p>
+<p>To use the default insertion point, 'JSS insertion point' add this comment to your `head`.</p>
+
+```html
+<!--JSS insertion point-->
+```
+
+```javascript
+createInsertionPoint(userInsertionPoint: string = 'JSS insertion point'): void
+```
+
+<h3>Parameters</h3>
+<ul>
+  <li>
+    <strong>userInsertionPoint</strong> (<i>optional</i>) a custom string in your HTML comment, or the ID of the element where you want the
+    stylesheets inserted.
+  </li>
+</ul>
+
+<h3>Returns</h3>
+<ul>
+  <li>
+    <strong>void</strong>
+  </li>
+</ul>
+
+<h3>Examples</h3>
+
+```html
+<html>
+  <title>My Gemini website</title>
+  <!--JSS insertion point-->
+</html>
+<body>
+  <script>
+    import { createInsertionPoint } from '@opensesame/gemini';
+    createInsertionPoint();
+  </script>
+</body>
+```
+
+<h2>createPalette</h2>
+<p>Used internally to create the palette section of a Gemini theme.</p>
+
+```javascript
+createPalette(userPalette: PaletteOptions = {}): Palette
+```
+
+<h3>Parameters</h3>
+<ul>
+  <li>
+    <strong>userPalette</strong> (<i>optional</i>) user provided palette options.
+  </li>
+</ul>
+
+<h3>Returns</h3>
+<ul>
+  <li>
+    <strong>Palette</strong> object used at <code>theme.palette</code>.
+  </li>
+</ul>
+
+<h3>Examples</h3>
+
+```javascript
+const palette = createPalette();
+console.log(palette);
+/*
+{
+  "action": {
+    "active": "rgba(0, 0, 0, 0.54)",
+    "disabled": "rgba(0, 0, 0, 0.26)",
+    "disabledBackground": "rgba(0, 0, 0, 0.12)",
+    "hover": "rgba(0, 0, 0, 0.04)",
+    "hoverOpacity": 0.04,
+    "selected": "rgba(0, 0, 0, 0.08)",
+    "selectedOpacity": 0.08
+  },
+  "background": {
+    "default": "#fafafa",
+    "level1": "#fff",
+    "level2": "#f8f8f8",
+    "paper": "#fff"
+  },
+  "common": {
+    "black": "#000",
+    "white": "#fff"
+  },
+  "contrastThreshold": 3,
+  "divider": "rgba(0, 0, 0, 0.12)",
+  "error": {
+    "contrastText": "#fff",
+    "light": "#C34747",
+    "main": "#C34747",
+    "dark": "#C34747"
+  },
+  "grey": {
+    "50": "#fafafa",
+    "100": "#f8f8f8",
+    "200": "#f5f5f5",
+    "300": "#f0f0f0",
+    "400": "#e8e8e8",
+    "500": "#c9c9c9",
+    "600": "#999999",
+    "700": "#777777",
+    "800": "#555555",
+    "900": "#212121",
+    "A100": "#d5d5d5",
+    "A200": "#4c4b4b",
+    "A400": "#383737",
+    "A700": "#242323"
+  },
+  "info": {
+    "contrastText": "#fff",
+    "light": "#448FD7",
+    "main": "#448FD7",
+    "dark": "#448FD7"
+  },
+  "primary": {
+    "contrastText": "#fff",
+    "light": "#F9B04E",
+    "main": "#F28132",
+    "dark": "#E3660E"
+  },
+  "secondary": {
+    "contrastText": "#fff",
+    "light": "#4e97af",
+    "main": "#005E9E",
+    "dark": "#005472"
+  },
+  "success": {
+    "contrastText": "#fff",
+    "light": "#50A54D",
+    "main": "#50A54D",
+    "dark": "#50A54D"
+  },
+  "text": {
+    "disabled": "rgba(0, 0, 0, 0.38)",
+    "hint": "rgba(0, 0, 0, 0.38)",
+    "primary": "rgba(0, 0, 0, 0.87)",
+    "secondary": "rgba(0, 0, 0, 0.665)"
+  },
+  "tonalOffset": 0.2,
+  "type": "light",
+  "warning": {
+    "contrastText": "#000",
+    "light": "#E1B946",
+    "main": "#E1B946",
+    "dark": "#E1B946"
+  }
+}
+*/
+```
+
+<h2>createShadows</h2>
+<p>Used internally to create the shadows section of a Gemini theme.</p>
+
+```javascript
+createShadows(): string[]
+```
+
+<h3>Parameters</h3>
+
+<h3>Returns</h3>
+<ul>
+  <li>
+    <strong>string[]</strong> of CSS shadow rules used at <code>theme.shadows</code>.
+  </li>
+</ul>
+
+<h3>Examples</h3>
+
+```javascript
+const shadows = createShadows();
+console.log(shadows);
+/*
+[
+  "none",
+  "0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12)",
+  "0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12)",
+  "0px 3px 3px -2px rgba(0,0,0,0.2),0px 3px 4px 0px rgba(0,0,0,0.14),0px 1px 8px 0px rgba(0,0,0,0.12)",
+  "0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12)",
+  "0px 3px 5px -1px rgba(0,0,0,0.2),0px 5px 8px 0px rgba(0,0,0,0.14),0px 1px 14px 0px rgba(0,0,0,0.12)",
+  "0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12)",
+  "0px 4px 5px -2px rgba(0,0,0,0.2),0px 7px 10px 1px rgba(0,0,0,0.14),0px 2px 16px 1px rgba(0,0,0,0.12)",
+  "0px 5px 5px -3px rgba(0,0,0,0.2),0px 8px 10px 1px rgba(0,0,0,0.14),0px 3px 14px 2px rgba(0,0,0,0.12)",
+  "0px 5px 6px -3px rgba(0,0,0,0.2),0px 9px 12px 1px rgba(0,0,0,0.14),0px 3px 16px 2px rgba(0,0,0,0.12)",
+  "0px 6px 6px -3px rgba(0,0,0,0.2),0px 10px 14px 1px rgba(0,0,0,0.14),0px 4px 18px 3px rgba(0,0,0,0.12)",
+  "0px 6px 7px -4px rgba(0,0,0,0.2),0px 11px 15px 1px rgba(0,0,0,0.14),0px 4px 20px 3px rgba(0,0,0,0.12)",
+  "0px 7px 8px -4px rgba(0,0,0,0.2),0px 12px 17px 2px rgba(0,0,0,0.14),0px 5px 22px 4px rgba(0,0,0,0.12)",
+  "0px 7px 8px -4px rgba(0,0,0,0.2),0px 13px 19px 2px rgba(0,0,0,0.14),0px 5px 24px 4px rgba(0,0,0,0.12)",
+  "0px 7px 9px -4px rgba(0,0,0,0.2),0px 14px 21px 2px rgba(0,0,0,0.14),0px 5px 26px 4px rgba(0,0,0,0.12)",
+  "0px 8px 9px -5px rgba(0,0,0,0.2),0px 15px 22px 2px rgba(0,0,0,0.14),0px 6px 28px 5px rgba(0,0,0,0.12)",
+  "0px 8px 10px -5px rgba(0,0,0,0.2),0px 16px 24px 2px rgba(0,0,0,0.14),0px 6px 30px 5px rgba(0,0,0,0.12)",
+  "0px 8px 11px -5px rgba(0,0,0,0.2),0px 17px 26px 2px rgba(0,0,0,0.14),0px 6px 32px 5px rgba(0,0,0,0.12)",
+  "0px 9px 11px -5px rgba(0,0,0,0.2),0px 18px 28px 2px rgba(0,0,0,0.14),0px 7px 34px 6px rgba(0,0,0,0.12)",
+  "0px 9px 12px -6px rgba(0,0,0,0.2),0px 19px 29px 2px rgba(0,0,0,0.14),0px 7px 36px 6px rgba(0,0,0,0.12)",
+  "0px 10px 13px -6px rgba(0,0,0,0.2),0px 20px 31px 3px rgba(0,0,0,0.14),0px 8px 38px 7px rgba(0,0,0,0.12)",
+  "0px 10px 13px -6px rgba(0,0,0,0.2),0px 21px 33px 3px rgba(0,0,0,0.14),0px 8px 40px 7px rgba(0,0,0,0.12)",
+  "0px 10px 14px -6px rgba(0,0,0,0.2),0px 22px 35px 3px rgba(0,0,0,0.14),0px 8px 42px 7px rgba(0,0,0,0.12)",
+  "0px 11px 14px -7px rgba(0,0,0,0.2),0px 23px 36px 3px rgba(0,0,0,0.14),0px 9px 44px 8px rgba(0,0,0,0.12)",
+  "0px 11px 15px -7px rgba(0,0,0,0.2),0px 24px 38px 3px rgba(0,0,0,0.14),0px 9px 46px 8px rgba(0,0,0,0.12)"
+]
+*/
+```
+
+<h2>createStyles</h2>
+<p>
+  This function does nothing. It returns what it is given, but is prevents Typescript type widening. Use `createStyles` if you are creating
+  your own JSS for your application. The result is typically passed to a Classes provider.
+</p>
+
+```javascript
+createStyles(styles: Styles): Styles
+```
+
+<h3>Parameters</h3>
+<ul>
+  <li>
+    <strong>styles</strong> your Styles object
+  </li>
+</ul>
+
+<h3>Returns</h3>
+<ul>
+  <li>
+    <strong>Styles</strong> object, the same one provided as an argument.
+  </li>
+</ul>
+
+<h3>Examples</h3>
+
+```javascript
+const styles1: Styles = createStyles({
+  buttonMargin: {
+    margin: 16
+  }
+});
+
+const styles2 = (theme: Theme): Styles =>
+  createStyles({
+    buttonMargin: {
+      margin: theme.spacing.unit * 2
+    }
+  });
+```
+
+<h2>createStylesheet</h2>
+<p>
+  Used internally to create a stylesheet from a Styles object. When you pass a Styles object to your provider, the provider calls this
+  function to create the CSS stylesheet from the JSS you provided.
+</p>
+
+```javascript
+createStylesheet(styles: Styles, options: StyleSheetFactoryOptions = {}): StyleSheet
+```
+
+<h3>Parameters</h3>
+<ul>
+  <li>
+    <strong>styles</strong> is a Styles object
+  </li>
+  <li>
+    <strong>options</strong> (<i>optional</i>) StyleSheetFactoryOptions, the JSS rendering options. Available options are at{' '}
+    <a href="https://cssinjs.org/jss-api?v=v10.6.0#create-style-sheet">https://cssinjs.org/jss-api#create-style-sheet</a>.
+  </li>
+</ul>
+
+<h3>Returns</h3>
+<ul>
+  <li>
+    <strong>StyleSheet</strong>
+  </li>
+</ul>
+
+<h3>Examples</h3>
+
+```javascript
+const styles: Styles = createStyles({
+  buttonMargin: {
+    margin: 16
+  }
+});
+
+const stylesheet: StyleSheet = createStylesheet(styles);
+console.log(stylesheet);
+/*
+StyleSheet: { ... }
+*/
+```
+
+<h2>createTheme</h2>
+
+<p>Used internally to create a Gemini theme from ThemeOptions.</p>
+
+```javascript
+createTheme(userTheme: ThemeOptions = {}): Theme
+```
+
+<h3>Parameters</h3>
+<ul>
+  <li>
+    <strong>userTheme</strong> (<i>optional</i>) ThemeOptions object.
+  </li>
+</ul>
+
+<h3>Returns</h3>
+<ul>
+  <li>
+    <strong>Theme</strong> Gemini theme
+  </li>
+</ul>
+
+<h3>Examples</h3>
+
+```javascript
+const theme: Theme = createTheme();
+console.log(theme);
+/*
+Theme: { ... }
+*/
+```
+
+<h2>createThemeOptions</h2>
+<p>Creates a ThemeOptions object from the current theme.</p>
+
+```javascript
+createThemeOptions(): ThemeOptions
+```
+
+<h3>Parameters</h3>
+
+<h3>Returns</h3>
+<ul>
+  <li>
+    <strong>ThemeOptions</strong> object from the current theme
+  </li>
+</ul>
+
+<h3>Examples</h3>
+
+```javascript
+const themeOptions: ThemeOptions = createThemeOptions();
+console.log(themeOptions);
+/*
+ThemeOptions: { ... }
+*/
+```
+
+<h2>createTransitions</h2>
+<p>Used internally to create the transitions section of a Gemini theme.</p>
+
+```javascript
+createTransitions(userTransitions: TransitionsOptions = {}): Transitions
+```
+
+<h3>Parameters</h3>
+<ul>
+  <li>
+    <strong>userTransitions</strong> (<i>optional</i>) TransitionsOptions object
+  </li>
+</ul>
+
+<h3>Returns</h3>
+<ul>
+  <li>
+    <strong>Transitions</strong> object
+  </li>
+</ul>
+
+<h3>Examples</h3>
+
+```javascript
+const transitions: Transitions = createTransitions();
+console.log(transitions);
+/*
+{
+  "create": fn(),
+  "duration": {
+    "complex": 375,
+    "enteringScreen": 225,
+    "leavingScreen": 195,
+    "short": 250,
+    "shorter": 200,
+    "shortest": 150,
+    "standard": 300
+  },
+  "easing": {
+    "easeIn": "cubic-bezier(0.4, 0, 1, 1)",
+    "easeInOut": "cubic-bezier(0.4, 0, 0.2, 1)",
+    "easeOut": "cubic-bezier(0.0, 0, 0.2, 1)",
+    "sharp": "cubic-bezier(0.4, 0, 0.6, 1)"
+  },
+  "getAutoHeightDuration": fn()
+}
+*/
+```
+
+<h2>createTypography</h2>
+<p>Used internally to create the typography section of a Gemini theme.</p>
+
+```javascript
+createTypography(userTypographyOptions: TypographyOptions = {}): Typography
+```
+
+<h3>Parameters</h3>
+<ul>
+  <li>
+    <strong>userTypographyOptions</strong> (<i>optional</i>) TypographyOptions object
+  </li>
+</ul>
+
+<h3>Returns</h3>
+<ul>
+  <li>
+    <strong>Typography</strong> object
+  </li>
+</ul>
+
+<h3>Examples</h3>
+
+```javascript
+const typography: Typography = createTypography();
+console.log(typography);
+/*
+{
+  "fontFamily": "\"Open Sans\", \"Helvetica\", Helvetica, Arial, sans-serif",
+  "fontSize": 16,
+  "fontWeightLight": 300,
+  "fontWeightRegular": 400,
+  "fontWeightMedium": 600,
+  "fontWeightBold": 700,
+  "monospace": "\"Inconsolata\", \"Courier New\", Courier, monospace",
+  "pxToRem": fn(),
+  "variants": {
+    "body1": {
+      "fontSize": "0.875rem",
+      "fontWeight": 400,
+      "lineHeight": 1.7
+    },
+    "body2": {
+      "fontSize": "0.75rem",
+      "fontWeight": 400,
+      "letterSpacing": 0,
+      "lineHeight": 1.5
+    },
+    "button": {
+      "fontSize": "0.875rem",
+      "fontWeight": 400,
+      "letterSpacing": "0.02857em",
+      "lineHeight": 1.75
+    },
+    "caption": {
+      "fontSize": "0.75rem",
+      "fontWeight": 400,
+      "letterSpacing": "0.03333em",
+      "lineHeight": 1.66
+    },
+    "h1": {
+      "fontSize": "2rem",
+      "fontWeight": 600,
+      "letterSpacing": 0,
+      "lineHeight": 1.2
+    },
+    "h2": {
+      "fontSize": "1.5rem",
+      "fontWeight": 600,
+      "letterSpacing": 0,
+      "lineHeight": 1.35
+    },
+    "h3": {
+      "fontSize": "1.625rem",
+      "fontWeight": 400,
+      "letterSpacing": 0,
+      "lineHeight": 1.35
+    },
+    "h4": {
+      "fontSize": "1.5rem",
+      "fontWeight": 400,
+      "letterSpacing": 0,
+      "lineHeight": 1.3
+    },
+    "h5": {
+      "fontSize": "1.5rem",
+      "fontWeight": 400,
+      "letterSpacing": 0,
+      "lineHeight": 1.3
+    },
+    "h6": {
+      "fontSize": "1rem",
+      "fontWeight": 600,
+      "letterSpacing": 0,
+      "lineHeight": 1.2
+    },
+    "inherit": {
+      "fontWeight": "inherit",
+      "fontSize": "inherit",
+      "lineHeight": "inherit",
+      "letterSpacing": "inherit"
+    },
+    "overline": {
+      "fontWeight": 400,
+      "fontSize": "0.75rem",
+      "lineHeight": 2.66,
+      "letterSpacing": "0.08333em",
+      "textTransform": "uppercase"
+    },
+    "srOnly": {
+      "height": 1,
+      "overflow": "hidden",
+      "position": "absolute",
+      "width": 1
+    },
+    "subtitle1": {
+      "fontSize": "1rem",
+      "fontWeight": 600,
+      "letterSpacing": 0,
+      "lineHeight": 1.2
+    },
+    "subtitle2": {
+      "fontSize": "0.875rem",
+      "fontWeight": 600,
+      "letterSpacing": 0,
+      "lineHeight": 1.2
+    },
+    "@media (min-width: 500px)": {
+      "body1": {
+        "fontSize": "1rem"
+      },
+      "body2": {
+        "fontSize": "0.875rem"
+      },
+      "h1": {
+        "fontSize": "2.625rem"
+      },
+      "h2": {
+        "fontSize": "1.75rem"
+      },
+      "h3": {
+        "fontSize": "1.875rem"
+      },
+      "h6": {
+        "fontSize": "1.125rem"
+      },
+      "subtitle1": {
+        "fontSize": "1.125rem"
+      },
+      "subtitle2": {
+        "fontSize": "1rem"
+      }
+    },
+    "@media (min-width: 600px)": {
+      "h1": {
+        "fontSize": "3rem"
+      },
+      "h2": {
+        "fontSize": "2.125rem"
+      },
+      "h6": {
+        "fontSize": "1.25rem"
+      },
+      "subtitle1": {
+        "fontSize": "1.25rem"
+      },
+      "subtitle2": {
+        "fontSize": "1.125rem"
+      }
+    }
+  }
+}
+*/
+```

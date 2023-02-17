@@ -1,0 +1,12 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "emitDecoratorMetadata": true,
+    "jsx": "preserve",
+    "module": "commonjs",
+    "types": ["jest", "node"]
+  },
+  "exclude": ["../docs/**/*", "../src/test.ts", "../src/**/*.spec.ts", "../src/helpers/test-helper.ts"],
+  "include": ["../src/**/*"],
+  "files": ["./typings.d.ts"]
+}

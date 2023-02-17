@@ -1,0 +1,63 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Helpers/arrayify" />
+
+<h1>arrayify</h1>
+
+Create or check an array. This is used internally for properties that can accept either an array or a string.
+
+<h2>API</h2>
+
+<h3>Import</h3>
+
+Path import
+
+```javascript
+import arrayify from '@opensesame/gemini/helpers/arrayify';
+```
+
+Named import (use with Angular)
+
+```javascript
+import { arrayify } from '@opensesame/gemini';
+```
+
+<h3>Signature</h3>
+
+```javascript
+arrayify<T>(value: T | T[]): T[]
+```
+
+<h3>Parameters</h3>
+
+<ul>
+  <li>
+    <strong>value</strong> : Any value to be converted to an array. If the value is already an array, it will be returned as is.
+  </li>
+</ul>
+
+<h3>Returns</h3>
+
+<ul>
+  <li>
+    <strong>array</strong>
+  </li>
+</ul>
+
+<h2>Examples</h2>
+
+<h3>Convert a string to an array:</h3>
+
+```javascript
+const convertedArray = arrayify('apple');
+
+console.log(convertedArray); // ['apple']
+```
+
+<h3>Return an array:</h3>
+
+```javascript
+const convertedArray = arrayify(['apple', 'grape', 'orange']);
+
+console.log(convertedArray); // ['apple', 'grape', 'orange']
+```

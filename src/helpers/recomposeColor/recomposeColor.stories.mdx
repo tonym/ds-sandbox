@@ -1,0 +1,56 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Helpers/recomposeColor" />
+
+<h1>recomposeColor</h1>
+
+Create a CSS color string from a Gemini color object. Internally this is used with the function <code>decomposeColor</code>.
+
+<h2>API</h2>
+
+<h3>Import</h3>
+
+Path import
+
+```javascript
+import recomposeColor from '@opensesame/gemini/helpers/recomposeColor';
+```
+
+Named import (use with Angular)
+
+```javascript
+import { recomposeColor } from '@opensesame/gemini';
+```
+
+<h3>Signature</h3>
+
+```javascript
+recomposeColor(decomposedColor: ColorObject): string
+```
+
+<h3>Parameters</h3>
+
+<ul>
+  <li>
+    <strong>decomposedColor</strong> : A Gemini color object.
+  </li>
+</ul>
+
+<h3>Returns</h3>
+
+<ul>
+  <li>
+    <strong>string</strong> : A CSS color string.
+  </li>
+</ul>
+
+<h2>Examples</h2>
+
+<h3>Compose a color:</h3>
+
+```javascript
+const decomposedColor = { type: 'rgb', values: ['255', '255', '255'] };
+const recomposedColor = recomposeColor(decomposedColor);
+
+console.log(recomposedColor); // rgb(255, 255, 255)
+```

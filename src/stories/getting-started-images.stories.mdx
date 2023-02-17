@@ -1,0 +1,210 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Develop with Gemini/Images" />
+
+<h1>Images</h1>
+
+<p>
+  The Gemini image system consists of an Image (or ResponsiveImage) component, and an image optimizer. The image optimizer is Fastly, and
+  the component is part of the Gemini component library. This is an overview of using the component in development. For Fastly, the docs are
+  at{' '}
+  <a href="https://docs.fastly.com/en/guides/about-fastly-image-optimizer">
+    https://docs.fastly.com/en/guides/about-fastly-image-optimizer
+  </a>
+  .
+</p>
+
+<h2>System overview</h2>
+<p>
+  The image system has two parts, upload and use. Uploading is done via Drupal, which knows where to put things. Production uploads go to a
+  media S3 bucket, and other domains go to a media-stage S3 bucket.
+</p>
+<p>
+  When using the image, the request goes through Fastly, which selects the correct domain bucket, optimizes the image, and returns it to the
+  requester.
+</p>
+<p>
+  <img src="images/image_system.png" alt="Gemini image system diagram" />
+</p>
+
+<h2>Requesting an image with Gemini components</h2>
+<h3>Importing the component</h3>
+
+```javascript
+import { ImageModule } from '@opensesame/gemini';
+```
+
+<h3>Using an image without optimization</h3>
+<p>The simplest way to use Image. Note that it adds an alt attribute if there isn’t one.</p>
+
+```javascript
+// code
+<og-image src="https://media.opensesame.com/images/my-image.jpg"></og-image>
+
+// rendered
+<img src="https://media.opensesame.com/images/my-image.jpg" alt="catalog image" />
+```
+
+<p>
+  Add an <code>alt</code> attribute.
+</p>
+
+```javascript
+// code
+<og-image src="https://media.opensesame.com/images/my-image.jpg" alt="picture of a cat"></og-image>
+
+// rendered
+<img src="https://media.opensesame.com/images/my-image.jpg" alt="picture of a cat" />
+```
+
+<h3>Resize to width</h3>
+<p>
+  If you want to resize your image, add <code>width</code>. You can use an integer to resize to pixel value, or a float between 0.1 and 0.99
+  to resize by percentage.
+</p>
+
+```javascript
+// code - resize to 200px
+<og-image src="https://media.opensesame.com/images/my-image.jpg" alt="picture of a cat" width="200"></og-image>
+
+// rendered
+<img src="https://media.opensesame.com/images/my-image.jpg?width=200" alt="picture of a cat" />
+
+// code - resize to 80%
+<og-image src="https://media.opensesame.com/images/my-image.jpg" alt="picture of a cat" width="0.8"></og-image>
+
+// rendered
+<img src="https://media.opensesame.com/images/my-image.jpg?width=0.8" alt="picture of a cat" />
+```
+
+<h3>Resize to specific dimensions, but crop to aspect ratio</h3>
+<p>
+  You need a specific size image at an aspect ratio different from the original. Add <code>fit</code> to crop to the new aspect ratio. The{' '}
+  <code>fit</code> property acts as the CSS prop <code>object-fit</code> only it actually crops the image.
+</p>
+
+```javascript
+// code
+<og-image src="https://media.opensesame.com/images/my-image.jpg"
+  alt="picture of a cat"
+  fit="cover"
+  height="100"
+  width="200"></og-image>
+
+// rendered
+<img src="https://media.opensesame.com/images/my-image.jpg?fit=cover&height=100&width=200" alt="picture of a cat" />
+```
+
+<h3>Using a variant</h3>
+<p>The default theme provides some built in variants for various sizes. These are basic optimization schemes, and resize by width.</p>
+
+```javascript
+// code
+<og-image src="https://media.opensesame.com/images/my-image.jpg" alt="picture of a cat" variant="sm"></og-image>
+
+// rendered
+<img src="https://media.opensesame.com/images/my-image.jpg?width=380" alt="picture of a cat" />
+```
+
+<h4>Extend a variant</h4>
+<p>Extend a variant by adding things it doesn't have.</p>
+
+```javascript
+// code
+<og-image src="https://media.opensesame.com/images/my-image.jpg"
+  alt="picture of a cat"
+  height="200"
+  variant="sm"></og-image>
+
+// rendered
+<img src="https://media.opensesame.com/images/my-image.jpg?height=200&width=380" alt="picture of a cat" />
+```
+
+<h4>Override a variant</h4>
+<p>Notice how the values you provide take precedence over variant values.</p>
+
+```javascript
+// code
+<og-image src="https://media.opensesame.com/images/my-image.jpg"
+  alt="picture of a cat"
+  variant="sm"
+  width="200"></og-image>
+
+// rendered
+<img src="https://media.opensesame.com/images/my-image.jpg?width=200" alt="picture of a cat" />
+```
+
+<h3>Create your own variant</h3>
+<p>
+  Unlike other components in the library, Image allows adding custom variants. Variants are added in your theme, but how is it done? A
+  variant is an object in your theme that defines values for Fastly Image Optimization API properties.
+</p>
+
+```javascript
+const theme: ThemeOptions = {
+  media: {
+    images: {
+      variants: {
+        productDetailHero: {
+          // <- this is the variant we've added
+          fit: 'cover',
+          height: 300,
+          width: 806
+        }
+      }
+    }
+  }
+};
+```
+
+<p>
+  Remember how we used a variant, <code>sm</code>, in a previous example? Now we have a variant available to us called{' '}
+  <code>productDetailHero</code>.
+</p>
+
+```javascript
+// code
+<og-image src="https://media.opensesame.com/iamges/my-image.jpg"
+  alt="picture of a cat"
+  variant="productDetailHero"></og-image>
+
+// rendered
+<img src="https://media.opensesame.com/images/my-image.jpg?fit=cover&height=300&width=806" alt="picture of a cat" />
+```
+
+<p>
+  Variants in your theme allow you to define an optimization scheme in one place instead of using props and attributes in every place you
+  need that same variant. When you change the design, you can change the variant in your theme, and all the Image components that use the
+  variant will inherit the changes.
+</p>
+<p>
+  Don't forget, you can override a core variant, too. Here, we change the core variant, <code>sm</code>, which has a default width of 380,
+  to our theme specified width of 280. This is exactly the same thing we did in a previous example by passing a <code>width</code> prop to
+  Image, only when we pass the <code>width</code> prop, the core variant width is overridden only for that instance. With a theme variant,
+  the <code>width</code> is overridden everywhere.
+</p>
+
+```javascript
+const theme: ThemeOptions = {
+  media: {
+    images: {
+      variants: {
+        sm: {
+          width: 200
+        }
+      }
+    }
+  }
+};
+```
+
+<p>Then, when we use it, the result is similar to the previous example.</p>
+
+```javascript
+// code
+<og-image src="https://media.opensesame.com/images/my-image.jpg"
+  alt="picture of a cat" variant="sm"></og-image>
+
+// rendered
+<img src="https://media.opensesame.com/images/my-image.jpg?width=200" alt="picture of a cat" />
+```

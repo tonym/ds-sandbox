@@ -1,0 +1,55 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Helpers/replaceMultipleSpaces" />
+
+<h1>replaceMultipleSpaces</h1>
+
+Replace multiple spaces in a string with a single space.
+
+<h2>API</h2>
+
+<h3>Import</h3>
+
+Path import
+
+```javascript
+import replaceMultipleSpaces from '@opensesame/gemini/helpers/replaceMultipleSpaces';
+```
+
+Named import (use with Angular)
+
+```javascript
+import { replaceMultipleSpaces } from '@opensesame/gemini';
+```
+
+<h3>Signature</h3>
+
+```javascript
+replaceMultipleSpaces(value: string): string
+```
+
+<h3>Parameters</h3>
+
+<ul>
+  <li>
+    <strong>value</strong> : string.
+  </li>
+</ul>
+
+<h3>Returns</h3>
+
+<ul>
+  <li>
+    <strong>string</strong>
+  </li>
+</ul>
+
+<h2>Examples</h2>
+
+<h3>Replace multiple spaces in a string:</h3>
+
+```javascript
+const tidyString = replaceMultipleSpaces('Call me        Ishmael.');
+
+console.log(tidyString); // Call me Ishamel.
+```

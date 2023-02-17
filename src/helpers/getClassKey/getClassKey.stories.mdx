@@ -1,0 +1,55 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Helpers/getClassKey" />
+
+<h1>getClassKey</h1>
+
+Creates/gets a class key. Used by components to create their class keys. Does not change the input value.
+
+<h2>API</h2>
+
+<h3>Import</h3>
+
+Path import
+
+```javascript
+import getClassKey from '@opensesame/gemini/helpers/getClassKey';
+```
+
+Named import (use with Angular)
+
+```javascript
+import { getClassKey } from '@opensesame/gemini';
+```
+
+<h3>Signature</h3>
+
+```javascript
+getClassKey(value: string): string
+```
+
+<h3>Parameters</h3>
+
+<ul>
+  <li>
+    <strong>value</strong> : The string to format.
+  </li>
+</ul>
+
+<h3>Returns</h3>
+
+<ul>
+  <li>
+    <strong>string</strong>
+  </li>
+</ul>
+
+<h2>Examples</h2>
+
+<h3>Get a class key:</h3>
+
+```javascript
+const classKey = getClassKey('my-component');
+
+console.log(classKey); // og-my-component
+```

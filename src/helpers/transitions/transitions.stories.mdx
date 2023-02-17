@@ -1,0 +1,168 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="Helpers/transitions" />
+
+<h1>transitions</h1>
+
+A suite of functions for working with tranistions.
+
+<h1>transitions.create</h1>
+
+Create a transition
+
+<h2>API</h2>
+
+<h3>Import</h3>
+
+Path import
+
+```javascript
+import transitions from '@opensesame/gemini/helpers/transitions';
+```
+
+Named import (use with Angular)
+
+```javascript
+import { transitions } from '@opensesame/gemini';
+```
+
+<h3>Signature</h3>
+
+```javascript
+transitions.create = (
+  props: string | string[] = ['all'],
+  options: Partial<{ duration: number | string; easing: string; delay: number | string }> = {}
+): string
+```
+
+<h3>Parameters</h3>
+
+<ul>
+  <li>
+    <strong>props</strong> optional, default ['all'] : The CSS propertie(s) to which the transition is applied.
+  </li>
+  <li>
+    <strong>options</strong> optional, default {'{}'} : Transition options. If none are provided, options are selected from{' '}
+    <code>theme.transitions</code>.
+  </li>
+</ul>
+
+<h3>Returns</h3>
+
+<ul>
+  <li>
+    <strong>string</strong> : A CSS transition string.
+  </li>
+</ul>
+
+<h2>Examples</h2>
+
+<h3>Create a simple transition:</h3>
+
+```javascript
+const transition = transitions.create();
+
+console.log(transition); // all 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms
+```
+
+<h3>Create a transition for a given CSS property:</h3>
+
+```javascript
+const transition = transitions.create('opacity');
+
+console.log(transition); // opacity 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms
+```
+
+<h3>Create a transition each CSS property in an array:</h3>
+
+```javascript
+const transition = transitions.create(['opacity', 'background-color']);
+
+console.log(transition); // opacity 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, background-color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms
+```
+
+<h3>Create a transition with a theme duration:</h3>
+
+```javascript
+const theme = useTheme();
+const transition = transitions.create('opacity', { duration: theme.transitions.duration.short });
+
+console.log(transition); // opacity 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms
+```
+
+<h3>Create a transition with a custom duration:</h3>
+
+```javascript
+const transition = transitions.create('opacity', { duration: 400 });
+
+console.log(transition); // opacity 400ms cubic-bezier(0.4, 0, 0.2, 1) 0ms
+```
+
+<h3>Create a transition with a formatted custom duration:</h3>
+
+```javascript
+const transition = transitions.create('opacity', { duration: '400ms' });
+
+console.log(transition); // opacity 400ms cubic-bezier(0.4, 0, 0.2, 1) 0ms
+```
+
+<h3>Create a transition with a theme easing:</h3>
+
+```javascript
+const theme = useTheme();
+const transition = transitions.create('opacity', { easing: theme.transitions.easing.easeIn });
+
+console.log(transition); // opacity 300ms cubic-bezier(0.4, 0, 1, 1) 0ms
+```
+
+<h1>transitions.getAutoHeightDuration</h1>
+
+Calculate a duration based on a number. Useful when transitioning elements with varying CSS height. Detect the height of the object, and pass it to this function to get the proper duration.
+
+<h2>API</h2>
+
+<h3>Import</h3>
+
+Path import
+
+```javascript
+import transitions from '@opensesame/gemini/helpers/transitions';
+```
+
+Named import (use with Angular)
+
+```javascript
+import { transitions } from '@opensesame/gemini';
+```
+
+<h3>Signature</h3>
+
+```javascript
+transitions.getAutoHeightDuration = (height: number): number
+```
+
+<h3>Parameters</h3>
+
+<ul>
+  <li>
+    <strong>height</strong> number
+  </li>
+</ul>
+
+<h3>Returns</h3>
+
+<ul>
+  <li>
+    <strong>number</strong>
+  </li>
+</ul>
+
+<h2>Examples</h2>
+
+<h3>Calculate a duration from a given number:</h3>
+
+```javascript
+const duration = transitions.getAutoHeightDuration(240);
+
+console.log(duration); // 294
+```
