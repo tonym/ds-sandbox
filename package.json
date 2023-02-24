@@ -1,17 +1,17 @@
 {
-  "name": "@opensesame/gemini",
-  "description": "Gemini Design System by OpenSesame",
-  "author": "OpenSesame",
-  "version": "2.1.1",
+  "name": "@tonym/ds-sandbox",
+  "description": "Design system sandbox",
+  "author": "tonym",
+  "version": "0",
   "license": "MIT",
-  "homepage": "https://github.com/OpenSesame/ux-gemini#readme",
+  "homepage": "https://github.com/tonym/ds-sandbox#readme",
   "main": "./public-api.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/OpenSesame/ux-gemini.git"
+    "url": "git+https://github.com/tonym/ds-sandbox.git"
   },
   "bugs": {
-    "url": "https://github.com/OpenSesame/ux-gemini/issues"
+    "url": "https://github.com/tonym/ds-sandbox/issues"
   },
   "dependencies": {
     "jss": "10.5.1",
