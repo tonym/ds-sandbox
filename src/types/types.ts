@@ -364,7 +364,7 @@ export interface ZIndexOptions {
 }
 
 /**
- * theme template from material-ui
+ * theme template
  */
 export interface Theme {
   breakpoints: Breakpoints;
