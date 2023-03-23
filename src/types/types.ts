@@ -439,7 +439,7 @@ export interface ModeColorOptions {
   lightenBy?: number;
 }
 
-export type GeminiCss = { [k: string]: string };
+export type RenderedCSS = { [k: string]: string };
 
 /**
  * Store action types
@@ -472,7 +472,7 @@ interface SetTokensAction {
 
 interface UpdateCssAction {
   type: typeof UPDATE_CSS;
-  css: GeminiCss;
+  css: RenderedCSS;
 }
 
 export type ActionTypes = AddSheetAction | AddSvgAction | SetThemeAction | SetTokensAction | UpdateCssAction;
@@ -481,7 +481,7 @@ export type Sheet<K extends keyof any, StyleSheet> = { [P in K]: StyleSheet };
 export type Svg = { [k: string]: string };
 
 export interface State {
-  css: GeminiCss;
+  css: RenderedCSS;
   sheets: Sheet<string, StyleSheet>;
   svgs: Svg;
   theme: Theme;

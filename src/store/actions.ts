@@ -2,7 +2,7 @@ import {
   ActionTypes,
   ADD_SHEET,
   ADD_SVG,
-  GeminiCss,
+  RenderedCSS,
   SET_THEME,
   SET_TOKENS,
   Sheet,
@@ -28,6 +28,6 @@ export function setTokens(tokens: string): ActionTypes {
   return { type: SET_TOKENS, tokens };
 }
 
-export function updateCss(css: GeminiCss): ActionTypes {
+export function updateCss(css: RenderedCSS): ActionTypes {
   return { type: UPDATE_CSS, css };
 }
