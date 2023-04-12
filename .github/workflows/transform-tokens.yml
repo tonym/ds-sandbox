@@ -13,7 +13,7 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
-      - run: git config --global user.email "build@opensesame.com"
+      - run: git config --global user.email "build@fbpllc.com"
       - run: git config --global user.name "automerge"
       - run: git pull
       - run: rm ./src/tokens/sets/*

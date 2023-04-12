@@ -31,7 +31,7 @@ export const initialState: State = {
     direction: 'ltr',
     initial: true,
     media: {
-      baseUrl: 'https://media.opensesame.com',
+      baseUrl: '',
       images: {
         variants: {
           icon: {
@@ -288,7 +288,7 @@ export const initialState: State = {
       tooltip: 1600
     }
   },
-  tokens: 'opensesame'
+  tokens: ''
 };
 
 export function reducer(state = initialState, action: ActionTypes): State {
