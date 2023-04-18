@@ -1,6 +1,5 @@
 import pxToRem from '../../helpers/pxToRem/index';
 import { fontWeights } from '../../store/index';
-import useTheme from '../useTheme/index';
 import useTokens from '../useTokens/index';
 import { TypographyOptions, TypographyVariantStyle } from '../../types/index';
 
