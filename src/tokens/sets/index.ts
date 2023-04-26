@@ -1,2 +1,2 @@
 export * as simon from './simon';
-export * as opensesame from './opensesame';
+export * as core from './core';
