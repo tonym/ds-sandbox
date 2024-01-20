@@ -288,7 +288,7 @@ export const initialState: State = {
       tooltip: 1600
     }
   },
-  tokens: ''
+  tokens: 'core'
 };
 
 export function reducer(state = initialState, action: ActionTypes): State {
